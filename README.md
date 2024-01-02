@@ -8,3 +8,9 @@
 - TailwindCSS
 - tRPC
 - prisma
+
+## 인프라
+
+배포: Vercel
+데이터베이스: Vercel PostgreSQL
+도메인: AWS 도메인 + AWS Route 53
