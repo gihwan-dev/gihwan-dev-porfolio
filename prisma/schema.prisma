@@ -11,6 +11,64 @@ datasource db {
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+    url     = env("DATABASE_URL")
 }
 
+model Bio {
+    bio_id          Int     @id @default(autoincrement())
+    bio_img         String
+    title           String
+    description     String
+    resume_link     String
+    email           String
+}
+
+model Projects {
+    project_id      Int     @id @default(autoincrement())
+    thumbnail       String
+    title           String
+    description     String
+    content         String
+    project_tags    Project_tags[]
+    reg_date        DateTime    @default(now())
+}
+
+model Project_tags {
+    pt_id               Int     @id @default(autoincrement())
+    name                String  @unique
+    text_color          String
+    background_color    String
+    Projects            Projects[]
+    category            Project_tags_category[]
+}
+
+model Project_tags_category {
+    pc_id           Int @id @default(autoincrement())
+    name            String  @unique
+    Project_tags    Project_tags[]
+}
+
+model Blogs {
+    blog_id             Int @id @default(autoincrement())
+    thumbnail           String
+    title               String
+    description         String
+    content             String
+    blog_tags           Blog_tags[]
+    reg_date            DateTime    @default(now())
+}
+
+model Blog_tags {
+    bt_id               Int @id @default(autoincrement())
+    name                String
+    text_color          String
+    background_color    String
+    Blogs               Blogs[]
+    category            Blog_tags_category[]
+}
+
+model Blog_tags_category {
+    bc_id           Int @id @default(autoincrement())
+    name            String
+    Blog_tags       Blog_tags[]
+}

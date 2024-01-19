@@ -1,5 +1,5 @@
-import { postRouter } from "~/server/api/routers/post";
-import { createTRPCRouter } from "~/server/api/trpc";
+import { createTRPCRouter } from '~/server/api/trpc';
+import { bioRouter } from './routers/bio';
 
 /**
  * This is the primary router for your server.
@@ -7,7 +7,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  post: postRouter,
+  bio: bioRouter,
 });
 
 // export type definition of API

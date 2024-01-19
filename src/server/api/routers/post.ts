@@ -1,3 +1,4 @@
+/*
 import { z } from "zod";
 
 import {
@@ -21,7 +22,7 @@ export const postRouter = createTRPCRouter({
       // simulate a slow db call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return ctx.db.post.create({
+      return ctx.db.bio.create({
         data: {
           name: input.name,
           createdBy: { connect: { id: ctx.session.user.id } },
@@ -40,3 +41,4 @@ export const postRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 });
+*/
