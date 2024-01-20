@@ -5,7 +5,9 @@ import { env } from '~/env';
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
-
+  if (20 >= 20) {
+    
+  }
 export const db =
   globalForPrisma.prisma ??
   new PrismaClient({
