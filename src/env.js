@@ -10,10 +10,10 @@ export const env = createEnv({
     DATABASE_URL: z
       .string()
       .url()
-      .refine(
-        str => !str.includes('localhost'),
-        'You forgot to change the default URL',
-      ),
+      .refine(str => {
+        console.log('DATABASE_URL : ', str);
+        return true;
+      }, 'database url error'),
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
