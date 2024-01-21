@@ -18,6 +18,8 @@ import {
 } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 
+import { signIn } from 'next-auth/react';
+
 const formSchema = z.object({
   email: z.string().email(),
   password: z
@@ -41,7 +43,14 @@ const LoginForm: React.FC = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      const response = await signIn('credentials', {
+        redirect: false,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
