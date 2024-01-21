@@ -8,7 +8,7 @@ const AdminLayout: React.FC<{
   const session = await getServerAuthSession();
 
   return (
-    <div>
+    <div className="w-full h-screen overflow-hidden">
       <nav></nav>
       {session ? children : login}
     </div>
