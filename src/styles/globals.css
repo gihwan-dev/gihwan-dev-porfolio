@@ -96,3 +96,11 @@ h4 {
 p {
   text-wrap: pretty;
 }
+
+html {
+  font-family: var(--font-noto-sans-kr);
+}
+
+h1 {
+  font-family: var(--font-black-hans);
+}

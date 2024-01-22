@@ -33,7 +33,6 @@ const formSchema = z.object({
 });
 
 const LoginForm: React.FC = () => {
-  // TODO: 로그인 폼 구현
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,9 +43,14 @@ const LoginForm: React.FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const response = await signIn('credentials', {
-        redirect: false,
-      });
+      // TODO: 로그인 로직 구현 및 확인
+      const response = await signIn(
+        'credentials',
+        {
+          redirect: false,
+        },
+        {},
+      );
       console.log(response);
     } catch (error) {
       console.error(error);
