@@ -1,12 +1,12 @@
+import { findBio, initBio } from '~/server/utils/bio.utils';
 import { createTRPCRouter, publicProcedure } from '../trpc';
-import { db } from '~/server/db';
 
 export const bioRouter = createTRPCRouter({
   getBio: publicProcedure.query(async () => {
-    return await db.bio.findFirst({
-      where: {
-        bio_id: 0,
-      },
-    });
+    let data = await findBio();
+    if (!data) {
+      data = await initBio();
+    }
+    return data;
   }),
 });
