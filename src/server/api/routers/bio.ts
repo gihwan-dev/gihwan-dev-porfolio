@@ -1,4 +1,4 @@
-import { findBio, initBio } from '~/server/utils/bio.utils';
+import { findBio, initBio, initUser } from '~/server/utils/bio.utils';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
 export const bioRouter = createTRPCRouter({

@@ -72,3 +72,8 @@ model Blog_tags_category {
     name            String
     Blog_tags       Blog_tags[]
 }
+
+model User {
+    email       String @id
+    password    String
+}
