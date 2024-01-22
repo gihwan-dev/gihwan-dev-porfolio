@@ -20,22 +20,11 @@ import { Input } from '~/components/ui/input';
 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(2, {
-      message: 'Password at least 2 length',
-    })
-    .max(12, {
-      message: 'Maximum length is 12',
-    }),
-});
+import { loginFormSchema, type loginFormType } from '~/types/auth';
 
 const LoginForm: React.FC = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<loginFormType>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -44,9 +33,8 @@ const LoginForm: React.FC = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: loginFormType) => {
     try {
-      // TODO: 로그인 로직 구현 및 확인
       const response = await signIn('credentials', {
         redirect: false,
         email: values.email,
