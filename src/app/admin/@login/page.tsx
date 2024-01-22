@@ -2,12 +2,11 @@ import { LoginForm } from '~/features/admin';
 import { initUser } from '~/server/utils/bio.utils';
 
 const AdminLoginPage = () => {
-  // TODO: 로그인 페이지 로직 구현
+  // TODO: init 지우기
 
   const onSubmitAction = async () => {
     'use server';
     const result = await initUser();
-    console.log(result);
   };
 
   return (

@@ -1,24 +1,9 @@
+import { type updateBioType } from '~/types/bio';
 import { db } from '../db';
 import { hashPassword } from './hash';
 
 export const findBio = () => {
-  return db.bio.findFirst({
-    where: {
-      bio_id: 0,
-    },
-  });
-};
-
-export const initBio = () => {
-  return db.bio.create({
-    data: {
-      bio_img: '',
-      description: '',
-      email: '',
-      resume_link: '',
-      title: '',
-    },
-  });
+  return db.bio.findFirst();
 };
 
 export const initUser = async () => {
@@ -28,7 +13,6 @@ export const initUser = async () => {
     },
   });
   if (user) {
-    console.log(user);
     return;
   }
   const password = await hashPassword('ks200355');
@@ -37,5 +21,20 @@ export const initUser = async () => {
       email: 'rlghks358@naver.com',
       password: password,
     },
+  });
+};
+
+export const updateBio = async (input: updateBioType) => {
+  const prev = await db.bio.findFirst();
+  if (!prev) {
+    return await db.bio.create({
+      data: input,
+    });
+  }
+  return await db.bio.update({
+    where: {
+      bio_id: prev.bio_id,
+    },
+    data: input,
   });
 };
