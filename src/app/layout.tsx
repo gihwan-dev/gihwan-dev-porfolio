@@ -1,12 +1,21 @@
 import '~/styles/globals.css';
 
-import { Inter } from 'next/font/google';
+import { Black_Han_Sans, Noto_Sans_KR } from 'next/font/google';
 
 import { TRPCReactProvider } from '~/trpc/react';
 
-const inter = Inter({
+const notoSans = Noto_Sans_KR({
   subsets: ['latin'],
-  variable: '--font-sans',
+  display: 'swap',
+  variable: '--font-noto-sans-kr',
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
+
+const blackHans = Black_Han_Sans({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-black-hans',
+  display: 'swap',
 });
 
 export const metadata = {
@@ -22,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+    <html lang="en" className={`${notoSans.variable} ${blackHans.variable}`}>
+      <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
     </html>
