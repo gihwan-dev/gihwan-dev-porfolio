@@ -4,6 +4,8 @@ import {
   type NextAuthOptions,
 } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { db } from './db';
+import { comparePassword } from './utils/hash';
 
 declare module 'next-auth' {
   interface Session {
@@ -29,9 +31,29 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) {
           return null;
         }
+
+        const user = await db.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user) {
+          return null;
+        }
+
+        const compare = await comparePassword({
+          hashedPwd: user.password,
+          enteredPwd: credentials.password,
+        });
+
+        if (!compare) {
+          return null;
+        }
+
         return {
-          id: credentials.email,
-          email: credentials.email,
+          id: user.email,
+          email: user.email,
         };
       },
     }),

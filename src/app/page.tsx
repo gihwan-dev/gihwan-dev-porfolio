@@ -9,6 +9,6 @@ export default function RootPage() {
   useEffect(() => {
     router.push('main');
   });
-  
+
   return <main></main>;
 }

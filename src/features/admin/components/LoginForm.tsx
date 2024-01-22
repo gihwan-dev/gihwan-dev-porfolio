@@ -19,6 +19,7 @@ import {
 import { Input } from '~/components/ui/input';
 
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -41,19 +42,27 @@ const LoginForm: React.FC = () => {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       // TODO: 로그인 로직 구현 및 확인
-      const response = await signIn(
-        'credentials',
-        {
-          redirect: false,
-        },
-        {},
-      );
-      console.log(response);
+      const response = await signIn('credentials', {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
+      if (!response || response.status === 401) {
+        throw new Error(
+          '아이디 또는 패스워드가 일치하지 않습니다. 다시 시도해 주세요.',
+        );
+      }
+      router.refresh();
     } catch (error) {
       console.error(error);
+      if (error instanceof Error) {
+        window.alert(error?.message);
+      }
     }
   };
 
