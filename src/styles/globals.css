@@ -16,6 +16,13 @@
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
 
+    --main-background: #2B2E41;
+    --main-foreground: #23253A;
+
+    --text-primary-red: #FD4B5B;
+    --text-primary-white: #FFF;
+    --text-gray: #D9D9D9;
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
@@ -103,4 +110,9 @@ html {
 
 h1 {
   font-family: var(--font-black-hans);
+}
+
+.padding-mobile {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
