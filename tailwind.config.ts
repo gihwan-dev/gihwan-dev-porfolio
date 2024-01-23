@@ -21,6 +21,7 @@ const config = {
       colors: {
         'text-primary-red': 'var(--text-primary-red)',
         'text-primary-white': 'var(--text-primary-white)',
+        'text-gray': 'var(--text-gray)',
         'main-background': 'var(--main-background)',
         'main-foreground': 'var(--main-foreground)',
         border: 'hsl(var(--border))',
