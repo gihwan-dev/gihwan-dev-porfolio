@@ -1,7 +1,9 @@
+import { BioContainer } from '~/features/main';
+
 const MainPage = () => {
   return (
     <main>
-      <h1>Main Page.</h1>
+      <BioContainer />
     </main>
   );
 };
