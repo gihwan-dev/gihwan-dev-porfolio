@@ -1,11 +1,11 @@
 import { LoginForm } from '~/features/admin';
-import { initUser } from '~/server/utils/bio.utils';
+// import { initUser } from '~/server/utils/bio.utils';
 
 const AdminLoginPage = () => {
   const onSubmitAction = async () => {
     // TODO: 배포 후 init 제거 하기
     'use server';
-    const result = await initUser();
+    // const result = await initUser();
   };
 
   return (
