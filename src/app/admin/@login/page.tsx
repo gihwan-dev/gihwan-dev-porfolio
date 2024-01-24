@@ -2,9 +2,8 @@ import { LoginForm } from '~/features/admin';
 import { initUser } from '~/server/utils/bio.utils';
 
 const AdminLoginPage = () => {
-  // TODO: init 지우기
-
   const onSubmitAction = async () => {
+    // TODO: 배포 후 init 제거 하기
     'use server';
     const result = await initUser();
   };
