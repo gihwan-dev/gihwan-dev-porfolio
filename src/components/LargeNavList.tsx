@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import React from 'react';
+import { type FC } from 'react';
 
-const LargeNavList: React.FC<{
+const LargeNavList: FC<{
   navList: { text: string; href: string }[];
 }> = ({ navList }) => {
   return (

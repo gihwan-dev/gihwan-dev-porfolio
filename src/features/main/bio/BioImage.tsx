@@ -1,12 +1,11 @@
 'use client';
 
-import React from 'react';
-
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { fadeInFromLeft } from '~/utils/framer-motion';
+import { type FC } from 'react';
 
-const BioImage: React.FC<{
+const BioImage: FC<{
   bio_img: string;
 }> = ({ bio_img }) => {
   return (
