@@ -1,9 +1,10 @@
-import { BioContainer } from '~/features/main';
+import { BioRoot, ProjectsRoot } from '~/features/main';
 
 const MainPage = () => {
   return (
     <main>
-      <BioContainer />
+      <BioRoot />
+      <ProjectsRoot />
     </main>
   );
 };

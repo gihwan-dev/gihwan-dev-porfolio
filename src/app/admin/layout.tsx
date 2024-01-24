@@ -1,11 +1,10 @@
-import React from 'react';
-import MainFooter from '~/components/MainFooter';
+import { type FC, type ReactNode } from 'react';
 import { SideNavBar } from '~/features/admin';
 import { getServerAuthSession } from '~/server/auth';
 
-const AdminLayout: React.FC<{
-  children: React.ReactNode;
-  login: React.ReactNode;
+const AdminLayout: FC<{
+  children: ReactNode;
+  login: ReactNode;
 }> = async ({ children, login }) => {
   const session = await getServerAuthSession();
   // footer 만들어야함
@@ -15,7 +14,6 @@ const AdminLayout: React.FC<{
         <>
           <SideNavBar />
           <main className="w-full h-full overflow-y-auto">{children}</main>
-          <MainFooter />
         </>
       ) : (
         <>{login}</>

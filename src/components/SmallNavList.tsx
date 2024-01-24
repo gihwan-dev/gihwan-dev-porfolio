@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import { useState } from 'react';
 import MenuIcon from '~/assets/svgs/MenuIcon';
 
 import { type MotionProps, motion, AnimatePresence } from 'framer-motion';
@@ -25,7 +25,7 @@ const navAnimation: MotionProps = {
 const SmallNavList: React.FC<{
   navList: { text: string; href: string }[];
 }> = ({ navList }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const pathName = usePathname();
 

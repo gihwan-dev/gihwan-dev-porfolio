@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import React from 'react';
+import { type FC } from 'react';
 import { fadeInFromTop } from '~/utils/framer-motion';
 
-const BioText: React.FC<{
+const BioText: FC<{
   title: string;
   description: string;
 }> = ({ title, description }) => {

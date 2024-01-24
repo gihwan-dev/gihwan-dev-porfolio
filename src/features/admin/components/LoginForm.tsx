@@ -1,9 +1,7 @@
 'use client';
 
-import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '~/components/ui/button';
@@ -21,8 +19,9 @@ import { Input } from '~/components/ui/input';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { loginFormSchema, type loginFormType } from '~/types/auth';
+import { type FC } from 'react';
 
-const LoginForm: React.FC = () => {
+const LoginForm: FC = () => {
   const form = useForm<loginFormType>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {

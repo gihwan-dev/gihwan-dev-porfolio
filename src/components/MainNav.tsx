@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import MainLogo from '~/assets/svgs/MainLogo';
 import LargeNavList from './LargeNavList';
 import SmallNavList from './SmallNavList';
@@ -14,9 +14,9 @@ export const NAV_LIST = [
 ];
 
 const MainNav = () => {
-  const [width, setWidth] = React.useState(0);
+  const [width, setWidth] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const widthChangeHandler = () => {
       setWidth(window.innerWidth);
     };
@@ -28,7 +28,7 @@ const MainNav = () => {
     };
   }, []);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     setWidth(window.innerWidth);
   }, []);
 

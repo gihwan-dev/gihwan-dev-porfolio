@@ -1,1 +1,2 @@
-export { default as BioContainer } from './bio/BioContainer';
+export { default as BioRoot } from './bio/BioRoot';
+export { default as ProjectsRoot } from './projects/ProjectsRoot';

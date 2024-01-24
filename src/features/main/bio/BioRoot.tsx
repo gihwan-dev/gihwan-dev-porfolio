@@ -2,8 +2,10 @@ import { api } from '~/trpc/server';
 import BioImage from './BioImage';
 import BioText from './BioText';
 import BioButton from './BioButton';
+import Section from '~/components/Section';
+import Container from '~/components/Container';
 
-const BioContainer = async () => {
+const BioRoot = async () => {
   const bio = await api.bio.getBio.query();
 
   if (!bio) {
@@ -11,16 +13,16 @@ const BioContainer = async () => {
   }
 
   return (
-    <section id="#about" className="main-section">
-      <div className="main-container flex flex-col lg:flex-row justify-center items-center gap-28">
+    <Section id="#about">
+      <Container className="flex flex-col lg:flex-row justify-center items-center gap-28">
         <BioImage bio_img={bio.bio_img} />
         <div className="flex flex-col gap-12 items-center">
           <BioText title={bio.title} description={bio.description} />
           <BioButton resume_link={bio.resume_link} />
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 };
 
-export default BioContainer;
+export default BioRoot;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import React from 'react';
+import { type FC } from 'react';
 
-const BioButton: React.FC<{
+const BioButton: FC<{
   resume_link: string;
 }> = ({ resume_link }) => {
   return (
