@@ -15,7 +15,7 @@ import {
 import { api } from '~/trpc/react';
 
 const BottomNavBar = () => {
-  const { data: typeList, isLoading } = api.document.getType.useQuery();
+  const { data: typeList, isLoading } = api.document.getAllType.useQuery();
   if (isLoading) {
     return;
   }
@@ -36,7 +36,7 @@ const BottomNavBar = () => {
           {typeList?.map(type => {
             return (
               <Link
-                href={`/admin/documents?${type.document_type_name}`}
+                href={`/admin/documents?type=${type.document_type_name}`}
                 key={`${type.document_type_id}-admin-bottom-nav`}
               >
                 {type.document_type_name}
