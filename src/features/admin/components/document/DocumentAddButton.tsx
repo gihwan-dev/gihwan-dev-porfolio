@@ -10,6 +10,9 @@ const DocumentAddButton = () => {
 
   const buttonHandler = () => {
     const newSearchParam = new URLSearchParams(searchParams.toString());
+    if (newSearchParam.get('page')) {
+      newSearchParam.delete('page');
+    }
     const newUrl = pathname + '/edit' + '?' + newSearchParam.toString();
     router.push(newUrl);
   };

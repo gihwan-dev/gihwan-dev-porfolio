@@ -8,6 +8,7 @@ import {
   SelectValue,
   SelectItem,
 } from '~/components/ui/select';
+import { Skeleton } from '~/components/ui/skeleton';
 import { api } from '~/trpc/react';
 
 const EditDocumentSelection = () => {
@@ -20,11 +21,15 @@ const EditDocumentSelection = () => {
   const { data: typeList, isLoading } = api.document.getAllType.useQuery();
 
   if (isLoading) {
-    return null;
+    return (
+      <div className="flex flex-row justify-end">
+        <Skeleton className="h-[40px] w-[180px]" />
+      </div>
+    );
   }
 
   const selectionHandler = (value: string) => {
-    const newSearchParams = new URLSearchParams(searchParams.toString());
+    const newSearchParams = new URLSearchParams();
     newSearchParams.set('type', value);
     router.push(pathname + '?' + newSearchParams.toString());
   };
