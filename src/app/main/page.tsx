@@ -1,4 +1,5 @@
-import { BioRoot, ProjectsRoot } from '~/features/main';
+import { BioRoot } from '~/features/bio';
+import { ProjectsRoot } from '~/features/projects';
 
 const MainPage = () => {
   return (

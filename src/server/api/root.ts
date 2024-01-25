@@ -1,5 +1,7 @@
 import { createTRPCRouter } from '~/server/api/trpc';
 import { bioRouter } from './routers/bio';
+import { tagRouter } from './routers/tag';
+import { documentRouter } from './routers/document';
 
 /**
  * This is the primary router for your server.
@@ -8,6 +10,8 @@ import { bioRouter } from './routers/bio';
  */
 export const appRouter = createTRPCRouter({
   bio: bioRouter,
+  tag: tagRouter,
+  document: documentRouter,
 });
 
 // export type definition of API

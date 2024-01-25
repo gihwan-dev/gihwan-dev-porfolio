@@ -1,5 +1,5 @@
 import { type FC, type ReactNode } from 'react';
-import { SideNavBar } from '~/features/admin';
+import { BottomNavBar } from '~/features/admin';
 import { getServerAuthSession } from '~/server/auth';
 
 const AdminLayout: FC<{
@@ -12,7 +12,7 @@ const AdminLayout: FC<{
     <div className="w-full h-screen overflow-hidden">
       {session ? (
         <>
-          <SideNavBar />
+          <BottomNavBar />
           <main className="w-full h-full overflow-y-auto">{children}</main>
         </>
       ) : (

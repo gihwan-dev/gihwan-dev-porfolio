@@ -12,8 +12,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '~/components/ui/drawer';
+import { api } from '~/trpc/react';
 
-const SideNavBar = () => {
+const BottomNavBar = () => {
+  const { data: typeList, isLoading } = api.document.getType.useQuery();
+  if (isLoading) {
+    return;
+  }
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -28,8 +33,16 @@ const SideNavBar = () => {
         </DrawerHeader>
         <div className="px-4 py-4 flex flex-col gap-4">
           <Link href="/admin/bio">Bio</Link>
-          <Link href="/admin/blogs">Blogs</Link>
-          <Link href="/admin/projects">Projects</Link>
+          {typeList?.map(type => {
+            return (
+              <Link
+                href={`/admin/documents?${type.document_type_name}`}
+                key={`${type.document_type_id}-admin-bottom-nav`}
+              >
+                {type.document_type_name}
+              </Link>
+            );
+          })}
         </div>
         <DrawerFooter className="pb-8">
           <DrawerClose asChild>
@@ -43,4 +56,4 @@ const SideNavBar = () => {
   );
 };
 
-export default SideNavBar;
+export default BottomNavBar;

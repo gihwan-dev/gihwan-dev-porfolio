@@ -1,4 +1,4 @@
-import BioForm from '~/features/admin/features/bio/components/BioForm';
+import { BioForm } from '~/features/admin';
 import { api } from '~/trpc/server';
 
 const AdminBioPage = async () => {

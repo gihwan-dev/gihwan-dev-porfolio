@@ -23,54 +23,41 @@ model Bio {
     email           String
 }
 
-model Projects {
-    project_id      Int     @id @default(autoincrement())
-    thumbnail       String
-    title           String
-    description     String
-    content         String
-    project_tags    Project_tags[]
-    reg_date        DateTime    @default(now())
-}
-
-model Project_tags {
-    pt_id               Int     @id @default(autoincrement())
-    name                String  @unique
-    text_color          String
-    background_color    String
-    Projects            Projects[]
-    category            Project_tags_category[]
-}
-
-model Project_tags_category {
-    pc_id           Int @id @default(autoincrement())
-    name            String  @unique
-    Project_tags    Project_tags[]
-}
-
-model Blogs {
-    blog_id             Int @id @default(autoincrement())
+model Documents {
+    document_id         Int @id @default(autoincrement())
     thumbnail           String
     title               String
     description         String
     content             String
-    blog_tags           Blog_tags[]
-    reg_date            DateTime    @default(now())
+    document_type_id    Int
+    document_type       Document_Type @relation(fields: [document_type_id], references: [document_type_id])
+    project_tags        Document_Tags[]
+    reg_date            DateTime @default(now())
 }
 
-model Blog_tags {
-    bt_id               Int @id @default(autoincrement())
-    name                String
+model Document_Type {
+    document_type_id        Int @id @default(autoincrement())
+    document_type_name      String  @unique
+    documents               Documents[]
+    document_tags           Document_Tags[]
+}
+
+
+model Document_Tags {
+    document_tag_id     Int @id @default(autoincrement())
+    name                String @unique
     text_color          String
     background_color    String
-    Blogs               Blogs[]
-    category            Blog_tags_category[]
+    document_type_id    Int
+    document_type       Document_Type @relation(fields: [document_type_id], references: [document_type_id])
+    Documents           Documents[]
+    category            Document_Tags_Category[]
 }
 
-model Blog_tags_category {
-    bc_id           Int @id @default(autoincrement())
-    name            String
-    Blog_tags       Blog_tags[]
+model Document_Tags_Category {
+    dt_category_id           Int @id @default(autoincrement())
+    name                     String @unique
+    Project_tags             Document_Tags[]
 }
 
 model User {

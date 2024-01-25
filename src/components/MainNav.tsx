@@ -7,9 +7,9 @@ import SmallNavList from './SmallNavList';
 
 export const NAV_LIST = [
   { text: 'about me', href: '#about' },
-  { text: 'blogs', href: '#blogs' },
   { text: 'projects', href: '#projects' },
   { text: 'skills', href: '#skills' },
+  { text: 'blogs', href: '#blogs' },
   { text: 'contact', href: '#contact' },
 ];
 
