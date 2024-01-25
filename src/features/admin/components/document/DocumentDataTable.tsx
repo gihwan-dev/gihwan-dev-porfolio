@@ -18,10 +18,15 @@ import {
   TableHeader,
   TableRow,
 } from '~/components/ui/table';
+import { Skeleton } from '~/components/ui/skeleton';
+import { useSearchParams } from 'next/navigation';
 
 const DocumentDataTable = () => {
-  // TODO: 나중에 페이지 네이션 구현해서 적용하는 작업 진행해야함.
-  const { data, isLoading } = api.document.getAllDocument.useQuery({ page: 1 });
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page') ?? 1;
+  const { data, isLoading } = api.document.getAllDocument.useQuery({
+    page: Number(page),
+  });
 
   const table = useReactTable({
     data: data ?? [],
@@ -30,8 +35,7 @@ const DocumentDataTable = () => {
   });
 
   if (isLoading) {
-    // TODO: 스켈레톤 보여주도록 하자.
-    return <div>Loading...</div>;
+    return <Skeleton className="h-[145px] w-full" />;
   }
 
   return (

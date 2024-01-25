@@ -1,5 +1,5 @@
 import DocumentListContainer from './DocumentListContainer';
-import DocumentPageNation from './DocumentPagenation';
+import DocumentPagiNation from './DocumentPagiNation';
 import EditDocumentSelection from './EditDocumentSelection';
 import EditDocumentTitle from './EditDocumentTitle';
 
@@ -9,7 +9,7 @@ const EditDocumentRoot = () => {
       <EditDocumentTitle />
       <EditDocumentSelection />
       <DocumentListContainer />
-      <DocumentPageNation />
+      <DocumentPagiNation />
     </div>
   );
 };
