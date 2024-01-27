@@ -31,7 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${notoSans.variable} ${blackHans.variable}`}>
+    <html
+      lang="en"
+      className={`${notoSans.variable} ${blackHans.variable} bg-main-background`}
+    >
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
