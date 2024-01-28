@@ -1,111 +1,96 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import 'froala-editor/css/froala_style.min.css';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
+import dynamic from 'next/dynamic';
 
-import FroalaEditorComponent from 'react-froala-wysiwyg';
+const FroalaEditorComponent = dynamic(() => import('react-froala-wysiwyg'), {
+  ssr: false,
+});
 
-// Import all Froala Editor plugins;
-import 'froala-editor/js/plugins.pkgd.min.js';
+import React, { useState } from 'react';
+import { Button } from '~/components/ui/button';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { api } from '~/trpc/react';
 
-// Import a single Froala Editor plugin.
-// import 'froala-editor/js/plugins/align.min.js';
-
-// Import a language file.
-import 'froala-editor/js/languages/de.js';
-
-// Import a third-party plugin.
-import 'froala-editor/js/third_party/image_tui.min.js';
-import 'froala-editor/js/third_party/embedly.min.js';
-// import 'froala-editor/js/third_party/spell_checker.min.js';
-
-// Include font-awesome css if required.
-// install using "npm install font-awesome --save"
-import 'font-awesome/css/font-awesome.css';
-import 'froala-editor/js/third_party/font_awesome.min.js';
-import React, { useEffect, useState } from 'react';
-import { type Root, createRoot } from 'react-dom/client';
-
-// Include special components if required.
-// import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
-// import FroalaEditorA from 'react-froala-wysiwyg/FroalaEditorA';
-// import FroalaEditorButton from 'react-froala-wysiwyg/FroalaEditorButton';
-// import FroalaEditorImg from 'react-froala-wysiwyg/FroalaEditorImg';
-// import FroalaEditorInput from 'react-froala-wysiwyg/FroalaEditorInput';
-// Require Editor CSS files.
-
-let root: null | Root = null;
+if (typeof window !== 'undefined') {
+  require('froala-editor/css/froala_style.min.css');
+  require('froala-editor/css/froala_editor.pkgd.min.css');
+  require('froala-editor/js/plugins.pkgd.min.js');
+  require('froala-editor/js/languages/de.js');
+  require('froala-editor/js/third_party/image_tui.min.js');
+  require('froala-editor/js/third_party/embedly.min.js');
+  require('font-awesome/css/font-awesome.css');
+  require('froala-editor/js/third_party/font_awesome.min.js');
+}
 
 const AddNewEditor = () => {
-  const [model, setModel] = useState<any>();
-  // TODO: 이미지 업로드 및 삭제 로직 손 봐야함.
-  // TODO: 저장할 때 model에서 imageCache 비교해서 model에 없는 image 링크들 삭제.
-  const [imageCache, setImageCache] = useState<any[]>([]);
+  const [model, setModel] = useState<string>();
 
-  const onModelChange = (value: any) => {
-    // do something
-    setModel(value);
-    console.log(model);
+  const { mutate } = api.document.saveContent.useMutation();
+
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type');
+
+  const router = useRouter();
+
+  const onEditClose = () => {
+    router.back();
   };
 
-  const onImageUploaded = (url: any) => {
-    setImageCache(prev => [...prev, url]);
-  };
-
-  useEffect(() => {
-    const container = document.getElementById('editor');
-    if (container) {
-      if (!root) {
-        root = createRoot(container);
-      }
-      root.render(
-        <FroalaEditorComponent
-          config={{
-            placeholderText: "Let's start to write!",
-            imageUploadParam: 'image-file',
-            imageUploadURL: '/api/image',
-            imageUploadParams: { id: 'id' },
-            imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-            events: {
-              'image.beforeUpload': function (images: any) {
-                console.log('beforeUpload: ', images);
-                // Return false if you want to stop the image upload.
-              },
-              'image.uploaded': function (response: any) {
-                console.log('uploaded: ', response);
-                // Image was uploaded to the server.
-                onImageUploaded(response.link);
-              },
-              'image.inserted': function ($img: any, response: any) {
-                console.log('inserted: ', $img);
-                console.log('inserted: ', response);
-                // Image was inserted in the editor.
-              },
-              'image.replaced': function ($img: any, response: any) {
-                console.log('replaced: ', $img);
-                console.log('replaced: ', response);
-                // Image was replaced in the editor.
-              },
-              'image.removed': function ($img: any) {
-                // Do something here.
-                // this is the editor instance.
-                console.log('removed: ', $img);
-              },
-            },
-          }}
-          onModelChange={onModelChange}
-          tag="textarea"
-        />,
-      );
+  const onSave = () => {
+    if (!model || model === '') {
+      window.alert('Content is Empty...');
+      return;
     }
-  });
+    if (!type) {
+      window.alert('Bad request... try refresh...');
+      return;
+    }
+    mutate(
+      {
+        model,
+        type,
+      },
+      {
+        onSuccess: data => {
+          console.log(data);
+          const id = data.document_id;
+          router.push(`/admin/documents/edit/save/${id}`);
+        },
+      },
+    );
+  };
 
-  return <div id="editor"></div>;
+  const onModelChange = (value: string) => {
+    setModel(value);
+  };
+
+  return (
+    <>
+      <FroalaEditorComponent
+        config={{
+          placeholderText: "Let's start to write!",
+          imageUploadParam: 'image-file',
+          imageUploadURL: '/api/image',
+          imageUploadParams: { id: 'id' },
+          imageUploadMethod: 'POST',
+          imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+        }}
+        onModelChange={onModelChange}
+        tag="textarea"
+      />
+      <div className="flex w-full flex-row justify-center gap-6">
+        <Button onClick={onEditClose} variant={'destructive'}>
+          Close
+        </Button>
+        <Button onClick={onSave}>Save</Button>
+      </div>
+    </>
+  );
 };
 
 export default AddNewEditor;
