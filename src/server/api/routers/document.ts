@@ -42,30 +42,4 @@ export const documentRouter = createTRPCRouter({
       const result = await createContent(model, type);
       return result;
     }),
-
-  saveImage: publicProcedure
-    .input(
-      z.object({
-        image: z.custom<File>(file => file instanceof File !== true),
-        id: z.number(),
-      }),
-    )
-    .mutation(async ({ input }) => {
-      console.log(input);
-      const { image, id } = input;
-      if (image) {
-        console.log(image);
-        const blob = await put(image.name, image, { access: 'public' });
-        const res = await db.documents.update({
-          where: {
-            document_id: id,
-          },
-          data: {
-            thumbnail: blob.url,
-          },
-        });
-        return { blob, res };
-      }
-      return null;
-    }),
 });
