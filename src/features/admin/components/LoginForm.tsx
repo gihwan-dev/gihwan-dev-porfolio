@@ -18,7 +18,10 @@ import { Input } from '~/components/ui/input';
 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { loginFormSchema, type loginFormType } from '~/types/auth';
+import {
+  loginFormSchema,
+  type loginFormType,
+} from '~/features/blogs/types/auth';
 import { type FC } from 'react';
 
 const LoginForm: FC = () => {

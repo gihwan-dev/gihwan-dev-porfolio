@@ -15,7 +15,7 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { api } from '~/trpc/react';
-import { bioFormSchema, type updateBioType } from '~/types/bio';
+import { bioFormSchema, type updateBioType } from '~/features/blogs/types/bio';
 
 const BioForm: React.FC<{
   data: z.infer<typeof bioFormSchema> | null;
@@ -42,7 +42,7 @@ const BioForm: React.FC<{
   };
 
   return (
-    <div className="max-w-2xl w-full mx-auto">
+    <div className="mx-auto w-full max-w-2xl">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(submitHandler)} className="space-y-8">
           <FormField

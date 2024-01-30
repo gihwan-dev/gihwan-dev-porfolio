@@ -110,7 +110,8 @@ html {
   font-family: var(--font-noto-sans-kr);
 }
 
-h1 {
+h1,
+mark {
   font-family: var(--font-black-hans);
 }
 
