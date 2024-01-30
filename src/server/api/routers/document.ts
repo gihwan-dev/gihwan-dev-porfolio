@@ -8,7 +8,6 @@ import {
 } from '~/server/utils/document';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
-import { put } from '@vercel/blob';
 import { db } from '~/server/db';
 
 export const documentRouter = createTRPCRouter({
@@ -41,5 +40,64 @@ export const documentRouter = createTRPCRouter({
       const { model, type } = input;
       const result = await createContent(model, type);
       return result;
+    }),
+
+  addTag: protectedProcedure
+    .input(
+      z.object({
+        tagId: z.number(),
+        documentId: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      return await db.documents.update({
+        where: {
+          document_id: input.documentId,
+        },
+        data: {
+          project_tags: {
+            connect: {
+              document_tag_id: input.tagId,
+            },
+          },
+        },
+      });
+    }),
+
+  getCurrentTags: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        select: {
+          project_tags: true,
+        },
+      });
+    }),
+
+  saveInfo: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        documentId: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      return db.documents.update({
+        where: {
+          document_id: input.documentId,
+        },
+        data: {
+          title: input.title,
+          description: input.description,
+        },
+      });
     }),
 });

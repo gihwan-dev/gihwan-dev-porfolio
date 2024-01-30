@@ -18,13 +18,18 @@ import { Textarea } from '~/components/ui/textarea';
 import {
   type CompleteEditFormType,
   completeEditFormSchema,
-} from '~/types/document.types';
+} from '~/features/blogs/types/document.types';
 import ThumbnailInput from './ThumbnailInput';
 import TagListContainer from './TagListContainer';
+import { Button } from '~/components/ui/button';
+import { api } from '~/trpc/react';
 
 const CompleteEditForm = () => {
+  // TODO: 기본값 할당하는 로직 작성하기.
   const params = useParams();
-  const id = params.id;
+  const id = params.id ?? '1';
+
+  const { mutate } = api.document.saveInfo.useMutation();
 
   // thumbnail, title, description, tag list 썸네일은 onChange 이벤트로
   const form = useForm<CompleteEditFormType>({
@@ -36,13 +41,14 @@ const CompleteEditForm = () => {
   });
 
   const onSubmit = (values: CompleteEditFormType) => {
-    // TODO: title, description 저장
-    console.log(values);
+    // TODO: 저장 되는지 확인하기
+    mutate({
+      title: values.title,
+      description: values.description,
+      documentId: Number(id as string),
+    });
   };
 
-  // TODO: 태그 리스트 추가 및 제거 작업 진행.
-  // TODO: 새로운 태그 추가 가능해야함.
-  // TODO: 현재 있는 태그 리스트들 보여주고 클릭해서 추가 / 제거
   return (
     <Card className="box-border flex w-full max-w-3xl flex-col gap-4 px-12 py-8">
       <ThumbnailInput />
@@ -78,6 +84,9 @@ const CompleteEditForm = () => {
               </FormItem>
             )}
           />
+          <Button type="submit" variant={'default'} className="w-full">
+            Save
+          </Button>
         </form>
       </Form>
       <TagListContainer />

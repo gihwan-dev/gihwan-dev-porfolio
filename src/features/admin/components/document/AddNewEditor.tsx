@@ -59,7 +59,7 @@ const AddNewEditor = () => {
         onSuccess: data => {
           console.log(data);
           const id = data.document_id;
-          router.push(`/admin/documents/edit/save/${id}`);
+          router.push(`/admin/documents/edit/save/${id}?type=${type}`);
         },
       },
     );

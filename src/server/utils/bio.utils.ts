@@ -1,4 +1,4 @@
-import { type updateBioType } from '~/types/bio';
+import { type updateBioType } from '~/features/blogs/types/bio';
 import { db } from '../db';
 import { hashPassword } from './hash';
 
