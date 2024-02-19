@@ -11,7 +11,23 @@ export const getAllDocument = (page: number) => {
     orderBy: {
       reg_date: 'desc',
     },
-    skip: page * 10,
+    take: 10,
+    skip: (page - 1) * 10,
+  });
+};
+
+export const getTypedDocument = (page: number, type: string) => {
+  return db.documents.findMany({
+    orderBy: {
+      reg_date: 'desc',
+    },
+    skip: (page - 1) * 10,
+    take: 10,
+    where: {
+      document_type: {
+        document_type_name: type,
+      },
+    },
   });
 };
 

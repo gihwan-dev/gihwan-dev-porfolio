@@ -24,8 +24,11 @@ import { useSearchParams } from 'next/navigation';
 const DocumentDataTable = () => {
   const searchParams = useSearchParams();
   const page = searchParams.get('page') ?? 1;
-  const { data, isLoading } = api.document.getAllDocument.useQuery({
+  const type = searchParams.get('type') ?? 'Project';
+
+  const { data, isLoading } = api.document.getTypedDocument.useQuery({
     page: Number(page),
+    type: type,
   });
 
   const table = useReactTable({
@@ -63,14 +66,24 @@ const DocumentDataTable = () => {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map(row => (
               <TableRow
+                className="cursor-pointer"
+                onClick={() => {
+                  // TODO: Document id 로 수정 하는 로직 설정
+                  console.log(row.getValue('document_id'));
+                }}
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
               >
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))
           ) : (

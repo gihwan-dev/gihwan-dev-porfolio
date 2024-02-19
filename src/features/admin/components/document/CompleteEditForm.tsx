@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Card } from '~/components/ui/card';
 import {
@@ -28,6 +28,10 @@ const CompleteEditForm = () => {
   // TODO: 기본값 할당하는 로직 작성하기.
   const params = useParams();
   const id = params.id ?? '1';
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type') ?? 'Project';
+
+  const router = useRouter();
 
   const { mutate } = api.document.saveInfo.useMutation();
 
@@ -47,6 +51,8 @@ const CompleteEditForm = () => {
       description: values.description,
       documentId: Number(id as string),
     });
+
+    router.push(`/admin/document/?page=1&type=${type}`);
   };
 
   return (

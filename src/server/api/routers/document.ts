@@ -5,6 +5,7 @@ import {
   createContent,
   getAllDocument,
   getDocumentType,
+  getTypedDocument,
 } from '~/server/utils/document';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
@@ -23,6 +24,17 @@ export const documentRouter = createTRPCRouter({
     )
     .query(async ({ input }) => {
       return await getAllDocument(input.page);
+    }),
+
+  getTypedDocument: publicProcedure
+    .input(
+      z.object({
+        page: z.number(),
+        type: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await getTypedDocument(input.page, input.type);
     }),
 
   countAll: publicProcedure.query(async () => {
