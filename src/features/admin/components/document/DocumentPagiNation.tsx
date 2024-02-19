@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -56,7 +56,7 @@ const DocumentPagiNation = () => {
             />
           </PaginationItem>
         )}
-        {Array.from({ length: getPageNumbers(10) }).map((_, index) => {
+        {Array.from({ length: getPageNumbers(count) }).map((_, index) => {
           return (
             <PaginationItem key={`${index}-pagination-item`}>
               <PaginationLink
@@ -75,18 +75,17 @@ const DocumentPagiNation = () => {
             </PaginationItem>
           );
         })}
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext
-            href={getPageUrl({
-              page: controlPaginationState(Number(page ?? 1)) + 2,
-              pathname,
-              searchParams,
-            })}
-          />
-        </PaginationItem>
+        {!count || count < 10 * (Number(page ?? 1) + 1) ? null : (
+          <PaginationItem>
+            <PaginationNext
+              href={getPageUrl({
+                page: controlPaginationState(Number(page ?? 1)) + 1,
+                pathname,
+                searchParams,
+              })}
+            />
+          </PaginationItem>
+        )}
       </PaginationContent>
     </Pagination>
   );
