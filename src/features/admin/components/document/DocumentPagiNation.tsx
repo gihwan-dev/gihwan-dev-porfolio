@@ -56,7 +56,11 @@ const DocumentPagiNation = () => {
             />
           </PaginationItem>
         )}
-        {Array.from({ length: getPageNumbers(count) }).map((_, index) => {
+        {Array.from({
+          length: getPageNumbers(
+            Math.ceil(count / 10) === 0 ? 1 : Math.ceil(count / 10),
+          ),
+        }).map((_, index) => {
           return (
             <PaginationItem key={`${index}-pagination-item`}>
               <PaginationLink
