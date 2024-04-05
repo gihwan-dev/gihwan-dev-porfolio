@@ -8,11 +8,13 @@
 - TailwindCSS
 - tRPC
 - prisma
+- NextAuth
 
 ## 인프라
 
 배포: Vercel
 데이터베이스: Vercel PostgreSQL
+이미지 데이터베이스: Vercel blob
 도메인: AWS 도메인 + AWS Route 53
 
 ## 사용 방법
