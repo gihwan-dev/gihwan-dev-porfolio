@@ -1,4 +1,4 @@
-import { findBio, initUser, updateBio } from '~/server/utils/bio.utils';
+import { findBio, initUser, updateBio } from '~/server/query/bio.utils';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 

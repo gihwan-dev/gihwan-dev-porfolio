@@ -1,4 +1,4 @@
-import { getAllTag } from '~/server/utils/tag.utils';
+import { getAllTag } from '~/server/query/tag.utils';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '~/server/db';

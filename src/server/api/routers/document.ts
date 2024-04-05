@@ -6,7 +6,7 @@ import {
   getAllDocument,
   getDocumentType,
   getTypedDocument,
-} from '~/server/utils/document';
+} from '~/server/query/document';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '~/server/db';

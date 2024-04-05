@@ -5,7 +5,7 @@ import {
 } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { db } from './db';
-import { comparePassword } from './utils/hash';
+import { comparePassword } from './query/hash';
 
 declare module 'next-auth' {
   interface Session {
