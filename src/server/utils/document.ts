@@ -1,7 +1,5 @@
 import { db } from '../db';
 
-import { put } from '@vercel/blob';
-
 export const getDocumentType = () => {
   return db.document_Type.findMany();
 };
