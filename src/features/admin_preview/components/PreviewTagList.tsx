@@ -1,18 +1,15 @@
 import SmallTag from '~/components/SmallTag';
-import { api } from '~/trpc/server';
+import { type Document_Tags } from '@prisma/client';
+import React from 'react';
 
 type Props = {
-  documentId: string;
+  tagList: Document_Tags[];
 };
 
-const PreviewTagList: React.FC<Props> = async ({ documentId }) => {
-  const response = await api.tag.getDocumentTags.query({
-    documentId: Number(documentId),
-  });
-
+const PreviewTagList: React.FC<Props> = async ({ tagList }) => {
   return (
     <div className="mx-auto w-full max-w-5xl py-8">
-      {response.map(tag => {
+      {tagList.map(tag => {
         return (
           <SmallTag
             key={tag.name}

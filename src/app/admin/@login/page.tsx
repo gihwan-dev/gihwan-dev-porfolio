@@ -1,5 +1,4 @@
 import { LoginForm } from '~/features/admin';
-// import { initUser } from '~/server/utils/bio.utils';
 
 const AdminLoginPage = () => {
   return (

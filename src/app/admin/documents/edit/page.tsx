@@ -1,4 +1,4 @@
-import AddNewRoot from '~/features/admin/components/document/AddNewRoot';
+import { AddNewRoot } from '~/features/admin_document';
 
 const DocumentEditPage = () => {
   return <AddNewRoot />;

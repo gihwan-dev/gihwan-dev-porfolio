@@ -17,7 +17,7 @@ const config = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['@/features/*/*'],
+        patterns: ['~/features/*/*'],
       },
     ],
     'import/no-cycle': 'error',

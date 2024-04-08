@@ -15,7 +15,7 @@ import {
   controlPaginationState,
   getPageNumbers,
   getPageUrl,
-} from '../../utils/document.utils';
+} from '../../admin/utils/document.utils';
 
 const DocumentPagiNation = () => {
   const searchParams = useSearchParams();
