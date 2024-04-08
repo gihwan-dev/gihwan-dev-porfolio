@@ -112,4 +112,89 @@ export const documentRouter = createTRPCRouter({
         },
       });
     }),
+
+  getDocumentTitle: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        select: {
+          title: true,
+        },
+      });
+    }),
+
+  getDocumentContent: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        select: {
+          content: true,
+        },
+      });
+    }),
+
+  getDocumentDescription: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        select: {
+          description: true,
+        },
+      });
+    }),
+
+  getDocumentThumbnail: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        select: {
+          thumbnail: true,
+        },
+      });
+    }),
+
+  getDocumentPublishedDate: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        select: {
+          reg_date: true,
+        },
+      });
+    }),
 });

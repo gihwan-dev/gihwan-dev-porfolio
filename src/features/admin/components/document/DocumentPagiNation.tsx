@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -40,8 +39,6 @@ const DocumentPagiNation = () => {
     return null;
   }
 
-  // TODO: Math.ceil(count / 10 ?? 1) 로 getPageNumbers 파라미터 대체 해야함.
-  // TODO: 최대 페이지 수 구해서 그 이상 넘어가지 않도록 하는 로직 구현해야 함.
   return (
     <Pagination>
       <PaginationContent>

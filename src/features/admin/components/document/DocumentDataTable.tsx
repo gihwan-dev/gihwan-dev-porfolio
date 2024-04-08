@@ -19,10 +19,12 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import { Skeleton } from '~/components/ui/skeleton';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const DocumentDataTable = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
   const page = searchParams.get('page') ?? 1;
   const type = searchParams.get('type') ?? 'Project';
 
@@ -36,6 +38,12 @@ const DocumentDataTable = () => {
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const onRowClick = (documentId: unknown) => {
+    if (typeof documentId === 'number') {
+      router.push(`/admin/documents/preview/${documentId}`);
+    }
+  };
 
   if (isLoading) {
     return <Skeleton className="h-[145px] w-full" />;
@@ -68,8 +76,8 @@ const DocumentDataTable = () => {
               <TableRow
                 className="cursor-pointer"
                 onClick={() => {
-                  // TODO: Document id 로 수정 하는 로직 설정
-                  console.log(row.getValue('document_id'));
+                  const documentId = row.getValue('document_id');
+                  onRowClick(documentId);
                 }}
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}

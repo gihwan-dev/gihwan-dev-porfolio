@@ -42,4 +42,22 @@ export const tagRouter = createTRPCRouter({
         },
       });
     }),
+
+  getDocumentTags: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await db.document_Tags.findMany({
+        where: {
+          Documents: {
+            some: {
+              document_id: input.documentId,
+            },
+          },
+        },
+      });
+    }),
 });

@@ -25,7 +25,6 @@ import { Button } from '~/components/ui/button';
 import { api } from '~/trpc/react';
 
 const CompleteEditForm = () => {
-  // TODO: 기본값 할당하는 로직 작성하기.
   const params = useParams();
   const id = params.id ?? '1';
   const searchParams = useSearchParams();
@@ -45,7 +44,6 @@ const CompleteEditForm = () => {
   });
 
   const onSubmit = (values: CompleteEditFormType) => {
-    // TODO: 저장 되는지 확인하기
     mutate({
       title: values.title,
       description: values.description,
