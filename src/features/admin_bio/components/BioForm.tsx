@@ -15,7 +15,7 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { api } from '~/trpc/react';
-import { bioFormSchema, type updateBioType } from '~/features/blogs/types/bio';
+import { bioFormSchema, type updateBioType } from '~/features/blogs';
 
 const BioForm: React.FC<{
   data: z.infer<typeof bioFormSchema> | null;
@@ -24,7 +24,7 @@ const BioForm: React.FC<{
     resolver: zodResolver(bioFormSchema),
     defaultValues: {
       bio_img: data?.bio_img ?? '',
-      description: data?.bio_img ?? '',
+      description: data?.description ?? '',
       email: data?.email ?? '',
       resume_link: data?.resume_link ?? '',
       title: data?.title ?? '',

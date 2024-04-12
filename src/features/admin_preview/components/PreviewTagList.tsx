@@ -8,7 +8,8 @@ type Props = {
 
 const PreviewTagList: React.FC<Props> = async ({ tagList }) => {
   return (
-    <div className="mx-auto w-full max-w-5xl py-8">
+    <div className="mx-auto w-full max-w-4xl text-white">
+      <p className={'py-8 font-bold text-white'}>Tags</p>
       {tagList.map(tag => {
         return (
           <SmallTag

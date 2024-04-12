@@ -16,8 +16,8 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import {
-  type CompleteEditFormType,
   completeEditFormSchema,
+  type CompleteEditFormType,
 } from '~/features/blogs/types/document.types';
 import ThumbnailInput from './ThumbnailInput';
 import TagListContainer from './TagListContainer';
@@ -50,7 +50,7 @@ const CompleteEditForm = () => {
       documentId: Number(id as string),
     });
 
-    router.push(`/admin/document/?page=1&type=${type}`);
+    router.push(`/admin/documents/?page=1&type=${type}`);
   };
 
   return (

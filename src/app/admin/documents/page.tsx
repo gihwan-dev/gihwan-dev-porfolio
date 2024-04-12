@@ -1,4 +1,4 @@
-import { EditDocumentRoot } from '~/features/admin';
+import { EditDocumentRoot } from '~/features/admin_document';
 
 const AdminProjectsPage = () => {
   return (

@@ -20,13 +20,13 @@ const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
   });
 
   return (
-    <div className="relative h-full w-full flex-col items-center overflow-auto py-12">
+    <div className="relative h-full w-full flex-col items-center overflow-auto bg-main-background py-12">
       <PreviewTitle title={response?.title ?? ''} />
       <PreviewDescription description={response?.description ?? ''} />
       <PreviewThumbnail thumbnail={response?.thumbnail ?? ''} />
       <PreviewContent content={response?.content ?? ''} />
-      <PreviewDate date={response?.reg_date ?? new Date()} />
       <PreviewTagList tagList={response?.project_tags ?? []} />
+      <PreviewDate date={response?.reg_date ?? new Date()} />
       <PreviewButtonContainer documentId={documentId} />
     </div>
   );
