@@ -1,3 +1,5 @@
+'use client';
+
 import { useParams } from 'next/navigation';
 import SmallTag from '~/components/SmallTag';
 import { api } from '~/trpc/react';

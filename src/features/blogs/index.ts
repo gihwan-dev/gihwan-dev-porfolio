@@ -7,3 +7,5 @@ export {
   completeEditFormSchema,
   type CompleteEditFormType,
 } from './types/document.types';
+
+export { addNewTagSchema, type AddNewTagType } from './types/tag.types';

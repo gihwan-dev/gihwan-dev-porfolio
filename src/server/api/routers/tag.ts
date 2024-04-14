@@ -11,14 +11,23 @@ export const tagRouter = createTRPCRouter({
   createOne: protectedProcedure
     .input(
       z.object({
+        documentId: z.number(),
         name: z.string(),
         category: z.string(),
         backgroundColor: z.string(),
         textColor: z.string(),
-        type: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
+      const type = await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        include: {
+          document_type: true,
+        },
+      });
+
       return await db.document_Tags.create({
         data: {
           name: input.name,
@@ -26,7 +35,7 @@ export const tagRouter = createTRPCRouter({
           text_color: input.textColor,
           document_type: {
             connect: {
-              document_type_name: input.type,
+              document_type_name: type?.document_type.document_type_name,
             },
           },
           category: {

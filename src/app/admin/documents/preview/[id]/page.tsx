@@ -1,12 +1,7 @@
+import { type ParamsProps } from '~/app/types/params.type';
 import { PreviewRoot } from '~/features/admin_preview';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-const DocumentsPreviewPage = ({ params }: Props) => {
+const DocumentsPreviewPage: React.FC<ParamsProps> = ({ params }) => {
   const { id } = params;
   return <PreviewRoot documentId={id} />;
 };

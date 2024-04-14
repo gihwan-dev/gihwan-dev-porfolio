@@ -48,3 +48,18 @@ export const createContent = async (model: string, type: string) => {
     },
   });
 };
+
+interface UpdateContent {
+  model: string;
+  documentId: number;
+}
+export const updateContent = async ({ model, documentId }: UpdateContent) => {
+  return await db.documents.update({
+    where: {
+      document_id: documentId,
+    },
+    data: {
+      content: model,
+    },
+  });
+};

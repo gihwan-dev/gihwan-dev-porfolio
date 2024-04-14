@@ -1,14 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
-import { type ChangeEventHandler, useState } from 'react';
+import { useState, type ChangeEventHandler } from 'react';
 
-const ThumbnailInput = () => {
-  const params = useParams();
-  const id = params.id;
+interface Props {
+  documentId: number;
+  initThumbnail: string | null;
+}
 
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+const ThumbnailInput: React.FC<Props> = ({ documentId, initThumbnail }) => {
+  const [thumbnail, setThumbnail] = useState<string | null>(initThumbnail);
 
   const onThumbnailChange: ChangeEventHandler<HTMLInputElement> = e => {
     const formData = new FormData();
@@ -21,18 +22,12 @@ const ThumbnailInput = () => {
 
     formData.append('image-file', image);
 
-    if (!id) {
-      window.alert('bad request... try refresh...');
-      return;
-    }
-
-    void fetch(`/api/image/${id as string}`, {
+    void fetch(`/api/image/${documentId}`, {
       method: 'POST',
       body: formData,
     })
       .then(res => {
         void res.json().then(data => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           setThumbnail(data?.link as string);
         });
       })
