@@ -9,6 +9,7 @@ import PreviewButtonContainer from './PreviewButtonContainer';
 import PreviewTagList from './PreviewTagList';
 
 import { api } from '~/trpc/server';
+import PreviewBackButton from './PreviewBackButton';
 
 type Props = {
   documentId: string;
@@ -27,6 +28,7 @@ const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
       <PreviewContent content={response?.content ?? ''} />
       <PreviewTagList tagList={response?.project_tags ?? []} />
       <PreviewDate date={response?.reg_date ?? new Date()} />
+      <PreviewBackButton />
       <PreviewButtonContainer documentId={documentId} />
     </div>
   );
