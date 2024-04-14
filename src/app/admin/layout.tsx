@@ -9,11 +9,11 @@ const AdminLayout: FC<{
   const session = await getServerAuthSession();
   // footer 만들어야함
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="h-screen w-full overflow-hidden">
       {session ? (
         <>
           <BottomNavBar />
-          <main className="w-full h-full overflow-y-auto">{children}</main>
+          <main className="h-full w-full overflow-y-auto">{children}</main>
         </>
       ) : (
         <>{login}</>

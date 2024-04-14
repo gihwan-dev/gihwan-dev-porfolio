@@ -5,7 +5,9 @@ import {
   createContent,
   getAllDocument,
   getDocumentType,
-} from '~/server/utils/document';
+  getTypedDocument,
+  updateContent,
+} from '~/server/query/document';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '~/server/db';
@@ -25,6 +27,17 @@ export const documentRouter = createTRPCRouter({
       return await getAllDocument(input.page);
     }),
 
+  getTypedDocument: publicProcedure
+    .input(
+      z.object({
+        page: z.number(),
+        type: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return await getTypedDocument(input.page, input.type);
+    }),
+
   countAll: publicProcedure.query(async () => {
     return await countAll();
   }),
@@ -33,11 +46,21 @@ export const documentRouter = createTRPCRouter({
     .input(
       z.object({
         model: z.string(),
-        type: z.string(),
+        type: z.string().nullable(),
+        documentId: z.number().nullable(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { model, type } = input;
+      const { model, type, documentId } = input;
+
+      if (documentId) {
+        return await updateContent({ model, documentId });
+      }
+
+      if (!type) {
+        return null;
+      }
+
       const result = await createContent(model, type);
       return result;
     }),
@@ -94,9 +117,46 @@ export const documentRouter = createTRPCRouter({
         where: {
           document_id: input.documentId,
         },
+        include: {
+          document_type: true,
+        },
         data: {
           title: input.title,
           description: input.description,
+        },
+      });
+    }),
+
+  getOneDocument: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number().nullable(),
+      }),
+    )
+    .query(async ({ input }) => {
+      if (!input.documentId) {
+        return null;
+      }
+      return await db.documents.findUnique({
+        where: {
+          document_id: input.documentId,
+        },
+        include: {
+          project_tags: true,
+        },
+      });
+    }),
+
+  deleteOneDocument: protectedProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      return await db.documents.delete({
+        where: {
+          document_id: input.documentId,
         },
       });
     }),

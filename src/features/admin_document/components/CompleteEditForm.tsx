@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Card } from '~/components/ui/card';
 import {
@@ -16,18 +16,28 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import {
-  type CompleteEditFormType,
   completeEditFormSchema,
-} from '~/features/blogs/types/document.types';
+  type CompleteEditFormType,
+} from '../../blogs/index';
 import ThumbnailInput from './ThumbnailInput';
 import TagListContainer from './TagListContainer';
 import { Button } from '~/components/ui/button';
 import { api } from '~/trpc/react';
 
-const CompleteEditForm = () => {
-  // TODO: 기본값 할당하는 로직 작성하기.
-  const params = useParams();
-  const id = params.id ?? '1';
+interface Props {
+  title: string;
+  description: string;
+  documentId: number;
+  thumbnail: string | null;
+}
+
+const CompleteEditForm: React.FC<Props> = ({
+  title,
+  description,
+  documentId,
+  thumbnail,
+}) => {
+  const router = useRouter();
 
   const { mutate } = api.document.saveInfo.useMutation();
 
@@ -35,23 +45,31 @@ const CompleteEditForm = () => {
   const form = useForm<CompleteEditFormType>({
     resolver: zodResolver(completeEditFormSchema),
     defaultValues: {
-      description: '',
-      title: '',
+      title: title,
+      description: description,
     },
   });
 
   const onSubmit = (values: CompleteEditFormType) => {
-    // TODO: 저장 되는지 확인하기
-    mutate({
-      title: values.title,
-      description: values.description,
-      documentId: Number(id as string),
-    });
+    mutate(
+      {
+        title: values.title,
+        description: values.description,
+        documentId: documentId,
+      },
+      {
+        onSuccess: document => {
+          const { document_type } = document;
+          const { document_type_name } = document_type;
+          router.push(`/admin/documents/?page=1&type=${document_type_name}`);
+        },
+      },
+    );
   };
 
   return (
     <Card className="box-border flex w-full max-w-3xl flex-col gap-4 px-12 py-8">
-      <ThumbnailInput />
+      <ThumbnailInput documentId={documentId} initThumbnail={thumbnail} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

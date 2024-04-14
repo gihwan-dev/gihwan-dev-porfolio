@@ -3,6 +3,7 @@ import '~/styles/globals.css';
 import { Black_Han_Sans, Noto_Sans_KR } from 'next/font/google';
 
 import { TRPCReactProvider } from '~/trpc/react';
+import { Toaster } from '~/components/ui/toaster';
 
 const notoSans = Noto_Sans_KR({
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function RootLayout({
     >
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <Toaster />
       </body>
     </html>
   );

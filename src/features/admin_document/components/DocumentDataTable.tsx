@@ -8,7 +8,7 @@ import {
 
 import { api } from '~/trpc/react';
 
-import { columns } from '../../services/columns';
+import { columns } from '../../admin/business/services/columns';
 
 import {
   Table,
@@ -19,13 +19,18 @@ import {
   TableRow,
 } from '~/components/ui/table';
 import { Skeleton } from '~/components/ui/skeleton';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const DocumentDataTable = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
   const page = searchParams.get('page') ?? 1;
-  const { data, isLoading } = api.document.getAllDocument.useQuery({
+  const type = searchParams.get('type') ?? 'Project';
+
+  const { data, isLoading } = api.document.getTypedDocument.useQuery({
     page: Number(page),
+    type: type,
   });
 
   const table = useReactTable({
@@ -33,6 +38,12 @@ const DocumentDataTable = () => {
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const onRowClick = (documentId: unknown) => {
+    if (typeof documentId === 'number') {
+      router.push(`/admin/documents/preview/${documentId}`);
+    }
+  };
 
   if (isLoading) {
     return <Skeleton className="h-[145px] w-full" />;
@@ -63,14 +74,24 @@ const DocumentDataTable = () => {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map(row => (
               <TableRow
+                className="cursor-pointer"
+                onClick={() => {
+                  const documentId = row.getValue('document_id');
+                  onRowClick(documentId);
+                }}
                 key={row.id}
                 data-state={row.getIsSelected() && 'selected'}
               >
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))
           ) : (

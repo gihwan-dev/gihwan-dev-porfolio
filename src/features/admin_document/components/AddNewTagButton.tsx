@@ -1,7 +1,7 @@
 'ues client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import SmallTag from '~/components/SmallTag';
 import { Button } from '~/components/ui/button';
@@ -24,18 +24,15 @@ import {
   FormLabel,
 } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
-import {
-  type AddNewTagType,
-  addNewTagSchema,
-} from '~/features/blogs/types/tag.types';
+import { toast } from '~/components/ui/use-toast';
+import { type AddNewTagType, addNewTagSchema } from '~/features/blogs';
 import { api } from '~/trpc/react';
 
 const AddNewTagButton = () => {
   const { refetch } = api.tag.getAll.useQuery();
   const { mutate } = api.tag.createOne.useMutation();
 
-  const searchParams = useSearchParams();
-  const type = searchParams.get('type');
+  const params = useParams();
 
   const form = useForm<AddNewTagType>({
     resolver: zodResolver(addNewTagSchema),
@@ -48,16 +45,25 @@ const AddNewTagButton = () => {
   });
 
   const onSubmit = (values: AddNewTagType) => {
+    if (params?.id === undefined) {
+      toast({
+        title: 'Fail to save... try again...!',
+      });
+      return;
+    }
     mutate(
       {
+        documentId: +params.id,
         backgroundColor: values.backgroundColor,
         category: values.category,
         name: values.name,
         textColor: values.textColor,
-        type: type ?? 'projects',
       },
       {
         onSuccess: () => {
+          toast({
+            title: 'Add tag successfully!',
+          });
           void refetch();
         },
       },

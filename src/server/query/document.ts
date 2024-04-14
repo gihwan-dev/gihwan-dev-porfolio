@@ -1,7 +1,5 @@
 import { db } from '../db';
 
-import { put } from '@vercel/blob';
-
 export const getDocumentType = () => {
   return db.document_Type.findMany();
 };
@@ -11,7 +9,23 @@ export const getAllDocument = (page: number) => {
     orderBy: {
       reg_date: 'desc',
     },
-    skip: page * 10,
+    take: 10,
+    skip: (page - 1) * 10,
+  });
+};
+
+export const getTypedDocument = (page: number, type: string) => {
+  return db.documents.findMany({
+    orderBy: {
+      reg_date: 'desc',
+    },
+    skip: (page - 1) * 10,
+    take: 10,
+    where: {
+      document_type: {
+        document_type_name: type,
+      },
+    },
   });
 };
 
@@ -31,6 +45,21 @@ export const createContent = async (model: string, type: string) => {
           document_type_name: type,
         },
       },
+    },
+  });
+};
+
+interface UpdateContent {
+  model: string;
+  documentId: number;
+}
+export const updateContent = async ({ model, documentId }: UpdateContent) => {
+  return await db.documents.update({
+    where: {
+      document_id: documentId,
+    },
+    data: {
+      content: model,
     },
   });
 };
