@@ -18,7 +18,7 @@ import { Textarea } from '~/components/ui/textarea';
 import {
   completeEditFormSchema,
   type CompleteEditFormType,
-} from '~/features/blogs/types/document.types';
+} from '../../blogs/index';
 import ThumbnailInput from './ThumbnailInput';
 import TagListContainer from './TagListContainer';
 import { Button } from '~/components/ui/button';
