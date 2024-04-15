@@ -17,7 +17,7 @@ export const useEditorHook = () => {
   const documentId = searchParams.get('id');
   const type = searchParams.get('type');
 
-  const { model, change } = useEditorStore(state => state);
+  const { model, change, initializeState } = useEditorStore(state => state);
 
   const { mutate } = api.document.saveContent.useMutation();
   const { data: document } = api.document.getOneDocument.useQuery({
@@ -40,6 +40,7 @@ export const useEditorHook = () => {
       toast({
         title: 'Save...',
       });
+      void initializeState();
       mutate(
         { model, type, documentId: documentId === null ? null : +documentId },
         {
@@ -50,6 +51,7 @@ export const useEditorHook = () => {
               });
               return;
             }
+
             const { document_id } = document;
             toast({
               title: 'Save successfully',
