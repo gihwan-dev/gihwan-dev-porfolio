@@ -10,16 +10,18 @@ const PreviewTagList: React.FC<Props> = async ({ tagList }) => {
   return (
     <div className="mx-auto w-full max-w-4xl py-4 text-white">
       <p className={'pb-2 font-bold text-white'}>Tags</p>
-      {tagList.map(tag => {
-        return (
-          <SmallTag
-            key={tag.name}
-            name={tag.name}
-            backgroundColor={tag.background_color}
-            textColor={tag.text_color}
-          />
-        );
-      })}
+      <ul className={'flex w-full flex-row gap-2'}>
+        {tagList.map(tag => {
+          return (
+            <SmallTag
+              key={tag.name}
+              name={tag.name}
+              backgroundColor={tag.background_color}
+              textColor={tag.text_color}
+            />
+          );
+        })}
+      </ul>
     </div>
   );
 };
