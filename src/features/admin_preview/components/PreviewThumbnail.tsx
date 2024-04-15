@@ -17,7 +17,7 @@ const PreviewThumbnail: React.FC<Props> = async ({ thumbnail }: Props) => {
       />
     </div>
   ) : (
-    <h2>No Image</h2>
+    <></>
   );
 };
 
