@@ -1,10 +1,10 @@
 import { db } from '../db';
 
-export const getDocumentType = () => {
+export const getDocumentType = async () => {
   return db.document_Type.findMany();
 };
 
-export const getAllDocument = (page: number) => {
+export const getAllDocument = async (page: number) => {
   return db.documents.findMany({
     orderBy: {
       reg_date: 'desc',
@@ -54,12 +54,90 @@ interface UpdateContent {
   documentId: number;
 }
 export const updateContent = async ({ model, documentId }: UpdateContent) => {
-  return await db.documents.update({
+  return db.documents.update({
     where: {
       document_id: documentId,
     },
     data: {
       content: model,
+    },
+  });
+};
+
+interface AddTagParams {
+  documentId: number;
+  tagId: number;
+}
+
+export const addTagToDocument = async ({ documentId, tagId }: AddTagParams) => {
+  db.documents.update({
+    where: {
+      document_id: documentId,
+    },
+    data: {
+      project_tags: {
+        connect: {
+          document_tag_id: tagId,
+        },
+      },
+    },
+  });
+};
+
+export const getDocumentTags = async (documentId: number) => {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      project_tags: true,
+    },
+  });
+};
+
+interface SaveProjectInfoParams {
+  documentId: number;
+  title: string;
+  description: string;
+}
+
+export const saveProjectInfo = ({
+  title,
+  description,
+  documentId,
+}: SaveProjectInfoParams) => {
+  if (!documentId) {
+    return null;
+  }
+  return db.documents.update({
+    where: {
+      document_id: documentId,
+    },
+    include: {
+      document_type: true,
+    },
+    data: {
+      title: title,
+      description: description,
+    },
+  });
+};
+
+export const getOneDocument = (documentId: number) => {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    include: {
+      project_tags: true,
+    },
+  });
+};
+
+export const deleteOneDocument = (documentId: number) => {
+  return db.documents.delete({
+    where: {
+      document_id: documentId,
     },
   });
 };
