@@ -25,7 +25,7 @@ import {
 } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { toast } from '~/components/ui/use-toast';
-import { type AddNewTagType, addNewTagSchema } from '~/features/blogs';
+import { addNewTagSchema, type AddNewTagType } from '../types/tag.types';
 import { api } from '~/trpc/react';
 
 const AddNewTagButton = () => {
