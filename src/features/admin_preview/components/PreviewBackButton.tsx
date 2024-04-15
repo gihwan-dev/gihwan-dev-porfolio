@@ -12,7 +12,7 @@ const PreviewBackButton = () => {
   return (
     <div className="flex w-full flex-row items-center justify-center py-4">
       <button onClick={onClick} className="font-bold text-white">
-        Back {'>'}
+        {'<'} Back
       </button>
     </div>
   );
