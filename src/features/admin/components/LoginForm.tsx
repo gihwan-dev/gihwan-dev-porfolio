@@ -18,14 +18,11 @@ import { Input } from '~/components/ui/input';
 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import {
-  loginFormSchema,
-  type loginFormType,
-} from '~/features/blogs/types/auth';
+import { loginFormSchema, type LoginFormType } from '../types/auth';
 import { type FC } from 'react';
 
 const LoginForm: FC = () => {
-  const form = useForm<loginFormType>({
+  const form = useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: '',
@@ -35,7 +32,7 @@ const LoginForm: FC = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (values: loginFormType) => {
+  const onSubmit = async (values: LoginFormType) => {
     try {
       const response = await signIn('credentials', {
         redirect: false,
