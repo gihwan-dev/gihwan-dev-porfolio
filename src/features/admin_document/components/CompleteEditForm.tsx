@@ -18,11 +18,12 @@ import { Textarea } from '~/components/ui/textarea';
 import {
   completeEditFormSchema,
   type CompleteEditFormType,
-} from '../../blogs/index';
+} from '../types/document.types';
 import ThumbnailInput from './ThumbnailInput';
 import TagListContainer from './TagListContainer';
 import { Button } from '~/components/ui/button';
 import { api } from '~/trpc/react';
+import { toast } from '~/components/ui/use-toast';
 
 interface Props {
   title: string;
@@ -59,6 +60,12 @@ const CompleteEditForm: React.FC<Props> = ({
       },
       {
         onSuccess: document => {
+          if (!document) {
+            toast({
+              title: 'Failed to complete document. Try again!',
+            });
+            return;
+          }
           const { document_type } = document;
           const { document_type_name } = document_type;
           router.push(`/admin/documents/?page=1&type=${document_type_name}`);

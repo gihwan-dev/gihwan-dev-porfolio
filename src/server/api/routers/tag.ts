@@ -1,11 +1,11 @@
-import { getAllTag } from '~/server/query/tag.utils';
+import { createOneTag, getAllTag } from '~/server/query/tag';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '~/server/db';
 
 export const tagRouter = createTRPCRouter({
   getAll: publicProcedure.query(async () => {
-    return await getAllTag();
+    return getAllTag();
   }),
 
   createOne: protectedProcedure
@@ -28,45 +28,10 @@ export const tagRouter = createTRPCRouter({
         },
       });
 
-      return await db.document_Tags.create({
-        data: {
-          name: input.name,
-          background_color: input.backgroundColor,
-          text_color: input.textColor,
-          document_type: {
-            connect: {
-              document_type_name: type?.document_type.document_type_name,
-            },
-          },
-          category: {
-            connectOrCreate: {
-              create: {
-                name: input.category,
-              },
-              where: {
-                name: input.category,
-              },
-            },
-          },
-        },
-      });
-    }),
+      if (!type) {
+        throw Error('No document type');
+      }
 
-  getDocumentTags: publicProcedure
-    .input(
-      z.object({
-        documentId: z.number(),
-      }),
-    )
-    .query(async ({ input }) => {
-      return await db.document_Tags.findMany({
-        where: {
-          Documents: {
-            some: {
-              document_id: input.documentId,
-            },
-          },
-        },
-      });
+      return await createOneTag({ ...input, type: type.document_type });
     }),
 });

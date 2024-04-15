@@ -15,12 +15,12 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { api } from '~/trpc/react';
-import { bioFormSchema, type updateBioType } from '~/features/blogs';
+import { bioFormSchema, type UpdateBioType } from '~/features/bio';
 
 const BioForm: React.FC<{
   data: z.infer<typeof bioFormSchema> | null;
 }> = ({ data }) => {
-  const form = useForm<updateBioType>({
+  const form = useForm<UpdateBioType>({
     resolver: zodResolver(bioFormSchema),
     defaultValues: {
       bio_img: data?.bio_img ?? '',
@@ -33,7 +33,7 @@ const BioForm: React.FC<{
 
   const { mutate } = api.bio.createBio.useMutation();
 
-  const submitHandler = (values: updateBioType) => {
+  const submitHandler = (values: UpdateBioType) => {
     mutate(values, {
       onSuccess: data => {
         window.alert(data.message);

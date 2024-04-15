@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { fadeInFromLeft } from '~/utils/framer-motion';
+import { fadeInFromLeft } from '~/utils/framer-motion.utils';
 import { type FC } from 'react';
 
 const BioImage: FC<{

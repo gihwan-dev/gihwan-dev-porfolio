@@ -1,4 +1,4 @@
-import { findBio, initUser, updateBio } from '~/server/query/bio.utils';
+import { findBio, initUser, updateBio } from '~/server/query/bio';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 
@@ -8,8 +8,7 @@ export const bioRouter = createTRPCRouter({
   }),
 
   init: publicProcedure.query(async () => {
-    const result = await initUser();
-    return result;
+    return await initUser();
   }),
 
   createBio: protectedProcedure
