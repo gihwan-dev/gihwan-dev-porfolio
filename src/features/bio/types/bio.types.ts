@@ -8,4 +8,4 @@ export const bioFormSchema = z.object({
   email: z.string().email(),
 });
 
-export type updateBioType = z.infer<typeof bioFormSchema>;
+export type UpdateBioType = z.infer<typeof bioFormSchema>;
