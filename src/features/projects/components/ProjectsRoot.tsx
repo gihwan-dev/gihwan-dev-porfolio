@@ -1,5 +1,7 @@
 import Container from '~/components/Container';
 import Section from '~/components/Section';
+import SectionTitle from '~/components/SectionTitle';
+import ProjectsCarousel from './ProjectsCarousel';
 
 const ProjectsRoot = () => {
   return (

@@ -6,6 +6,7 @@ import {
   createContent,
   deleteOneDocument,
   getAllDocument,
+  getAllDocumentByPage,
   getDocumentTags,
   getDocumentType,
   getOneDocument,
@@ -17,18 +18,22 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 
 export const documentRouter = createTRPCRouter({
+  getAllDocument: publicProcedure.query(async () => {
+    return getAllDocument();
+  }),
+
   getAllType: publicProcedure.query(async () => {
     return getDocumentType();
   }),
 
-  getAllDocument: publicProcedure
+  getAllDocumentByPage: publicProcedure
     .input(
       z.object({
         page: z.number(),
       }),
     )
     .query(async ({ input }) => {
-      return getAllDocument(input.page);
+      return getAllDocumentByPage(input.page);
     }),
 
   getTypedDocument: publicProcedure
