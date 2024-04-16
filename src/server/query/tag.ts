@@ -43,3 +43,20 @@ export const createOneTag = async ({
     },
   });
 };
+
+export const getAllTagsWithCount = async () => {
+  return db.document_Tags.findMany({
+    select: {
+      document_tag_id: true,
+      name: true,
+      text_color: true,
+      background_color: true,
+      document_type_id: true,
+      _count: {
+        select: {
+          Documents: true,
+        },
+      },
+    },
+  });
+};
