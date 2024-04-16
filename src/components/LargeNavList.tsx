@@ -1,20 +1,31 @@
-import Link from 'next/link';
+'use client';
+
 import { type FC } from 'react';
 
 const LargeNavList: FC<{
   navList: { text: string; href: string }[];
 }> = ({ navList }) => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
+
   return (
-    <ul className="text-white font-bold text-base flex flex-row items-center gap-7 tracking-widest">
+    <ul className="flex flex-row items-center gap-7 text-base font-bold tracking-widest text-white">
       {navList.map(item => {
         return (
-          <Link
+          <button
             key={`${item.text}-nav-bar`}
-            href={item.href}
-            className="hover:text-text-primary-red transition-all cursor-pointer"
+            onClick={() => scrollToSection(item.href)}
+            className="cursor-pointer transition-all hover:text-text-primary-red"
           >
             {item.text.toUpperCase()}
-          </Link>
+          </button>
         );
       })}
     </ul>

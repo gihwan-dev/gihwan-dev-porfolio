@@ -17,11 +17,13 @@ const BioImage: FC<{
       {...fadeInFromLeft}
     >
       <Image
+        priority={true}
+        sizes={'374'}
         style={{
           borderRadius: '0.625rem',
+          objectFit: 'cover',
         }}
         fill
-        objectFit="cover"
         src={bio_img}
         alt="my image"
       />
