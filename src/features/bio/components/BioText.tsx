@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { type FC } from 'react';
-import { fadeInFromTop } from '~/utils/framer-motion';
+import { fadeInFromTop } from '~/utils/framer-motion.utils';
 
 const BioText: FC<{
   title: string;

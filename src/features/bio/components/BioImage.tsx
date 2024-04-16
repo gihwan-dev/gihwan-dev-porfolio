@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { fadeInFromLeft } from '~/utils/framer-motion';
+import { fadeInFromLeft } from '~/utils/framer-motion.utils';
 import { type FC } from 'react';
 
 const BioImage: FC<{
@@ -17,11 +17,13 @@ const BioImage: FC<{
       {...fadeInFromLeft}
     >
       <Image
+        priority={true}
+        sizes={'374'}
         style={{
           borderRadius: '0.625rem',
+          objectFit: 'cover',
         }}
         fill
-        objectFit="cover"
         src={bio_img}
         alt="my image"
       />

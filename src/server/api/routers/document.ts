@@ -1,45 +1,76 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
+  addTagToDocument,
   countAll,
   createContent,
+  deleteOneDocument,
   getAllDocument,
+  getAllDocumentByPage,
+  getDocumentTags,
   getDocumentType,
-} from '~/server/utils/document';
+  getOneDocument,
+  getTypedDocument,
+  saveProjectInfo,
+  updateContent,
+} from '~/server/query/document';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
-import { db } from '~/server/db';
 
 export const documentRouter = createTRPCRouter({
-  getAllType: publicProcedure.query(async () => {
-    return await getDocumentType();
+  getAllDocument: publicProcedure.query(async () => {
+    return getAllDocument();
   }),
 
-  getAllDocument: publicProcedure
+  getAllType: publicProcedure.query(async () => {
+    return getDocumentType();
+  }),
+
+  getAllDocumentByPage: publicProcedure
     .input(
       z.object({
         page: z.number(),
       }),
     )
     .query(async ({ input }) => {
-      return await getAllDocument(input.page);
+      return getAllDocumentByPage(input.page);
+    }),
+
+  getTypedDocument: publicProcedure
+    .input(
+      z.object({
+        page: z.number(),
+        type: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getTypedDocument(input.page, input.type);
     }),
 
   countAll: publicProcedure.query(async () => {
-    return await countAll();
+    return countAll();
   }),
 
   saveContent: protectedProcedure
     .input(
       z.object({
         model: z.string(),
-        type: z.string(),
+        type: z.string().nullable(),
+        documentId: z.number().nullable(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { model, type } = input;
-      const result = await createContent(model, type);
-      return result;
+      const { model, type, documentId } = input;
+
+      if (documentId) {
+        return await updateContent({ model, documentId });
+      }
+
+      if (!type) {
+        return null;
+      }
+
+      return await createContent(model, type);
     }),
 
   addTag: protectedProcedure
@@ -50,18 +81,7 @@ export const documentRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      return await db.documents.update({
-        where: {
-          document_id: input.documentId,
-        },
-        data: {
-          project_tags: {
-            connect: {
-              document_tag_id: input.tagId,
-            },
-          },
-        },
-      });
+      return await addTagToDocument(input);
     }),
 
   getCurrentTags: publicProcedure
@@ -71,14 +91,7 @@ export const documentRouter = createTRPCRouter({
       }),
     )
     .query(async ({ input }) => {
-      return await db.documents.findUnique({
-        where: {
-          document_id: input.documentId,
-        },
-        select: {
-          project_tags: true,
-        },
-      });
+      return getDocumentTags(input.documentId);
     }),
 
   saveInfo: protectedProcedure
@@ -90,14 +103,29 @@ export const documentRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      return db.documents.update({
-        where: {
-          document_id: input.documentId,
-        },
-        data: {
-          title: input.title,
-          description: input.description,
-        },
-      });
+      return saveProjectInfo(input);
+    }),
+
+  getOneDocument: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number().nullable(),
+      }),
+    )
+    .query(async ({ input }) => {
+      if (!input.documentId) {
+        return null;
+      }
+      return getOneDocument(input.documentId);
+    }),
+
+  deleteOneDocument: protectedProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      return deleteOneDocument(input.documentId);
     }),
 });

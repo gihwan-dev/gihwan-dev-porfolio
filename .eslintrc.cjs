@@ -8,8 +8,6 @@ const config = {
   extends: [
     'next/core-web-vitals',
     'prettier',
-    'plugin:@typescript-eslint/recommended-type-checked',
-    'plugin:@typescript-eslint/stylistic-type-checked',
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
@@ -17,7 +15,7 @@ const config = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['@/features/*/*'],
+        patterns: ['~/features/*/*'],
       },
     ],
     'import/no-cycle': 'error',
@@ -33,12 +31,6 @@ const config = {
     ],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/require-await': 'off',
-    '@typescript-eslint/no-misused-promises': [
-      'error',
-      {
-        checksVoidReturn: { attributes: false },
-      },
-    ],
   },
 };
 

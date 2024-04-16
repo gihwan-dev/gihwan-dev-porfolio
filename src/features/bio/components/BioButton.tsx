@@ -6,10 +6,11 @@ const BioButton: FC<{
 }> = ({ resume_link }) => {
   return (
     <Link
-      className="px-12 py-4 bg-text-primary-red text-white rounded-sm font-bold hover:opacity-70 transition-all"
+      className="rounded-sm bg-text-primary-red px-12 py-4 font-bold text-white transition-all hover:opacity-70"
       href={resume_link}
+      target="_blank"
     >
-      자세히
+      자세히 보기
     </Link>
   );
 };
