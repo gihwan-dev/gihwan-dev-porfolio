@@ -1,12 +1,22 @@
 import { isImageSrcTruthy } from '~/lib/truthy';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+import ProjectCarouselShowTechTagButton from './ProjectCarouselShowTechTagButton';
+import { type Document_Tags } from '@prisma/client';
+import ProjectCarouselTechTagList from './ProjectCarouselTechTagList';
 
 interface Props {
   thumbnail: string;
+  tags: Document_Tags[];
 }
 
-const ProjectCarouselThumbnail: React.FC<Props> = ({ thumbnail }) => {
+const ProjectCarouselThumbnail: React.FC<Props> = ({ thumbnail, tags }) => {
+  const [open, setOpen] = useState(false);
+
+  const onClick = () => {
+    setOpen(prev => !prev);
+  };
+
   return (
     <div
       className={
@@ -22,6 +32,8 @@ const ProjectCarouselThumbnail: React.FC<Props> = ({ thumbnail }) => {
           fill
         />
       ) : null}
+      {open && <ProjectCarouselTechTagList onClick={onClick} tags={tags} />}
+      <ProjectCarouselShowTechTagButton onClick={onClick} />
     </div>
   );
 };

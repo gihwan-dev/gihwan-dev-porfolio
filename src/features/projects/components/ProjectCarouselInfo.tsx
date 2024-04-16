@@ -1,4 +1,5 @@
 import React from 'react';
+import ProjectCarouselBottomHighlight from '~/features/projects/components/ProjectCarouselBottomHighlight';
 
 interface Props {
   title: string;
@@ -12,11 +13,7 @@ const ProjectCarouselInfo: React.FC<Props> = ({ title, description }) => {
       <p className={'text-md flex-1 text-center text-gray-300'}>
         {description}
       </p>
-      <hr
-        className={
-          'w-20 rounded-full border-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100'
-        }
-      />
+      <ProjectCarouselBottomHighlight />
     </div>
   );
 };

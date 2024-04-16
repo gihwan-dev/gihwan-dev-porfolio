@@ -1,7 +1,14 @@
 import { db } from '../db';
 
 export const getAllDocument = async () => {
-  return db.documents.findMany();
+  return db.documents.findMany({
+    include: {
+      project_tags: true,
+    },
+    orderBy: {
+      reg_date: 'desc',
+    },
+  });
 };
 
 export const getDocumentType = async () => {
