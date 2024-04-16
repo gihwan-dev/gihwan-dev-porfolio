@@ -60,7 +60,7 @@ const SmallNavList: React.FC<{
             ></div>
             <motion.ul
               {...navAnimation}
-              className="absolute right-0 top-0 z-20 flex h-screen flex-col gap-8 bg-main-foreground px-10 py-6 font-bold text-white"
+              className="fixed right-0 top-0 z-20 flex h-screen flex-col gap-8 bg-main-foreground px-10 py-6 font-bold text-white"
             >
               {navList.map(item => {
                 return (

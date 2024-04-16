@@ -27,7 +27,7 @@ const ProjectCarouselItem: React.FC<Props> = ({ document, isLatest }) => {
     <CarouselItem
       onClick={onClick}
       className={
-        'group relative z-0 flex cursor-pointer flex-col gap-4 pl-4 lg:basis-1/2 xl:basis-1/3'
+        'group relative z-0 flex cursor-pointer flex-col items-center gap-4 pl-4 lg:basis-1/2 xl:basis-1/3'
       }
     >
       {isLatest === true ? <ProjectCarouselLatestTag /> : null}

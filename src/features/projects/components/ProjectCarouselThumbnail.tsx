@@ -20,7 +20,7 @@ const ProjectCarouselThumbnail: React.FC<Props> = ({ thumbnail, tags }) => {
   return (
     <div
       className={
-        'relative aspect-square w-full overflow-hidden rounded-md bg-white opacity-70 transition-all duration-500 group-hover:opacity-100'
+        'relative aspect-square w-11/12 overflow-hidden rounded-md bg-white opacity-70 transition-all duration-500 group-hover:opacity-100'
       }
     >
       {isImageSrcTruthy(thumbnail) ? (
