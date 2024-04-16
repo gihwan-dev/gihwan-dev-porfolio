@@ -1,4 +1,8 @@
-import { createOneTag, getAllTag } from '~/server/query/tag';
+import {
+  createOneTag,
+  getAllTag,
+  getAllTagsWithCount,
+} from '~/server/query/tag';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
 import { db } from '~/server/db';
@@ -6,6 +10,10 @@ import { db } from '~/server/db';
 export const tagRouter = createTRPCRouter({
   getAll: publicProcedure.query(async () => {
     return getAllTag();
+  }),
+
+  getAllTagsWithCount: publicProcedure.query(async () => {
+    return getAllTagsWithCount();
   }),
 
   createOne: protectedProcedure
