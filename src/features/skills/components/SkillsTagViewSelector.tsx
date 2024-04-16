@@ -9,7 +9,7 @@ const SkillsTagViewSelector = async () => {
   return (
     <div
       className={
-        'flex w-full flex-col items-center rounded-lg bg-main-foreground py-8'
+        'flex w-full flex-col items-center rounded-lg bg-main-foreground pb-8 pt-12'
       }
     >
       <Tabs
