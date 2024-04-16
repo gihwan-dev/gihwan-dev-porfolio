@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import MainLogo from '~/assets/svgs/MainLogo';
 import LargeNavList from './LargeNavList';
 import SmallNavList from './SmallNavList';
@@ -9,7 +9,6 @@ export const NAV_LIST = [
   { text: 'about me', href: '#about' },
   { text: 'projects', href: '#projects' },
   { text: 'skills', href: '#skills' },
-  { text: 'blogs', href: '#blogs' },
   { text: 'contact', href: '#contact' },
 ];
 
@@ -34,7 +33,7 @@ const MainNav = () => {
 
   return (
     <nav className="w-full bg-main-foreground">
-      <div className="padding-nav main-container flex flex-row py-10 justify-between">
+      <div className="padding-nav main-container flex flex-row justify-between py-10">
         <div>
           <MainLogo />
         </div>

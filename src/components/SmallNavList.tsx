@@ -1,11 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import MenuIcon from '~/assets/svgs/MenuIcon';
 
-import { type MotionProps, motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion, type MotionProps } from 'framer-motion';
 
 const navAnimation: MotionProps = {
   initial: {
@@ -26,8 +24,7 @@ const SmallNavList: React.FC<{
   navList: { text: string; href: string }[];
 }> = ({ navList }) => {
   const [open, setOpen] = useState(false);
-
-  const pathName = usePathname();
+  const [selectedId, setSelectedId] = useState('');
 
   const openButtonHandler = () => {
     setOpen(true);
@@ -36,6 +33,19 @@ const SmallNavList: React.FC<{
   const onCloseHandler = () => {
     setOpen(false);
   };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      setOpen(false);
+      setSelectedId(id);
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
+
   return (
     <>
       <button onClick={openButtonHandler}>
@@ -46,21 +56,21 @@ const SmallNavList: React.FC<{
           <>
             <div
               onClick={onCloseHandler}
-              className="w-screen h-screen absolute top-0 left-0 z-10"
+              className="absolute left-0 top-0 z-10 h-screen w-screen"
             ></div>
             <motion.ul
               {...navAnimation}
-              className="absolute h-screen top-0 right-0 bg-main-foreground z-20 flex flex-col px-10 py-6 gap-8 text-white font-bold"
+              className="absolute right-0 top-0 z-20 flex h-screen flex-col gap-8 bg-main-foreground px-10 py-6 font-bold text-white"
             >
               {navList.map(item => {
                 return (
-                  <Link
-                    className={`${pathName.startsWith(item.href) ? 'text-text-primary-red' : 'text'}`}
+                  <button
+                    className={`${selectedId === item.href ? 'text-text-primary-red' : 'text'}`}
+                    onClick={() => scrollToSection(item.href)}
                     key={`${item.text}-small-nav-bar`}
-                    href={item.href}
                   >
                     {item.text.toUpperCase()}
-                  </Link>
+                  </button>
                 );
               })}
             </motion.ul>
