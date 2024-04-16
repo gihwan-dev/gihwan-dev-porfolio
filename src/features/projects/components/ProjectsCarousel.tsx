@@ -6,10 +6,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '~/components/ui/carousel';
-import { api } from '~/trpc/react';
 import ProjectEmptyContent from './ProjectEmptyContent';
 import { isArrayTruthy } from '~/lib/truthy';
 import ProjectCarouselItem from './ProjectCarouselItem';
+import { api } from '~/trpc/react';
 
 const ProjectsCarousel = () => {
   const { data, isLoading, isError } = api.document.getAllDocument.useQuery();
@@ -36,8 +36,8 @@ const ProjectsCarousel = () => {
   }
 
   return (
-    <Carousel className={'w-10/12'}>
-      <CarouselContent className={'-ml-1'}>{...content}</CarouselContent>
+    <Carousel className={'w-10/12 max-w-6xl'}>
+      <CarouselContent className={'-ml-4'}>{...content}</CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
