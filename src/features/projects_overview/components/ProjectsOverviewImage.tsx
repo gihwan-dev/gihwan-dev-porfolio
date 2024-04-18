@@ -7,7 +7,11 @@ interface Props {
 
 const ProjectsOverviewImage: React.FC<Props> = ({ src }) => {
   return (
-    <div className={'aspect-square w-52 bg-gray-300'}>
+    <div
+      className={
+        'flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-gray-300'
+      }
+    >
       {isImageSrcTruthy(src) ? (
         <Image
           src={src}
@@ -15,7 +19,9 @@ const ProjectsOverviewImage: React.FC<Props> = ({ src }) => {
           className="object-cover"
           alt={'Project overview image'}
         />
-      ) : null}
+      ) : (
+        <p className={'text-gray-500'}>No thumbnail</p>
+      )}
     </div>
   );
 };

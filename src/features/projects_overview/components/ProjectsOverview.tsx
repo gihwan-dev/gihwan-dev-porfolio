@@ -10,8 +10,8 @@ const ProjectsOverview = async () => {
     <div className={'w-full'}>
       <Section id={'projects_overview'} className={'flex flex-col gap-8'}>
         <ProjectsOverviewTitle />
-        <Container className={'bg-main-foreground p-8'}>
-          <ul>
+        <Container className={'rounded-lg bg-main-foreground p-12'}>
+          <ul className={'grid grid-cols-1 gap-4 xl:grid-cols-2'}>
             {documents.map(document => (
               <ProjectsOverviewItem
                 document={document}
