@@ -4,11 +4,14 @@ const Section: FC<{
   children: ReactNode;
   id: string;
   foreground?: boolean;
-}> = ({ children, id, foreground = false }) => {
+  className?: string;
+}> = ({ children, id, foreground = false, className }) => {
   return (
     <section
       id={id}
-      className={`main-section ${foreground ? 'bg-main-foreground' : ''}`}
+      className={
+        `main-section ${foreground ? 'bg-main-foreground' : ''} ` + className
+      }
     >
       {children}
     </section>
