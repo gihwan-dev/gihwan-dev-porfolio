@@ -1,7 +1,11 @@
-export default function ProjectDetailPage() {
+import { PreviewRoot } from '~/features/admin_preview';
+import { type ParamsProps } from '~/app/types/params.type';
+
+export default function ProjectDetailPage({ params }: ParamsProps) {
+  const { id } = params;
   return (
     <div>
-      <h1>Project Detail Page.</h1>
+      <PreviewRoot documentId={id} />
     </div>
   );
 }

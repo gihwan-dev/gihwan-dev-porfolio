@@ -5,7 +5,7 @@ type Props = {
 };
 
 const PreviewDescription: React.FC<Props> = async ({ description }) => {
-  return <div className="px-20 py-8 text-center text-white">{description}</div>;
+  return <div className="text-center text-lg text-gray-400">{description}</div>;
 };
 
 export default PreviewDescription;

@@ -21,7 +21,7 @@ const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
   });
 
   return (
-    <div className="relative h-full w-full flex-col items-center overflow-auto bg-main-background py-12">
+    <div className="relative h-full w-full flex-col items-center overflow-auto bg-main-background pb-24">
       <PreviewTitle title={response?.title ?? ''} />
       <PreviewDescription description={response?.description ?? ''} />
       <PreviewThumbnail thumbnail={response?.thumbnail ?? ''} />
