@@ -2,65 +2,61 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider      = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgres"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url     = env("LOCAL_DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Bio {
-    bio_id          Int     @id @default(autoincrement())
-    bio_img         String
-    title           String
-    description     String
-    resume_link     String
-    email           String
+  bio_id      Int    @id @default(autoincrement())
+  bio_img     String
+  title       String
+  description String
+  resume_link String
+  email       String
 }
 
 model Documents {
-    document_id         Int @id @default(autoincrement())
-    thumbnail           String
-    title               String
-    description         String
-    content             String
-    document_type_id    Int
-    document_type       Document_Type @relation(fields: [document_type_id], references: [document_type_id])
-    project_tags        Document_Tags[]
-    reg_date            DateTime @default(now())
+  document_id      Int             @id @default(autoincrement())
+  thumbnail        String
+  title            String
+  description      String
+  content          String
+  document_type_id Int
+  document_type    Document_Type   @relation(fields: [document_type_id], references: [document_type_id])
+  project_tags     Document_Tags[]
+  reg_date         DateTime        @default(now())
 }
 
 model Document_Type {
-    document_type_id        Int @id @default(autoincrement())
-    document_type_name      String  @unique
-    documents               Documents[]
-    document_tags           Document_Tags[]
+  document_type_id   Int             @id @default(autoincrement())
+  document_type_name String          @unique
+  documents          Documents[]
+  document_tags      Document_Tags[]
 }
 
-
 model Document_Tags {
-    document_tag_id     Int @id @default(autoincrement())
-    name                String @unique
-    text_color          String
-    background_color    String
-    document_type_id    Int
-    document_type       Document_Type @relation(fields: [document_type_id], references: [document_type_id])
-    Documents           Documents[]
-    category            Document_Tags_Category[]
+  document_tag_id  Int                      @id @default(autoincrement())
+  name             String                   @unique
+  text_color       String
+  background_color String
+  document_type_id Int
+  document_type    Document_Type            @relation(fields: [document_type_id], references: [document_type_id])
+  Documents        Documents[]
+  category         Document_Tags_Category[]
 }
 
 model Document_Tags_Category {
-    dt_category_id           Int @id @default(autoincrement())
-    name                     String @unique
-    Project_tags             Document_Tags[]
+  dt_category_id Int             @id @default(autoincrement())
+  name           String          @unique
+  Project_tags   Document_Tags[]
 }
 
 model User {
-    email       String @id
-    password    String
+  email    String @id
+  password String
 }
