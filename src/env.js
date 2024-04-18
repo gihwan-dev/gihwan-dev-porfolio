@@ -7,13 +7,6 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z
-      .string()
-      .url()
-      .refine(str => {
-        console.log('DATABASE_URL : ', str);
-        return true;
-      }, 'database url error'),
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
