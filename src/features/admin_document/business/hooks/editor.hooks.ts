@@ -62,7 +62,7 @@ export const useEditorHook = () => {
         },
       );
     }
-  }, [mutate, router, type, model, documentId]);
+  }, [mutate, router, type, model, documentId, initializeState]);
 
   const onPasteCapture: React.ClipboardEventHandler<HTMLDivElement> =
     useCallback(

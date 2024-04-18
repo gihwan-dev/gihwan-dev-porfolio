@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectCarouselBottomHighlight from '~/features/projects/components/ProjectCarouselBottomHighlight';
+import ProjectCarouselBottomHighlight from './ProjectCarouselBottomHighlight';
 
 interface Props {
   title: string;

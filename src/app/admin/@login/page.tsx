@@ -1,5 +1,7 @@
 import { LoginForm } from '~/features/admin';
 
+export const dynamic = 'force-dynamic';
+
 const AdminLoginPage = () => {
   return (
     <main className="flex h-full w-screen flex-col justify-center">

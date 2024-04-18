@@ -13,7 +13,7 @@ const SkillsTagList: React.FC<SkillsContentProps> = ({ tags }) => {
           'flex w-full flex-row flex-wrap items-center justify-center gap-4'
         }
       >
-        {tags.map((tag, i) => (
+        {tags.map(tag => (
           <div
             className={'flex flex-col items-center gap-2'}
             key={tag.name + 'skills tag List'}

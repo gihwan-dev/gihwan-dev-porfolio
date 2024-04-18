@@ -1,8 +1,10 @@
-import { api } from '~/trpc/server';
 import { BioForm } from '~/features/admin_bio';
+import { findBio } from '~/server/query/bio';
+
+export const dynamic = 'force-dynamic';
 
 const AdminBioPage = async () => {
-  const data = await api.bio.getBio.query();
+  const data = await findBio();
 
   return (
     <div className="h-full w-full flex-col gap-12 overflow-auto py-12">
