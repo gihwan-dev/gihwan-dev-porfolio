@@ -8,7 +8,7 @@ type Props = {
 
 const PreviewThumbnail: React.FC<Props> = async ({ thumbnail }: Props) => {
   return thumbnail ? (
-    <div className="mx-auto aspect-video w-full max-w-7xl overflow-hidden rounded-md bg-gray-200">
+    <div className="mx-auto my-10 aspect-video w-full max-w-7xl overflow-hidden rounded-md bg-gray-200">
       <Image
         fill={true}
         objectFit="cover"
