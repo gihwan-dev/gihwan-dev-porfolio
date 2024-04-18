@@ -9,7 +9,7 @@ type Props = {
 
 const PreviewContent: React.FC<Props> = ({ content }) => {
   return (
-    <div className="mx-auto w-full max-w-5xl px-12 pt-8">
+    <div className="mx-auto w-full max-w-5xl px-12">
       <MDEditor.Markdown
         source={content}
         className={'rounded-md'}
