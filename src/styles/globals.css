@@ -163,10 +163,10 @@ html {
   list-style: inline;
   padding-top: 0;
   padding-bottom: 0;
-  margin-left: 0 !important;
+  margin-left: 16px !important;
   padding-left: 16px !important;
-  margin-bottom: 0 !important;
-  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+  margin-top: 4px !important;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -180,14 +180,23 @@ html {
   margin-bottom: 4px !important;
 }
 
-.wmde-markdown h1,
-.wmde-markdown h2,
-.wmde-markdown h3,
+.wmde-markdown h1 {
+  margin-top: 32px !important;
+  margin-bottom: 16px !important;
+}
+.wmde-markdown h2 {
+  margin-top: 24px !important;
+  margin-bottom: 16px !important;
+}
+.wmde-markdown h3 {
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+}
 .wmde-markdown h4,
 .wmde-markdown h5,
 .wmde-markdown h6 {
-  margin-top: 0 !important;
-  margin-bottom: 16px !important;
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
 }
 
 .wmde-markdown > hr {
