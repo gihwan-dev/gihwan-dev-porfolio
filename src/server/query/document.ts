@@ -81,7 +81,7 @@ interface AddTagParams {
 }
 
 export const addTagToDocument = async ({ documentId, tagId }: AddTagParams) => {
-  db.documents.update({
+  return db.documents.update({
     where: {
       document_id: documentId,
     },
