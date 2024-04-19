@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export const sendImageAndGetLink = async (file: File) => {
   const formData = appendImageToFormData(file);
   const response = await fetch(`/api/image`, {
@@ -33,14 +35,33 @@ const appendImageToFormData = (file: File) => {
 export const createImageTag = (link: string) =>
   `<img src="${link}" alt="markdown image" />`;
 
-export const createNewModel = (model: string, value: string) => {
+export const createNewModel = (
+  model: string,
+  value: string,
+  ref: React.MutableRefObject<HTMLTextAreaElement>,
+) => {
+  const startPos = ref.current.selectionStart;
+  const endPos = ref.current.selectionEnd;
+  const firstModel = model.substring(0, startPos);
+  const lastModel = model.substring(endPos);
+  let newValue = value;
   if (value.includes('img')) {
-    return (
-      model +
-      `
-      ${value}
-      `
-    );
+    newValue = `\n${value}\n`;
   }
-  return model + value;
+  setCursor(ref, startPos, newValue.length);
+  return getInsertedText(firstModel, newValue, lastModel);
+};
+
+const setCursor = (
+  ref: React.MutableRefObject<HTMLTextAreaElement>,
+  start: number,
+  valueLength: number,
+) => {
+  setTimeout(() => {
+    ref.current.selectionEnd = start + valueLength;
+  }, 0);
+};
+
+const getInsertedText = (first: string, middle: string, last: string) => {
+  return first + middle + last;
 };

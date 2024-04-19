@@ -29,8 +29,8 @@ export const useEditorHook = () => {
   }, [router]);
 
   const onModelChange = useCallback(
-    (e: string | undefined = '') => {
-      change(e);
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      change(e.target.value);
     },
     [change],
   );
@@ -64,43 +64,58 @@ export const useEditorHook = () => {
     }
   }, [mutate, router, type, model, documentId, initializeState]);
 
-  const onPasteCapture: React.ClipboardEventHandler<HTMLDivElement> =
-    useCallback(
-      async e => {
-        try {
-          e.preventDefault();
-          const clipboardData = e.clipboardData;
-          const items = clipboardData.items;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          const image = getImageOrNull(items);
+  const onPasteCapture = useCallback(
+    async (
+      e: React.ClipboardEvent<HTMLTextAreaElement>,
+      ref: React.MutableRefObject<HTMLTextAreaElement | null>,
+    ) => {
+      try {
+        e.preventDefault();
 
-          if (image !== null) {
-            toast({
-              title: 'Uploading image...',
-            });
-            const resultString = await sendImageAndGetLink(image);
-            const imageTag = createImageTag(resultString);
-            const newModel = createNewModel(model, imageTag);
-            change(newModel);
-            toast({
-              title: 'Upload image successfully!',
-            });
-            return;
-          }
-          const text = clipboardData.getData('text/plain');
-          if (text) {
-            const newModel = createNewModel(model, text);
-            change(newModel);
-          }
+        if (ref.current === null) return;
+
+        const clipboardData = e.clipboardData;
+        if (!clipboardData) return;
+        const items = clipboardData.items;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        const image = getImageOrNull(items);
+
+        if (image !== null) {
+          toast({
+            title: 'Uploading image...',
+          });
+          const resultString = await sendImageAndGetLink(image);
+          const imageTag = createImageTag(resultString);
+          const newModel = createNewModel(
+            model,
+            imageTag,
+            ref as React.MutableRefObject<HTMLTextAreaElement>,
+          );
+          change(newModel);
+          toast({
+            title: 'Upload image successfully!',
+          });
           return;
-        } catch (e) {
-          const newErrorModel = createNewModel(model, '에러가 발생했습니다.');
-          change(newErrorModel);
-          console.error(e);
         }
-      },
-      [change, model],
-    );
+        const text = clipboardData.getData('text/plain');
+        if (text) {
+          const newModel = createNewModel(
+            model,
+            text,
+            ref as React.MutableRefObject<HTMLTextAreaElement>,
+          );
+          change(newModel);
+        }
+        return;
+      } catch (e) {
+        toast({
+          title: '에러가 발생했습니다. 다시 시도해 주세요.',
+        });
+        console.error(e);
+      }
+    },
+    [change, model],
+  );
 
   useEffect(() => {
     if (documentId && model === '') {
