@@ -190,10 +190,12 @@ html {
   margin-bottom: 16px !important;
 }
 
-.wmde-markdown hr {
+.wmde-markdown > hr {
   width: 10px !important;
   height: 10px !important;
-  border-radius: 10px !important;
+  flex-shrink: 0;
+  border-radius: 100%;
+  border: none;
   align-self: center !important;
   overflow: visible !important;
   position: relative !important;
