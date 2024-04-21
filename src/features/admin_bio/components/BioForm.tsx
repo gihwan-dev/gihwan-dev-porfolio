@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { type z } from 'zod';
+import { z } from 'zod';
 import { Button } from '~/components/ui/button';
 import {
   Form,
@@ -15,7 +15,16 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { api } from '~/trpc/react';
-import { bioFormSchema, type UpdateBioType } from '~/features/bio';
+
+const bioFormSchema = z.object({
+  bio_img: z.string(),
+  title: z.string(),
+  description: z.string(),
+  resume_link: z.string(),
+  email: z.string().email(),
+});
+
+type UpdateBioType = z.infer<typeof bioFormSchema>;
 
 const BioForm: React.FC<{
   data: z.infer<typeof bioFormSchema> | null;

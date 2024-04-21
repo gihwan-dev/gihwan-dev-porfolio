@@ -1,4 +1,3 @@
-import { type UpdateBioType } from '~/features/bio';
 import { db } from '../db';
 import { hashPassword } from './hash';
 
@@ -24,7 +23,15 @@ export const initUser = async () => {
   });
 };
 
-export const updateBio = async (input: UpdateBioType) => {
+interface UpdateBioParams {
+  bio_img: string;
+  title: string;
+  description: string;
+  resume_link: string;
+  email: string;
+}
+
+export const updateBio = async (input: UpdateBioParams) => {
   const prev = await db.bio.findFirst();
   if (!prev) {
     return db.bio.create({

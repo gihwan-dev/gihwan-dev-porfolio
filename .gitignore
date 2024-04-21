@@ -40,7 +40,8 @@ yarn-error.log*
 .vercel
 
 # typescript
-.idea
+.idea/*
 *.tsbuildinfo
 /.idea/git_toolbox_prj.xml
 /.idea/material_theme_project_new.xml
+/prisma

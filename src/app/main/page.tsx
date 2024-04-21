@@ -3,6 +3,8 @@ import { ProjectsRoot } from '~/features/projects';
 import { SkillsRoot } from '~/features/skills';
 import { SnsRoot } from '~/features/sns';
 
+export const dynamic = 'force-dynamic';
+
 const MainPage = () => {
   return (
     <main>
