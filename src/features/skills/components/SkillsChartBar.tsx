@@ -37,11 +37,11 @@ export const SkillsChartBar: React.FC<Props> = ({ tag, eachHeight }) => {
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
       className={
-        'group flex list-none flex-col items-center gap-3 opacity-60 transition-all hover:opacity-100'
+        'group flex shrink-0 list-none flex-col items-center gap-3 opacity-60 transition-all hover:opacity-100'
       }
     >
       <div
-        className={`${visible ? 'opacity-100' : 'opacity-0'} h-4 font-bold text-white transition-all duration-500`}
+        className={`${visible ? 'opacity-100' : 'opacity-0'} h-4 text-xs font-bold text-white transition-all duration-500 sm:text-sm`}
       >
         {tag._count.Documents}회 사용
       </div>

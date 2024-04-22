@@ -9,7 +9,7 @@ const SkillsTagViewSelector = async () => {
   return (
     <div
       className={
-        'flex w-full flex-col items-center rounded-lg bg-main-foreground pb-8 pt-12'
+        'flex w-full flex-col items-center rounded-lg bg-main-foreground px-3 pb-8 pt-12'
       }
     >
       <Tabs
@@ -24,10 +24,10 @@ const SkillsTagViewSelector = async () => {
             Graph
           </TabsTrigger>
         </TabsList>
-        <TabsContent className={'w-full'} value="List">
+        <TabsContent className={'w-full overflow-hidden'} value="List">
           <SkillsTagList tags={data} />
         </TabsContent>
-        <TabsContent value="Graph">
+        <TabsContent className={'w-full overflow-hidden'} value="Graph">
           <SkillsTagGraph tags={data} />
         </TabsContent>
       </Tabs>

@@ -6,10 +6,10 @@ const NavBackToProjectsButton = () => {
       style={{
         letterSpacing: '0.2rem',
       }}
-      className={'font-bold text-text-primary-red'}
+      className={'text-xs font-bold text-text-primary-red lg:text-sm'}
       href={'/main/projects'}
     >
-      BACK TO PROJECTS {'>'}
+      BACK TO PROJECTS
     </Link>
   );
 };
