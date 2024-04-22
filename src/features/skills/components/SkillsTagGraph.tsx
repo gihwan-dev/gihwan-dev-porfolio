@@ -1,5 +1,5 @@
 import { type SkillsContentProps } from '../types';
-import SkillsChartBar from '~/features/skills/components/SkillsChartBar';
+import SkillsChartBar from './SkillsChartBar';
 
 const SkillsTagGraph: React.FC<SkillsContentProps> = ({ tags }) => {
   const maxHeight = 350;
