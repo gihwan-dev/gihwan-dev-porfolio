@@ -10,7 +10,7 @@ const SkillsTagList: React.FC<SkillsContentProps> = ({ tags }) => {
           height: 350,
         }}
         className={
-          'flex w-full flex-row flex-wrap items-center justify-center gap-4'
+          'box-border flex w-full flex-row flex-wrap items-center justify-center gap-4'
         }
       >
         {tags.map(tag => (

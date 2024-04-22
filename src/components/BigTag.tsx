@@ -7,7 +7,7 @@ const BitTag: React.FC<{
 }> = ({ name, backgroundColor, textColor }) => {
   return (
     <mark
-      className="rounded-sm px-4 py-2 text-xl"
+      className="rounded-sm px-2 py-1 text-lg md:px-4 md:py-2 md:text-xl"
       style={{
         backgroundColor,
         color: textColor,

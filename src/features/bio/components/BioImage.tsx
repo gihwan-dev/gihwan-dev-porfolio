@@ -19,11 +19,8 @@ const BioImage: FC<{
       <Image
         priority={true}
         sizes={'374'}
-        style={{
-          borderRadius: '0.625rem',
-          objectFit: 'cover',
-        }}
         fill
+        className={'object-cover sm:rounded-lg'}
         src={bio_img}
         alt="my image"
       />

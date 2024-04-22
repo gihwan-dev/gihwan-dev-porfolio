@@ -6,7 +6,7 @@ type Props = {
 
 const PreviewDate: React.FC<Props> = async ({ date }) => {
   return (
-    <div className="mx-auto w-full max-w-4xl text-sm text-white">
+    <div className="mx-auto w-full max-w-4xl px-4 text-sm text-gray-300 lg:px-0">
       Published At: <strong>{date.toDateString()}</strong>
     </div>
   );

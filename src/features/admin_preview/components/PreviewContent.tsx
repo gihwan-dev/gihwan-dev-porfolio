@@ -9,10 +9,10 @@ type Props = {
 
 const PreviewContent: React.FC<Props> = ({ content }) => {
   return (
-    <div className="mx-auto w-full max-w-5xl px-12">
+    <div className="mx-auto w-full max-w-5xl xl:px-12">
       <MDEditor.Markdown
         source={content}
-        className={'rounded-md'}
+        className={'xl:rounded-md'}
         style={{
           color: 'white',
           padding: '2rem',
