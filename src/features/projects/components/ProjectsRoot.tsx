@@ -4,7 +4,12 @@ import Container from '~/components/Container';
 import Section from '~/components/Section';
 import SectionTitle from '~/components/SectionTitle';
 import ProjectsCarousel from './ProjectsCarousel';
-import { Carousel, CarouselContent } from '~/components/ui/carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselNext,
+  CarouselPrevious,
+} from '~/components/ui/carousel';
 import { type ProjectRootProps } from '../types';
 
 const ProjectsRoot: React.FC<ProjectRootProps> = ({ documents }) => {
@@ -13,16 +18,16 @@ const ProjectsRoot: React.FC<ProjectRootProps> = ({ documents }) => {
       <Container className="flex flex-col items-center gap-16">
         <SectionTitle title={'Projects'} />
         <Carousel className={'w-10/12 max-w-6xl'}>
-          {documents.map((document, index) => (
-            <ProjectsCarousel
-              document={document}
-              key={`${document.document_id}-Project-Carousel`}
-            >
-              <ProjectsCarousel.ShowMore />
-              <CarouselContent className={'-ml-4'}>
+          <ProjectsCarousel.ShowMore />
+          <CarouselContent className={'-ml-4'}>
+            {documents.map((document, index) => (
+              <ProjectsCarousel
+                document={document}
+                key={`${document.document_id}-Project-Carousel`}
+              >
                 <ProjectsCarousel.Item>
+                  {index === 0 && <ProjectsCarousel.Latest />}
                   <ProjectsCarousel.Thumbnail>
-                    {index === 0 && <ProjectsCarousel.Latest />}
                     <ProjectsCarousel.TechTagList />
                     <ProjectsCarousel.ShowTechTagButton />
                   </ProjectsCarousel.Thumbnail>
@@ -36,9 +41,11 @@ const ProjectsRoot: React.FC<ProjectRootProps> = ({ documents }) => {
                     <ProjectsCarousel.BottomHighlight />
                   </ProjectsCarousel.Info>
                 </ProjectsCarousel.Item>
-              </CarouselContent>
-            </ProjectsCarousel>
-          ))}
+              </ProjectsCarousel>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </Container>
     </Section>

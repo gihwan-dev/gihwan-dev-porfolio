@@ -57,7 +57,7 @@ const ProjectsCarousel: React.FC<ProviderProps> & State = ({
 
 function ProjectCarouselShowMore() {
   return (
-    <div className={'flex w-full flex-row justify-end px-4 py-2'}>
+    <div className={'flex w-full flex-row justify-end px-8 py-2 lg:px-4'}>
       <Link
         className={
           'font-bold text-white transition-all duration-300 hover:-translate-y-1'
