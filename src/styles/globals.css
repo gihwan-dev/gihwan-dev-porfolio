@@ -208,6 +208,7 @@ html {
   align-self: center !important;
   overflow: visible !important;
   position: relative !important;
+  background-color: white !important;
 }
 
 .wmde-markdown hr::before, .wmde-markdown hr::after {
