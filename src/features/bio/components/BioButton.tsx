@@ -10,7 +10,7 @@ const BioButton: FC<{
       href={resume_link}
       target="_blank"
     >
-      자세히 보기
+      이력서 보기
     </Link>
   );
 };
