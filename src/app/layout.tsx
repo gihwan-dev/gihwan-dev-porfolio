@@ -21,9 +21,22 @@ const blackHans = Black_Han_Sans({
 
 export const metadata = {
   title: '프론트엔드 개발자 최기환의 포트폴리오',
-  description:
-    '프론트엔드 개발자 최기환의 포트폴리오 사이트 입니다. T3 스택으로 개발 되었습니다.',
-  icons: [{ rel: 'icon', url: '/favicon.ico' }],
+  description: '프론트엔드 개발자 최기환의 포트폴리오 사이트 입니다.',
+  keywords: [
+    '프론트엔드',
+    '개발자',
+    '포트폴리오',
+    '개발자 포트폴리오',
+    '프론트엔드 개발자 포트폴리오',
+  ],
+  openGraph: {
+    title: '프론트엔드 개발자 최기환의 포트폴리오',
+    description: '프론트엔드 개발자 최기환의 포트폴리오 사이트 입니다.',
+  },
+  twitter: {
+    title: '프론트엔드 개발자 최기환의 포트폴리오',
+    description: '프론트엔드 개발자 최기환의 포트폴리오 사이트 입니다.',
+  },
 };
 
 export default function RootLayout({
