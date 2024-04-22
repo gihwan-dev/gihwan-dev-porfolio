@@ -12,7 +12,7 @@ const SkillsTagGraph: React.FC<SkillsContentProps> = ({ tags }) => {
       style={{
         height: maxHeight,
       }}
-      className={'flex w-full  flex-row items-end justify-center gap-8'}
+      className={'flex w-full flex-row items-end gap-4 overflow-x-auto px-4'}
     >
       {tags.map(tag => (
         <SkillsChartBar

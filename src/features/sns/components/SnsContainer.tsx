@@ -5,7 +5,7 @@ import VelogIcon from '~/assets/svgs/VelogIcon';
 
 export const SnsContainer = () => {
   return (
-    <div className={'flex flex-row gap-24'}>
+    <div className={'flex flex-row gap-12 sm:gap-24'}>
       <Link
         target={'_blank'}
         className={'transition-all hover:scale-110'}

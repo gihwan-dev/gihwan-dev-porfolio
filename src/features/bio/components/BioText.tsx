@@ -11,30 +11,13 @@ const BioText: FC<{
   return (
     <motion.div {...fadeInFromTop} className="flex flex-col gap-4">
       <h1
-        style={{
-          lineHeight: 'normal',
-          maxWidth: '29rem',
-          width: '100%',
-          textAlign: 'center',
-          fontSize: '3rem',
-          color: 'white',
-          wordBreak: 'keep-all',
-        }}
+        className={
+          'w-full max-w-[29rem] break-keep text-center text-4xl text-white sm:text-5xl'
+        }
       >
         {title}
       </h1>
-      <p
-        style={{
-          lineHeight: '1.975rem',
-          maxWidth: '29rem',
-          width: '100%',
-          textAlign: 'center',
-          fontSize: '1.125rem',
-          fontWeight: 400,
-          wordBreak: 'keep-all',
-        }}
-        className="text-text-gray"
-      >
+      <p className="w-full max-w-[29rem] break-keep text-center text-lg text-text-gray sm:text-xl">
         {description}
       </p>
     </motion.div>

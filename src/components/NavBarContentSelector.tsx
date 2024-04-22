@@ -1,10 +1,11 @@
+'use client';
+
 import LargeNavList from '~/components/LargeNavList';
 import SmallNavList from '~/components/SmallNavList';
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { debounce } from '~/utils/debounce';
 import { useParams, usePathname } from 'next/navigation';
 import NavBackToHomeButton from '~/components/NavBackToHomeButton';
 import NavBackToProjectsButton from '~/components/NavBackToProjectsButton';
+import { useWindowWidth } from '~/business/hooks/useWindowWidth';
 
 export const NAV_LIST = [
   { text: 'about me', href: '#about' },
@@ -14,30 +15,9 @@ export const NAV_LIST = [
 ];
 
 const NavBarContentSelector = () => {
-  const [width, setWidth] = useState(0);
+  const { width } = useWindowWidth();
   const pathname = usePathname();
   const params = useParams();
-
-  const widthChangeHandler = useCallback(() => {
-    setWidth(window.innerWidth);
-  }, []);
-
-  const debounceWidthChange = useCallback(
-    () => debounce(widthChangeHandler, 250),
-    [widthChangeHandler],
-  );
-
-  useEffect(() => {
-    window.addEventListener('resize', debounceWidthChange);
-
-    return () => {
-      window.removeEventListener('resize', debounceWidthChange);
-    };
-  }, [debounceWidthChange]);
-
-  useLayoutEffect(() => {
-    setWidth(window.innerWidth);
-  }, []);
 
   let content =
     width >= 1024 ? (

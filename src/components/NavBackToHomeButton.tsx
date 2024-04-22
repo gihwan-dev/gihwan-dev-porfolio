@@ -6,10 +6,10 @@ const NavBackToHomeButton = () => {
       style={{
         letterSpacing: '0.2rem',
       }}
-      className={'font-bold text-text-primary-red'}
+      className={'text-xs font-bold text-text-primary-red lg:text-sm'}
       href={'/main'}
     >
-      BACK TO HOME {'>'}
+      BACK TO HOME
     </Link>
   );
 };

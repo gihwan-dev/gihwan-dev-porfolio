@@ -7,7 +7,7 @@ const MainPageLayout: FC<{
   children: ReactNode;
 }> = ({ children }) => {
   return (
-    <div className="w-full h-full bg-main-background min-h-dvh overflow-x-hidden">
+    <div className="h-full min-h-dvh w-full overflow-x-hidden bg-main-background pt-[82px]">
       <MainNav />
       {children}
       <MainFooter />
