@@ -10,7 +10,7 @@ import PreviewTagList from './PreviewTagList';
 
 import { api } from '~/trpc/server';
 import PreviewBackButton from './PreviewBackButton';
-import PreviewStartEndDate from '~/features/admin_preview/components/PreviewStartEndDate';
+import PreviewStartEndDate from './PreviewStartEndDate';
 
 type Props = {
   documentId: string;
