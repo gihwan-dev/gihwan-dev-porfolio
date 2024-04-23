@@ -10,8 +10,7 @@ const CompleteEditRoot: React.FC<{
   });
 
   if (!document) {
-    // TODO: 공용 에러 페이지 만들어서 보이기. 스토리북 도입 고려 해보기.
-    return;
+    throw Error('페이지가 존재하지 않습니다.');
   }
 
   return (
@@ -22,6 +21,8 @@ const CompleteEditRoot: React.FC<{
         description={document.description}
         documentId={documentId}
         thumbnail={document.thumbnail}
+        startDate={document.start_date}
+        endDate={document.end_date}
       />
     </main>
   );

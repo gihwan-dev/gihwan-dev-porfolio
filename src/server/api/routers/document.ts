@@ -100,6 +100,8 @@ export const documentRouter = createTRPCRouter({
         title: z.string(),
         description: z.string(),
         documentId: z.number(),
+        startDate: z.string(),
+        endDate: z.string(),
       }),
     )
     .mutation(async ({ input }) => {

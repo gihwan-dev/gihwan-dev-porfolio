@@ -10,6 +10,7 @@ import PreviewTagList from './PreviewTagList';
 
 import { api } from '~/trpc/server';
 import PreviewBackButton from './PreviewBackButton';
+import PreviewStartEndDate from '~/features/admin_preview/components/PreviewStartEndDate';
 
 type Props = {
   documentId: string;
@@ -20,14 +21,22 @@ const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
     documentId: +documentId,
   });
 
+  if (!response) {
+    throw Error('존재하지 않는 페이지 입니다.');
+  }
+
   return (
     <div className="relative h-full w-full flex-col items-center overflow-auto bg-main-background pb-24">
-      <PreviewTitle title={response?.title ?? ''} />
-      <PreviewDescription description={response?.description ?? ''} />
-      <PreviewThumbnail thumbnail={response?.thumbnail ?? ''} />
-      <PreviewContent content={response?.content ?? ''} />
-      <PreviewTagList tagList={response?.project_tags ?? []} />
-      <PreviewDate date={response?.reg_date ?? new Date()} />
+      <PreviewTitle title={response.title} />
+      <PreviewDescription description={response.description} />
+      <PreviewThumbnail thumbnail={response.thumbnail} />
+      <PreviewStartEndDate
+        startDate={response.start_date.toString()}
+        endDate={response.end_date.toString()}
+      />
+      <PreviewContent content={response.content} />
+      <PreviewTagList tagList={response.project_tags} />
+      <PreviewDate date={response.reg_date} />
       <PreviewBackButton />
       <PreviewButtonContainer documentId={documentId} />
     </div>
