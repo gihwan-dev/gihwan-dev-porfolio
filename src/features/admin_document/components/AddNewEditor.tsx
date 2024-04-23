@@ -37,7 +37,7 @@ const AddNewEditor = () => {
         <Button onClick={onEditClose} variant={'destructive'}>
           Close
         </Button>
-        <Button onClick={() => onSave(false)}>Save</Button>
+        <Button onClick={onSave}>Save</Button>
       </div>
     </>
   );
