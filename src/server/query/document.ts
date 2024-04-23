@@ -5,6 +5,11 @@ export const getAllDocument = async () => {
     include: {
       project_tags: true,
     },
+    where: {
+      document_type: {
+        document_type_name: 'Projects',
+      },
+    },
     orderBy: {
       end_date: 'desc',
     },
@@ -44,16 +49,21 @@ export const countAll = () => {
   return db.documents.count();
 };
 
-export const createContent = async (model: string, type: string) => {
+export const initializeContent = async () => {
   return db.documents.create({
     data: {
-      content: model,
+      content: '',
       description: '',
       thumbnail: '',
       title: '',
       document_type: {
-        connect: {
-          document_type_name: type,
+        connectOrCreate: {
+          create: {
+            document_type_name: 'Temp',
+          },
+          where: {
+            document_type_name: 'Temp',
+          },
         },
       },
     },
@@ -106,12 +116,29 @@ export const getDocumentTags = async (documentId: number) => {
   });
 };
 
+interface SaveContentProps {
+  documentId: number;
+  content: string;
+}
+
+export const saveContent = ({ documentId, content }: SaveContentProps) => {
+  return db.documents.update({
+    where: {
+      document_id: documentId,
+    },
+    data: {
+      content,
+    },
+  });
+};
+
 interface SaveProjectInfoParams {
   documentId: number;
   title: string;
   description: string;
   startDate: string;
   endDate: string;
+  documentTypeName: string;
 }
 
 export const saveProjectInfo = ({
@@ -120,10 +147,8 @@ export const saveProjectInfo = ({
   documentId,
   startDate,
   endDate,
+  documentTypeName,
 }: SaveProjectInfoParams) => {
-  if (!documentId) {
-    return null;
-  }
   return db.documents.update({
     where: {
       document_id: documentId,
@@ -136,6 +161,11 @@ export const saveProjectInfo = ({
       description: description,
       start_date: new Date(startDate),
       end_date: new Date(endDate),
+      document_type: {
+        connect: {
+          document_type_name: documentTypeName,
+        },
+      },
     },
   });
 };
@@ -147,6 +177,7 @@ export const getOneDocument = (documentId: number) => {
     },
     include: {
       project_tags: true,
+      document_type: true,
     },
   });
 };

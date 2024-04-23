@@ -3,7 +3,6 @@
 import {
   addTagToDocument,
   countAll,
-  createContent,
   deleteOneDocument,
   getAllDocument,
   getAllDocumentByPage,
@@ -11,8 +10,9 @@ import {
   getDocumentType,
   getOneDocument,
   getTypedDocument,
+  initializeContent,
+  saveContent,
   saveProjectInfo,
-  updateContent,
 } from '~/server/query/document';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
 import { z } from 'zod';
@@ -51,26 +51,21 @@ export const documentRouter = createTRPCRouter({
     return countAll();
   }),
 
-  saveContent: protectedProcedure
+  initializeContent: protectedProcedure
+    .input(z.object({}))
+    .mutation(async () => {
+      return await initializeContent();
+    }),
+
+  updateContent: protectedProcedure
     .input(
       z.object({
-        model: z.string(),
-        type: z.string().nullable(),
-        documentId: z.number().nullable(),
+        documentId: z.number(),
+        content: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { model, type, documentId } = input;
-
-      if (documentId) {
-        return await updateContent({ model, documentId });
-      }
-
-      if (!type) {
-        return null;
-      }
-
-      return await createContent(model, type);
+      return saveContent(input);
     }),
 
   addTag: protectedProcedure
@@ -102,6 +97,7 @@ export const documentRouter = createTRPCRouter({
         documentId: z.number(),
         startDate: z.string(),
         endDate: z.string(),
+        documentTypeName: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
