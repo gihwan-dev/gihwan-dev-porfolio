@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
 import { useCallback, useEffect } from 'react';
+import _ from 'lodash';
 
 export const useEditorHook = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ export const useEditorHook = () => {
   const { model, change, initializeState } = useEditorStore(state => state);
 
   const { mutate } = api.document.saveContent.useMutation();
+
   const { data: document } = api.document.getOneDocument.useQuery({
     documentId: documentId === null ? null : +documentId,
   });
@@ -28,19 +30,11 @@ export const useEditorHook = () => {
     router.back();
   }, [router]);
 
-  const onModelChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      change(e.target.value);
-    },
-    [change],
-  );
-
   const onSave = useCallback(() => {
     if (type || documentId) {
       toast({
         title: 'Save...',
       });
-      void initializeState();
       mutate(
         { model, type, documentId: documentId === null ? null : +documentId },
         {
@@ -53,16 +47,62 @@ export const useEditorHook = () => {
             }
 
             const { document_id } = document;
+            const newUrl = `/admin/documents/edit/save/${document_id}`;
+            void initializeState();
+            router.push(newUrl);
             toast({
               title: 'Save successfully',
             });
-            const newUrl = `/admin/documents/edit/save/${document_id}`;
-            router.push(newUrl);
           },
         },
       );
     }
   }, [mutate, router, type, model, documentId, initializeState]);
+
+  const saveOnModelChange = useCallback(
+    (value: string) => {
+      if (type || documentId) {
+        toast({
+          title: 'Save...',
+        });
+        mutate(
+          {
+            model: value,
+            type,
+            documentId: documentId === null ? null : +documentId,
+          },
+          {
+            onSuccess: document => {
+              if (!document) {
+                toast({
+                  title: 'Failed to save... try again...!',
+                });
+                return;
+              }
+              toast({
+                title: 'Save successfully',
+              });
+            },
+          },
+        );
+      }
+    },
+    [documentId, type, mutate],
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceModelMutate = useCallback(
+    _.debounce(saveOnModelChange, 500),
+    [],
+  );
+
+  const onModelChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      change(e.target.value);
+      debounceModelMutate(e.target.value);
+    },
+    [change, debounceModelMutate],
+  );
 
   const onPasteCapture = useCallback(
     async (
