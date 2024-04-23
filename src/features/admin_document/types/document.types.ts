@@ -5,6 +5,7 @@ export const completeEditFormSchema = z.object({
   description: z.string(),
   startDate: z.string(),
   endDate: z.string(),
+  documentTypeName: z.string(),
 });
 
 export type CompleteEditFormType = z.infer<typeof completeEditFormSchema>;

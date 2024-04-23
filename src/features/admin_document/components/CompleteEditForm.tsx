@@ -24,7 +24,15 @@ import TagListContainer from './TagListContainer';
 import { Button } from '~/components/ui/button';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select';
 
+// TODO: 문서 type 변경할 수 있는 셀렉터 추가하기.
 interface Props {
   title: string;
   description: string;
@@ -32,6 +40,8 @@ interface Props {
   thumbnail: string | null;
   startDate: Date;
   endDate: Date;
+  documentTypeName: string;
+  typeList: string[];
 }
 
 const CompleteEditForm: React.FC<Props> = ({
@@ -41,6 +51,8 @@ const CompleteEditForm: React.FC<Props> = ({
   thumbnail,
   startDate,
   endDate,
+  documentTypeName,
+  typeList,
 }) => {
   const router = useRouter();
 
@@ -54,6 +66,7 @@ const CompleteEditForm: React.FC<Props> = ({
       description: description,
       startDate: startDate.toISOString().substring(0, 10),
       endDate: endDate.toISOString().substring(0, 10),
+      documentTypeName: documentTypeName,
     },
   });
 
@@ -65,6 +78,7 @@ const CompleteEditForm: React.FC<Props> = ({
         documentId: documentId,
         startDate: values.startDate,
         endDate: values.endDate,
+        documentTypeName: values.documentTypeName,
       },
       {
         onSuccess: document => {
@@ -97,7 +111,7 @@ const CompleteEditForm: React.FC<Props> = ({
                   <Input placeholder="title..." {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter your {"project's"} title.
+                  Enter your {"document's"} title.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -113,7 +127,37 @@ const CompleteEditForm: React.FC<Props> = ({
                   <Textarea placeholder="description..." {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter your {"project's"} description.
+                  Enter your {"document's"} description.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="documentTypeName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Document type</FormLabel>
+                <Select
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                >
+                  <FormControl>
+                    <SelectTrigger type={'button'}>
+                      <SelectValue placeholder="Select document type." />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {typeList.map(type => (
+                      <SelectItem key={`type-select-menu-${type}`} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  Enter your {"document's"} type.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -129,7 +173,7 @@ const CompleteEditForm: React.FC<Props> = ({
                   <Input type={'date'} {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter your {"project's"} start date.
+                  Enter your {"document's"} start date.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -145,7 +189,7 @@ const CompleteEditForm: React.FC<Props> = ({
                   <Input type={'date'} {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter your {"project's"} end date.
+                  Enter your {"document's"} end date.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
