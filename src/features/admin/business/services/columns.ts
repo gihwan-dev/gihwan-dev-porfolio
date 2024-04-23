@@ -12,6 +12,24 @@ export const columns: ColumnDef<Documents>[] = [
     header: 'Title',
   },
   {
+    accessorKey: 'start_date',
+    header: 'Start Date',
+    cell: ({ row }) => {
+      const startDate = row.getValue('start_date');
+
+      return formattingDate(startDate as string);
+    },
+  },
+  {
+    accessorKey: 'end_date',
+    header: 'End Date',
+    cell: ({ row }) => {
+      const endDate = row.getValue('end_date');
+
+      return formattingDate(endDate as string);
+    },
+  },
+  {
     accessorKey: 'reg_date',
     header: 'Published At',
     cell: ({ row }) => {

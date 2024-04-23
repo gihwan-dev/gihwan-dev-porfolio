@@ -29,6 +29,8 @@ model Documents {
   document_type_id Int
   document_type    Document_Type   @relation(fields: [document_type_id], references: [document_type_id])
   project_tags     Document_Tags[]
+  start_date       DateTime        @default(now())
+  end_date         DateTime        @default(now())
   reg_date         DateTime        @default(now())
 }
 

@@ -30,6 +30,8 @@ interface Props {
   description: string;
   documentId: number;
   thumbnail: string | null;
+  startDate: Date;
+  endDate: Date;
 }
 
 const CompleteEditForm: React.FC<Props> = ({
@@ -37,6 +39,8 @@ const CompleteEditForm: React.FC<Props> = ({
   description,
   documentId,
   thumbnail,
+  startDate,
+  endDate,
 }) => {
   const router = useRouter();
 
@@ -48,6 +52,8 @@ const CompleteEditForm: React.FC<Props> = ({
     defaultValues: {
       title: title,
       description: description,
+      startDate: startDate.toISOString().substring(0, 10),
+      endDate: endDate.toISOString().substring(0, 10),
     },
   });
 
@@ -57,6 +63,8 @@ const CompleteEditForm: React.FC<Props> = ({
         title: values.title,
         description: values.description,
         documentId: documentId,
+        startDate: values.startDate,
+        endDate: values.endDate,
       },
       {
         onSuccess: document => {
@@ -88,7 +96,9 @@ const CompleteEditForm: React.FC<Props> = ({
                 <FormControl>
                   <Input placeholder="title..." {...field} />
                 </FormControl>
-                <FormDescription>Enter your {"post's"} title.</FormDescription>
+                <FormDescription>
+                  Enter your {"project's"} title.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -103,7 +113,39 @@ const CompleteEditForm: React.FC<Props> = ({
                   <Textarea placeholder="description..." {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter your {"post's"} description.
+                  Enter your {"project's"} description.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="startDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Start date</FormLabel>
+                <FormControl>
+                  <Input type={'date'} {...field} />
+                </FormControl>
+                <FormDescription>
+                  Enter your {"project's"} start date.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="endDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>End date</FormLabel>
+                <FormControl>
+                  <Input type={'date'} {...field} />
+                </FormControl>
+                <FormDescription>
+                  Enter your {"project's"} end date.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

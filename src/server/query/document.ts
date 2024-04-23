@@ -6,7 +6,7 @@ export const getAllDocument = async () => {
       project_tags: true,
     },
     orderBy: {
-      reg_date: 'desc',
+      end_date: 'desc',
     },
   });
 };
@@ -18,7 +18,7 @@ export const getDocumentType = async () => {
 export const getAllDocumentByPage = async (page: number) => {
   return db.documents.findMany({
     orderBy: {
-      reg_date: 'desc',
+      end_date: 'desc',
     },
     take: 10,
     skip: (page - 1) * 10,
@@ -28,7 +28,7 @@ export const getAllDocumentByPage = async (page: number) => {
 export const getTypedDocument = (page: number, type: string) => {
   return db.documents.findMany({
     orderBy: {
-      reg_date: 'desc',
+      end_date: 'desc',
     },
     skip: (page - 1) * 10,
     take: 10,
@@ -110,12 +110,16 @@ interface SaveProjectInfoParams {
   documentId: number;
   title: string;
   description: string;
+  startDate: string;
+  endDate: string;
 }
 
 export const saveProjectInfo = ({
   title,
   description,
   documentId,
+  startDate,
+  endDate,
 }: SaveProjectInfoParams) => {
   if (!documentId) {
     return null;
@@ -130,6 +134,8 @@ export const saveProjectInfo = ({
     data: {
       title: title,
       description: description,
+      start_date: new Date(startDate),
+      end_date: new Date(endDate),
     },
   });
 };
