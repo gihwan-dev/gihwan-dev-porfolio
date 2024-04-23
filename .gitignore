@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-.idea
+.idea/
 
 # dependencies
 /node_modules
@@ -44,4 +44,4 @@ yarn-error.log*
 *.tsbuildinfo
 /.idea/git_toolbox_prj.xml
 /.idea/material_theme_project_new.xml
-/prisma
+prisma

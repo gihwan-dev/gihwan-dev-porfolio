@@ -5,7 +5,7 @@ import {
   getImageOrNull,
   sendImageAndGetLink,
 } from '../services/editor.service';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
 import { useCallback, useEffect } from 'react';
@@ -14,16 +14,15 @@ import _ from 'lodash';
 export const useEditorHook = () => {
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-  const documentId = searchParams.get('id');
-  const type = searchParams.get('type');
+  const params = useParams();
+  const documentId = params.id as string;
 
   const { model, change, initializeState } = useEditorStore(state => state);
 
-  const { mutate } = api.document.saveContent.useMutation();
+  const { mutate } = api.document.updateContent.useMutation();
 
   const { data: document } = api.document.getOneDocument.useQuery({
-    documentId: documentId === null ? null : +documentId,
+    documentId: +documentId,
   });
 
   const onEditClose = useCallback(() => {
@@ -31,12 +30,43 @@ export const useEditorHook = () => {
   }, [router]);
 
   const onSave = useCallback(() => {
-    if (type || documentId) {
+    toast({
+      title: 'Save...',
+    });
+    mutate(
+      { documentId: +documentId, content: model },
+      {
+        onSuccess: document => {
+          if (!document) {
+            toast({
+              title: 'Failed to save... try again...!',
+            });
+            return;
+          }
+
+          const { document_id } = document;
+
+          const newUrl = `/admin/documents/edit/save/${document_id}`;
+          void initializeState();
+          router.push(newUrl);
+          toast({
+            title: 'Save successfully',
+          });
+        },
+      },
+    );
+  }, [mutate, router, model, documentId, initializeState]);
+
+  const saveOnModelChange = useCallback(
+    (value: string) => {
       toast({
         title: 'Save...',
       });
       mutate(
-        { model, type, documentId: documentId === null ? null : +documentId },
+        {
+          documentId: +documentId,
+          content: value,
+        },
         {
           onSuccess: document => {
             if (!document) {
@@ -45,54 +75,19 @@ export const useEditorHook = () => {
               });
               return;
             }
-
-            const { document_id } = document;
-            const newUrl = `/admin/documents/edit/save/${document_id}`;
-            void initializeState();
-            router.push(newUrl);
             toast({
               title: 'Save successfully',
             });
           },
         },
       );
-    }
-  }, [mutate, router, type, model, documentId, initializeState]);
-
-  const saveOnModelChange = useCallback(
-    (value: string) => {
-      if (type || documentId) {
-        toast({
-          title: 'Save...',
-        });
-        mutate(
-          {
-            model: value,
-            type,
-            documentId: documentId === null ? null : +documentId,
-          },
-          {
-            onSuccess: document => {
-              if (!document) {
-                toast({
-                  title: 'Failed to save... try again...!',
-                });
-                return;
-              }
-              toast({
-                title: 'Save successfully',
-              });
-            },
-          },
-        );
-      }
     },
-    [documentId, type, mutate],
+    [documentId, mutate],
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceModelMutate = useCallback(
-    _.debounce(saveOnModelChange, 500),
+    _.debounce(saveOnModelChange, 1000),
     [],
   );
 
