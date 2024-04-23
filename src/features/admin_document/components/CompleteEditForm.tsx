@@ -32,7 +32,6 @@ import {
   SelectValue,
 } from '~/components/ui/select';
 
-// TODO: 문서 type 변경할 수 있는 셀렉터 추가하기.
 interface Props {
   title: string;
   description: string;
