@@ -62,7 +62,7 @@ export default async function ProjectDetailPage({ params }: ParamsProps) {
     '@type': 'BlogPosting',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://portfolio.gihwan-dev.com/main/projects/' + id,
+      '@id': 'https://portfolio.gihwan-dev.com/projects/' + id,
     },
     headline: document.title,
     image: [document.thumbnail],

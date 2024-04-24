@@ -7,7 +7,7 @@ const NavBackToHomeButton = () => {
         letterSpacing: '0.2rem',
       }}
       className={'text-xs font-bold text-text-primary-red lg:text-sm'}
-      href={'/main'}
+      href={'/'}
     >
       BACK TO HOME
     </Link>

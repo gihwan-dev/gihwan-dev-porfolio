@@ -11,19 +11,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: 'https://portfolio.gihwan-dev.com/main',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://portfolio.gihwan-dev.com/main/projects',
+      url: 'https://portfolio.gihwan-dev.com/projects',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     ...documents.map(doc => ({
-      url: `https://portfolio.gihwan-dev.com/main/projects/${doc.document_id}`,
+      url: `https://portfolio.gihwan-dev.com/projects/${doc.document_id}`,
       lastModified: doc.reg_date,
     })),
   ];
