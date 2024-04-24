@@ -5,10 +5,7 @@ const config = {
     project: true,
   },
   plugins: ['@typescript-eslint'],
-  extends: [
-    'next/core-web-vitals',
-    'prettier',
-  ],
+  extends: ['next/core-web-vitals', 'prettier', 'plugin:storybook/recommended'],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
     // Feel free to reconfigure them to your own preference.

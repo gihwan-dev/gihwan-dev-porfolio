@@ -22,7 +22,6 @@
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
     "incremental": true,
-
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
@@ -39,5 +38,5 @@
     ".next/types/**/*.ts",
     "**/**/*.ts"
   ],
-  "exclude": ["node_modules, "]
+  "exclude": ["node_modules", "cypress"]
 }
