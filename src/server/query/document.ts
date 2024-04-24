@@ -7,7 +7,7 @@ export const getAllDocument = async () => {
     },
     where: {
       document_type: {
-        document_type_name: 'Projects',
+        document_type_name: 'Project',
       },
     },
     orderBy: {
