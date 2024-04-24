@@ -26,7 +26,7 @@ export const getImageOrNull = (items: DataTransferItemList) => {
   return null;
 };
 
-const appendImageToFormData = (file: File) => {
+export const appendImageToFormData = (file: File) => {
   const formData = new FormData();
   formData.append('image-file', file);
   return formData;
@@ -46,13 +46,13 @@ export const createNewModel = (
   const lastModel = model.substring(endPos);
   let newValue = value;
   if (value.includes('img')) {
-    newValue = `\n${value}\n`;
+    newValue = `${value}\n`;
   }
   setCursor(ref, startPos, newValue.length);
   return getInsertedText(firstModel, newValue, lastModel);
 };
 
-const setCursor = (
+export const setCursor = (
   ref: React.MutableRefObject<HTMLTextAreaElement>,
   start: number,
   valueLength: number,
@@ -62,6 +62,10 @@ const setCursor = (
   }, 0);
 };
 
-const getInsertedText = (first: string, middle: string, last: string) => {
+export const getInsertedText = (
+  first: string,
+  middle: string,
+  last: string,
+) => {
   return first + middle + last;
 };
