@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const MainLogoMobile = () => {
   return (
-    <Link href={'/main'}>
+    <Link href={'/'}>
       <svg
         width="150"
         height="10"

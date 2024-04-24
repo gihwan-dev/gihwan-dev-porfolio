@@ -2,11 +2,11 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
-  SelectContent,
   Select,
+  SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
-  SelectItem,
 } from '~/components/ui/select';
 import { Skeleton } from '~/components/ui/skeleton';
 import { api } from '~/trpc/react';
@@ -41,7 +41,7 @@ const EditDocumentSelection = () => {
         onValueChange={selectionHandler}
         defaultValue={curParam ?? 'projects'}
       >
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger type={'button'} className="w-[180px]">
           <SelectValue placeholder="type" />
         </SelectTrigger>
         <SelectContent>

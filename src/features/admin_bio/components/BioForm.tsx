@@ -59,7 +59,7 @@ const BioForm: React.FC<{
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>title</FormLabel>
+                <FormLabel className={'text-white'}>title</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter title" {...field} />
                 </FormControl>
@@ -72,7 +72,7 @@ const BioForm: React.FC<{
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>description</FormLabel>
+                <FormLabel className={'text-white'}>description</FormLabel>
                 <FormControl>
                   <Textarea placeholder="Enter description" {...field} />
                 </FormControl>
@@ -85,7 +85,7 @@ const BioForm: React.FC<{
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>email</FormLabel>
+                <FormLabel className={'text-white'}>email</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter email" {...field} />
                 </FormControl>
@@ -98,7 +98,7 @@ const BioForm: React.FC<{
             name="resume_link"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>resume</FormLabel>
+                <FormLabel className={'text-white'}>resume</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter resume" {...field} />
                 </FormControl>
@@ -111,7 +111,7 @@ const BioForm: React.FC<{
             name="bio_img"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>image</FormLabel>
+                <FormLabel className={'text-white'}>image</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter image" {...field} />
                 </FormControl>

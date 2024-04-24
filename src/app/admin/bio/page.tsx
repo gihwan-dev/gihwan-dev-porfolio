@@ -7,8 +7,8 @@ const AdminBioPage = async () => {
   const data = await findBio();
 
   return (
-    <div className="h-full w-full flex-col gap-12 overflow-auto py-12">
-      <h1 className="text-center text-3xl font-bold">Edit Bio</h1>
+    <div className="flex w-full flex-col items-center gap-12 overflow-auto py-12">
+      <h1 className="text-center text-3xl font-bold text-white">Edit Bio</h1>
       <BioForm data={data} />
     </div>
   );

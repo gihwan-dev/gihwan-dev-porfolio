@@ -26,13 +26,18 @@ const NavBarContentSelector = () => {
       <SmallNavList navList={NAV_LIST} />
     );
 
-  if (pathname.startsWith('/main/projects')) {
+  if (pathname.startsWith('/projects')) {
     if (typeof params.id === 'string') {
       content = <NavBackToProjectsButton />;
     } else {
       content = <NavBackToHomeButton />;
     }
   }
+
+  if (pathname.startsWith('/admin')) {
+    return <div></div>;
+  }
+
   return <>{content}</>;
 };
 

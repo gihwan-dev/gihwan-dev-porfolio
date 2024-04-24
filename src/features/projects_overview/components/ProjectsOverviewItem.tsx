@@ -28,7 +28,7 @@ const ProjectsOverviewItem: React.FC<Props> = ({ document }) => {
   return (
     <motion.li {...variants}>
       <Link
-        href={'/main/projects/' + document.document_id}
+        href={'/projects/' + document.document_id}
         className={'group flex flex-col gap-3'}
       >
         <ProjectsOverviewImage src={document.thumbnail} />

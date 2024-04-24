@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const MainLogo = () => {
   return (
-    <Link href={'/main'}>
+    <Link href={'/'}>
       <svg
         width="213"
         height="18"

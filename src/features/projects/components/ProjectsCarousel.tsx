@@ -62,7 +62,7 @@ function ProjectCarouselShowMore() {
         className={
           'font-bold text-white transition-all duration-300 hover:-translate-y-1'
         }
-        href={'/main/projects'}
+        href={'/projects'}
       >
         show more {'>'}
       </Link>
@@ -91,7 +91,7 @@ function ProjectCarouselItem({ children }: ChildrenProps) {
   const onClick: React.MouseEventHandler<HTMLDivElement> = e => {
     const target = e.target as HTMLDivElement;
     if (target.tagName !== 'BUTTON') {
-      navigate(`/main/projects/${document.document_id}`);
+      navigate(`/projects/${document.document_id}`);
     }
   };
 

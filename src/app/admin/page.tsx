@@ -3,11 +3,7 @@ import React from 'react';
 export const dynamic = 'force-dynamic';
 
 const AdminPage = () => {
-  return (
-    <main className="bg-white">
-      <h1>Admin Page.</h1>
-    </main>
-  );
+  return <main className="h-full w-full bg-main-background"></main>;
 };
 
 export default AdminPage;
