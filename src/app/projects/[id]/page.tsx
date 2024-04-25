@@ -1,4 +1,4 @@
-import { PreviewRoot } from '~/features/admin_preview';
+import { PreviewRoot } from 'src/features/preview';
 import { type ParamsProps } from '~/app/types/params.type';
 import { type Metadata } from 'next';
 import { db } from '~/server/db';

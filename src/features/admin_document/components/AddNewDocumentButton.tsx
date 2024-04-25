@@ -6,7 +6,7 @@ import { useEditorStore } from '../stores/useEditorStore';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
 
-const DocumentAddButton = () => {
+const AddNewDocumentButton = () => {
   const { mutate } = api.document.initializeContent.useMutation();
   const router = useRouter();
   const { initializeState } = useEditorStore();
@@ -44,4 +44,4 @@ const DocumentAddButton = () => {
   return <Button onClick={buttonHandler}>Add</Button>;
 };
 
-export default DocumentAddButton;
+export default AddNewDocumentButton;

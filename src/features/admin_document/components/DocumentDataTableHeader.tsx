@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
-import DocumentAddButton from './DocumentAddButton';
+import AddNewDocumentButton from './AddNewDocumentButton';
 
-const DocumentContainerHeader = () => {
+const DocumentDataTableHeader = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get('type') ?? 'projects';
 
@@ -17,10 +17,10 @@ const DocumentContainerHeader = () => {
             See list of {type} and edit or remove.
           </CardDescription>
         </div>
-        <DocumentAddButton />
+        <AddNewDocumentButton />
       </div>
     </CardHeader>
   );
 };
 
-export default DocumentContainerHeader;
+export default DocumentDataTableHeader;

@@ -1,3 +1,3 @@
 export { default as CompleteEditRoot } from './components/CompleteEditRoot';
-export { default as AddNewRoot } from './components/AddNewRoot';
-export { default as EditDocumentRoot } from './components/EditDocumentRoot';
+export { default as AddNewRoot } from './components/EditorRoot';
+export { default as EditDocumentRoot } from './components/ManageDocumentRoot';

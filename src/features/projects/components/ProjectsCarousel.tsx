@@ -35,7 +35,6 @@ interface State {
 }
 // ======================================= type definition =======================================
 
-// ======================================= function definition =======================================
 const ProjectsCarousel: React.FC<ProviderProps> & State = ({
   children,
   document,
@@ -55,6 +54,31 @@ const ProjectsCarousel: React.FC<ProviderProps> & State = ({
   );
 };
 
+// ======================================= assignment =======================================
+ProjectsCarousel.ShowMore = ProjectCarouselShowMore;
+
+ProjectsCarousel.Empty = ProjectEmptyContent;
+
+ProjectsCarousel.Item = ProjectCarouselItem;
+
+ProjectsCarousel.BottomHighlight = ProjectCarouselBottomHighlight;
+
+ProjectsCarousel.Latest = ProjectCarouselLatestTag;
+
+ProjectsCarousel.Title = ProjectCarouselTitle;
+
+ProjectsCarousel.Description = ProjectCarouselDescription;
+
+ProjectsCarousel.Info = ProjectCarouselInfo;
+
+ProjectsCarousel.TechTagList = ProjectCarouselTechTagList;
+
+ProjectsCarousel.ShowTechTagButton = ProjectCarouselShowTechTagButton;
+
+ProjectsCarousel.Thumbnail = ProjectCarouselThumbnail;
+// ======================================= assignment =======================================
+
+// ======================================= function definition =======================================
 function ProjectCarouselShowMore() {
   return (
     <div className={'flex w-full flex-row justify-end px-8 py-2 lg:px-4'}>
@@ -250,29 +274,5 @@ function ProjectCarouselThumbnail({ children }: ChildrenProps) {
   );
 }
 // ======================================= function definition =======================================
-
-// ======================================= assignment =======================================
-ProjectsCarousel.ShowMore = ProjectCarouselShowMore;
-
-ProjectsCarousel.Empty = ProjectEmptyContent;
-
-ProjectsCarousel.Item = ProjectCarouselItem;
-
-ProjectsCarousel.BottomHighlight = ProjectCarouselBottomHighlight;
-
-ProjectsCarousel.Latest = ProjectCarouselLatestTag;
-
-ProjectsCarousel.Title = ProjectCarouselTitle;
-
-ProjectsCarousel.Description = ProjectCarouselDescription;
-
-ProjectsCarousel.Info = ProjectCarouselInfo;
-
-ProjectsCarousel.TechTagList = ProjectCarouselTechTagList;
-
-ProjectsCarousel.ShowTechTagButton = ProjectCarouselShowTechTagButton;
-
-ProjectsCarousel.Thumbnail = ProjectCarouselThumbnail;
-// ======================================= assignment =======================================
 
 export default ProjectsCarousel;

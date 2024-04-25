@@ -11,7 +11,7 @@ import {
 import { Skeleton } from '~/components/ui/skeleton';
 import { api } from '~/trpc/react';
 
-const EditDocumentSelection = () => {
+const DocumentTypeSelector = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -59,4 +59,4 @@ const EditDocumentSelection = () => {
   );
 };
 
-export default EditDocumentSelection;
+export default DocumentTypeSelector;

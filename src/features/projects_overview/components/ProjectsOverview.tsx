@@ -3,6 +3,8 @@ import ProjectsOverviewTitle from './ProjectsOverviewTitle';
 import Container from '~/components/Container';
 import { api } from '~/trpc/server';
 import ProjectsOverviewItem from './ProjectsOverviewItem';
+import ProjectsOverviewImage from './ProjectsOverviewImage';
+import ProjectOverviewDescription from './ProjectOverviewDescription';
 
 const ProjectsOverview = async () => {
   const documents = await api.document.getAllDocument.query();
@@ -14,9 +16,15 @@ const ProjectsOverview = async () => {
           <ul className={'grid grid-cols-1 gap-4 xl:grid-cols-2'}>
             {documents.map(document => (
               <ProjectsOverviewItem
-                document={document}
+                documentId={document.document_id}
                 key={'Project Overview Item' + document.document_id}
-              />
+              >
+                <ProjectsOverviewImage src={document.thumbnail} />
+                <ProjectOverviewDescription
+                  title={document.title}
+                  description={document.description}
+                />
+              </ProjectsOverviewItem>
             ))}
           </ul>
         </Container>
