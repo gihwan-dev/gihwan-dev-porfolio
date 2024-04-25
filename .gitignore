@@ -47,3 +47,5 @@ yarn-error.log*
 prisma
 
 *storybook.log
+# Sentry Config File
+.sentryclirc
