@@ -7,7 +7,7 @@ import ReactMarkdown from '@uiw/react-md-editor';
 
 import { useEditorHook } from '../business/hooks/editor.hooks';
 
-const AddNewEditor = () => {
+const Editor = () => {
   const { model, onModelChange, onSave, onEditClose, onPasteCapture } =
     useEditorHook();
   const ref: React.MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
@@ -43,4 +43,4 @@ const AddNewEditor = () => {
   );
 };
 
-export default AddNewEditor;
+export default Editor;

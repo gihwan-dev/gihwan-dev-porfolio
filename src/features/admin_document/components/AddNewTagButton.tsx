@@ -1,4 +1,4 @@
-'ues client';
+'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams } from 'next/navigation';

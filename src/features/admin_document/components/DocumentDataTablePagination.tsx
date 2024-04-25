@@ -17,7 +17,7 @@ import {
   getPageUrl,
 } from '../../admin/utils/document.utils';
 
-const DocumentPagiNation = () => {
+const DocumentDataTablePagination = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -92,4 +92,4 @@ const DocumentPagiNation = () => {
   );
 };
 
-export default DocumentPagiNation;
+export default DocumentDataTablePagination;

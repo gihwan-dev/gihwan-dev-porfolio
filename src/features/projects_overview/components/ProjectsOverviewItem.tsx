@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { type Documents } from '@prisma/client';
-import ProjectsOverviewImage from './ProjectsOverviewImage';
-import ProjectOverviewDescription from './ProjectOverviewDescription';
 import { motion, type MotionProps } from 'framer-motion';
+import { type FC, type ReactNode } from 'react';
 
 const variants: MotionProps = {
   initial: {
@@ -21,21 +19,18 @@ const variants: MotionProps = {
 };
 
 interface Props {
-  document: Documents;
+  children: ReactNode;
+  documentId: number;
 }
 
-const ProjectsOverviewItem: React.FC<Props> = ({ document }) => {
+const ProjectsOverviewItem: FC<Props> = ({ children, documentId }) => {
   return (
     <motion.li {...variants}>
       <Link
-        href={'/projects/' + document.document_id}
+        href={'/projects/' + documentId}
         className={'group flex flex-col gap-3'}
       >
-        <ProjectsOverviewImage src={document.thumbnail} />
-        <ProjectOverviewDescription
-          title={document.title}
-          description={document.description}
-        />
+        {children}
       </Link>
     </motion.li>
   );

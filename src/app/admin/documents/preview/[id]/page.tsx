@@ -1,5 +1,5 @@
 import { type ParamsProps } from '~/app/types/params.type';
-import { PreviewRoot } from '~/features/admin_preview';
+import { PreviewRoot } from 'src/features/preview';
 
 export const dynamic = 'force-dynamic';
 
