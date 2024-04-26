@@ -13,7 +13,7 @@ import PreviewBackButton from './PreviewBackButton';
 import PreviewStartEndDate from './PreviewStartEndDate';
 import PreviewEditButton from './PreviewEditButton';
 import PreviewDeleteButton from './PreviewDeleteButton';
-import PreviewLayout from '~/features/preview/components/PreviewLayout';
+import PreviewLayout from './PreviewLayout';
 
 type Props = {
   documentId: string;
