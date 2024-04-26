@@ -1,3 +1,5 @@
+'use client';
+
 import { fadeInFromTop } from '~/utils/framer-motion.utils';
 
 import { motion } from 'framer-motion';
