@@ -13,12 +13,13 @@ import PreviewBackButton from './PreviewBackButton';
 import PreviewStartEndDate from './PreviewStartEndDate';
 import PreviewEditButton from './PreviewEditButton';
 import PreviewDeleteButton from './PreviewDeleteButton';
+import PreviewLayout from './PreviewLayout';
 
 type Props = {
   documentId: string;
 };
 
-const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
+const Preview: React.FC<Props> = async ({ documentId }) => {
   const response = await api.document.getOneDocument.query({
     documentId: +documentId,
   });
@@ -28,7 +29,7 @@ const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
   }
 
   return (
-    <div className="relative h-full w-full flex-col items-center overflow-auto bg-main-background pb-24">
+    <PreviewLayout>
       <PreviewTitle>{response.title}</PreviewTitle>
       <PreviewDescription>{response.description}</PreviewDescription>
       <PreviewThumbnail thumbnail={response.thumbnail} />
@@ -44,8 +45,8 @@ const PreviewRoot: React.FC<Props> = async ({ documentId }) => {
         <PreviewEditButton documentId={documentId} />
         <PreviewDeleteButton documentId={documentId} />
       </PreviewActions>
-    </div>
+    </PreviewLayout>
   );
 };
 
-export default PreviewRoot;
+export default Preview;

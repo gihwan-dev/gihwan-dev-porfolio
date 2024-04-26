@@ -1,1 +1,1 @@
-export { default as SkillsRoot } from './components/SkillsRoot';
+export { default as Skills } from './components/Skills';

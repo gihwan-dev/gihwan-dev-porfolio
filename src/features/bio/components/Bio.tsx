@@ -1,11 +1,14 @@
 import BioImage from './BioImage';
-import BioText from './BioText';
 import BioButton from './BioButton';
 import Section from '~/components/Section';
 import Container from '~/components/Container';
 import { findBio } from '~/server/query/bio';
+import BioContent from './BioContent';
+import BioInfo from './BioInfo';
+import BioTitle from './BioTitle';
+import BioDescription from './BioDescription';
 
-const BioRoot = async () => {
+const Bio = async () => {
   const bio = await findBio();
 
   if (!bio) {
@@ -16,13 +19,16 @@ const BioRoot = async () => {
     <Section id="#about">
       <Container className="flex flex-col items-center justify-center gap-28 lg:flex-row">
         <BioImage bio_img={bio.bio_img} />
-        <div className="flex flex-col items-center gap-12">
-          <BioText title={bio.title} description={bio.description} />
+        <BioContent>
+          <BioInfo>
+            <BioTitle>{bio.title}</BioTitle>
+            <BioDescription>{bio.description}</BioDescription>
+          </BioInfo>
           <BioButton resume_link={bio.resume_link} />
-        </div>
+        </BioContent>
       </Container>
     </Section>
   );
 };
 
-export default BioRoot;
+export default Bio;

@@ -10,14 +10,14 @@ type Props = {
 const PreviewActions: FC<Props> = ({ children }) => {
   const pathName = usePathname();
 
-  if (pathName.startsWith('/main')) {
-    return null;
+  if (pathName.startsWith('/admin')) {
+    return (
+      <div className={'absolute right-10 top-10 flex flex-row gap-4'}>
+        {children}
+      </div>
+    );
   }
-  return (
-    <div className={'absolute right-10 top-10 flex flex-row gap-4'}>
-      {children}
-    </div>
-  );
+  return null;
 };
 
 export default PreviewActions;

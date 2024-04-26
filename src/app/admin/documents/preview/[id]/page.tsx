@@ -1,11 +1,12 @@
 import { type ParamsProps } from '~/app/types/params.type';
-import { PreviewRoot } from 'src/features/preview';
+import { Preview } from '~/features/preview';
+import { type FC } from 'react';
 
 export const dynamic = 'force-dynamic';
 
-const DocumentsPreviewPage: React.FC<ParamsProps> = ({ params }) => {
+const DocumentsPreviewPage: FC<ParamsProps> = ({ params }) => {
   const { id } = params;
-  return <PreviewRoot documentId={id} />;
+  return <Preview documentId={id} />;
 };
 
 export default DocumentsPreviewPage;

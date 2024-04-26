@@ -1,1 +1,1 @@
-export { default as BioRoot } from './components/BioRoot';
+export { default as Bio } from './components/Bio';

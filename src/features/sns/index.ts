@@ -1,1 +1,1 @@
-export { default as SnsRoot } from './components/SnsRoot';
+export { default as Sns } from './components/Sns';
