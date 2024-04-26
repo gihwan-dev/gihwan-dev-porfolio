@@ -1,1 +1,1 @@
-export { default as ProjectsRoot } from './components/ProjectsRoot';
+export { default as Projects } from './components/Projects';

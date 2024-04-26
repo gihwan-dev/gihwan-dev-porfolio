@@ -12,7 +12,7 @@ import {
 } from '~/components/ui/carousel';
 import { type ProjectRootProps } from '../types';
 
-const ProjectsRoot: React.FC<ProjectRootProps> = ({ documents }) => {
+const Projects: React.FC<ProjectRootProps> = ({ documents }) => {
   return (
     <Section id="#projects" foreground>
       <Container className="flex flex-col items-center gap-16">
@@ -52,4 +52,4 @@ const ProjectsRoot: React.FC<ProjectRootProps> = ({ documents }) => {
   );
 };
 
-export default ProjectsRoot;
+export default Projects;

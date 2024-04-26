@@ -1,9 +1,9 @@
-import { BioRoot } from '~/features/bio';
-import { ProjectsRoot } from '~/features/projects';
-import { SkillsRoot } from '~/features/skills';
-import { SnsRoot } from '~/features/sns';
+import { Projects } from '~/features/projects';
+import { Skills } from '~/features/skills';
+import { Sns } from '~/features/sns';
 import { api } from '~/trpc/server';
 import { type Metadata } from 'next';
+import { Bio } from '~/features/bio';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,10 +27,10 @@ const MainPage = async () => {
   const documents = await api.document.getAllDocument.query();
   return (
     <main>
-      <BioRoot />
-      <ProjectsRoot documents={documents} />
-      <SkillsRoot />
-      <SnsRoot />
+      <Bio />
+      <Projects documents={documents} />
+      <Skills />
+      <Sns />
     </main>
   );
 };
