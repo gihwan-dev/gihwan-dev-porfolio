@@ -6,14 +6,32 @@ import { Button } from '~/components/ui/button';
 import ReactMarkdown from '@uiw/react-md-editor';
 
 import { useEditorHook } from '../business/hooks/editor.hooks';
+import { ErrorBoundary } from 'react-error-boundary';
+import EditorErrorFallback from './EditorErrorFallback';
+import EditorLoadingSkeleton from './EditorLoadingSkeleton';
 
 const Editor = () => {
-  const { model, onModelChange, onSave, onEditClose, onPasteCapture } =
-    useEditorHook();
+  const {
+    model,
+    onModelChange,
+    onSave,
+    onEditClose,
+    onPasteCapture,
+    isLoading,
+    isError,
+  } = useEditorHook();
   const ref: React.MutableRefObject<HTMLTextAreaElement | null> = useRef(null);
 
+  if (isError) {
+    throw Error('데이터를 받아오는데 실패했습니다.');
+  }
+
+  if (isLoading) {
+    return <EditorLoadingSkeleton />;
+  }
+
   return (
-    <>
+    <ErrorBoundary fallback={<EditorErrorFallback model={model} />}>
       <div className="flex h-full w-full flex-row gap-2 overflow-y-auto p-2">
         <textarea
           ref={ref}
@@ -39,7 +57,7 @@ const Editor = () => {
         </Button>
         <Button onClick={onSave}>Save</Button>
       </div>
-    </>
+    </ErrorBoundary>
   );
 };
 

@@ -21,7 +21,11 @@ export const useEditorHook = () => {
 
   const { mutate } = api.document.updateContent.useMutation();
 
-  const { data: document } = api.document.getOneDocument.useQuery({
+  const {
+    data: document,
+    isLoading,
+    isError,
+  } = api.document.getOneDocument.useQuery({
     documentId: +documentId,
   });
 
@@ -36,6 +40,11 @@ export const useEditorHook = () => {
     mutate(
       { documentId: +documentId, content: model },
       {
+        onError: () => {
+          toast({
+            title: 'Error',
+          });
+        },
         onSuccess: document => {
           if (!document) {
             toast({
@@ -68,6 +77,11 @@ export const useEditorHook = () => {
           content: value,
         },
         {
+          onError: () => {
+            toast({
+              title: 'Error...',
+            });
+          },
           onSuccess: document => {
             if (!document) {
               toast({
@@ -164,5 +178,7 @@ export const useEditorHook = () => {
     onPasteCapture,
     onEditClose,
     onModelChange,
+    isLoading,
+    isError,
   };
 };
