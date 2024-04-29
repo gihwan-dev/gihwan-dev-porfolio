@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -12,33 +12,36 @@ import {
 } from '~/components/ui/pagination';
 import { api } from '~/trpc/react';
 import {
-  controlPaginationState,
-  getPageNumbers,
+  getPageNationItemAmount,
+  getPageNumber,
   getPageUrl,
-} from '../../admin/utils/document.utils';
+} from '../../admin/utils/pagination.utils';
 
 const DocumentDataTablePagination = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const { data: count, isLoading, isError } = api.document.countAll.useQuery();
 
   const page = searchParams.get('page');
 
-  const { data: count, isLoading, isError } = api.document.countAll.useQuery();
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!page) {
       const newSearchParams = new URLSearchParams(searchParams.toString());
       newSearchParams.set('page', '1');
       const newPathName = pathname + '?' + newSearchParams.toString();
       router.push(newPathName);
     }
-  });
+  }, [page, searchParams, pathname, router]);
+
+  if (!page || !count) {
+    return null;
+  }
 
   if (isLoading || isError) {
     return null;
   }
-
+  // TODO: 페이지 네이션 아이템 생성의 인덱스는 0, 1, 2 이다. 이걸 상수 map 으로 관리하자.
   return (
     <Pagination>
       <PaginationContent>
@@ -46,7 +49,7 @@ const DocumentDataTablePagination = () => {
           <PaginationItem>
             <PaginationPrevious
               href={getPageUrl({
-                page: controlPaginationState(Number(page ?? 1)),
+                page: getPageNumber(Number(page), 0),
                 pathname,
                 searchParams,
               })}
@@ -54,33 +57,28 @@ const DocumentDataTablePagination = () => {
           </PaginationItem>
         )}
         {Array.from({
-          length: getPageNumbers(
-            Math.ceil(count / 10) === 0 ? 1 : Math.ceil(count / 10),
-          ),
+          length: getPageNationItemAmount(count),
         }).map((_, index) => {
           return (
             <PaginationItem key={`${index}-pagination-item`}>
               <PaginationLink
-                isActive={
-                  controlPaginationState(Number(page ?? 1)) + index ===
-                  Number(page ?? 1)
-                }
+                isActive={getPageNumber(+page, index) === +page}
                 href={getPageUrl({
-                  page: controlPaginationState(Number(page ?? 1)) + index,
+                  page: getPageNumber(+page, index),
                   pathname,
                   searchParams,
                 })}
               >
-                {controlPaginationState(Number(page ?? 1)) + index}
+                {getPageNumber(+page, index)}
               </PaginationLink>
             </PaginationItem>
           );
         })}
-        {!count || count < 10 * (Number(page ?? 1) + 1) ? null : (
+        {count < 10 * (+page + 1) ? null : (
           <PaginationItem>
             <PaginationNext
               href={getPageUrl({
-                page: controlPaginationState(Number(page ?? 1)) + 1,
+                page: getPageNumber(Number(page), 2),
                 pathname,
                 searchParams,
               })}

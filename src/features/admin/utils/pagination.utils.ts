@@ -13,18 +13,23 @@ export const getPageUrl = ({
 }: GetPageParamsType): string => {
   const newSearchParams = new URLSearchParams(searchParams.toString());
   newSearchParams.set('page', String(page));
-  const newURL = pathname + '?' + newSearchParams.toString();
-
-  return newURL;
+  return pathname + '?' + newSearchParams.toString();
 };
 
-export const getPageNumbers = (length: number) => {
+export const getPageNationItemAmount = (count: number) => {
+  const onePageAmount = 10;
+  const length = Math.ceil(count / onePageAmount);
+
+  if (length === 0) {
+    return 1;
+  }
+
   return length > 3 ? 3 : length;
 };
 
-export const controlPaginationState = (page: number) => {
+export const getPageNumber = (page: number, index: number) => {
   if (page === 1) {
-    return page;
+    return page + index;
   }
-  return page - 1;
+  return page + index - 1;
 };
