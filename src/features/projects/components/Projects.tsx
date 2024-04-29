@@ -11,13 +11,21 @@ import {
   CarouselPrevious,
 } from '~/components/ui/carousel';
 import { type ProjectRootProps } from '../types';
+import Autoplay from 'embla-carousel-autoplay';
+import { type FC } from 'react';
 
-const Projects: React.FC<ProjectRootProps> = ({ documents }) => {
+const Projects: FC<ProjectRootProps> = ({ documents }) => {
   return (
     <Section id="#projects" foreground>
       <Container className="flex flex-col items-center gap-16">
         <SectionTitle title={'Projects'} />
-        <Carousel className={'w-10/12 max-w-6xl'}>
+        <Carousel
+          opts={{
+            loop: true,
+          }}
+          plugins={[Autoplay()]}
+          className={'w-10/12 max-w-6xl'}
+        >
           <ProjectsCarousel.ShowMore />
           <CarouselContent className={'-ml-4'}>
             {documents.map((document, index) => (
