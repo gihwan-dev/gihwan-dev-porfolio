@@ -9,6 +9,7 @@ import { useEditorHook } from '../business/hooks/editor.hooks';
 import { ErrorBoundary } from 'react-error-boundary';
 import EditorErrorFallback from './EditorErrorFallback';
 import EditorLoadingSkeleton from './EditorLoadingSkeleton';
+import ImageManageDialog from '~/features/admin_document/components/ImageManageDialog';
 
 const Editor = () => {
   const {
@@ -58,6 +59,7 @@ const Editor = () => {
         </Button>
         <Button onClick={onSave}>Save</Button>
       </div>
+      <ImageManageDialog />
     </ErrorBoundary>
   );
 };
