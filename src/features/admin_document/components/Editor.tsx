@@ -38,7 +38,7 @@ const Editor = () => {
           onPasteCapture={e => onPasteCapture(e, ref)}
           value={model}
           className={
-            'box-border h-full w-full overflow-hidden whitespace-pre-wrap border border-gray-300 p-2'
+            'box-border h-full w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap border border-gray-300 p-2'
           }
           autoFocus={true}
           onChange={onModelChange}
@@ -46,6 +46,7 @@ const Editor = () => {
         <ReactMarkdown.Markdown
           style={{
             whiteSpace: 'pre-wrap',
+            backgroundColor: 'var(--main-foreground)',
           }}
           className={'h-full w-full overflow-y-auto border-gray-300 p-2'}
           source={model}
