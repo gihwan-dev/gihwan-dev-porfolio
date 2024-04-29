@@ -157,6 +157,7 @@ html {
   display: flex;
   flex-direction: column;
   gap: 0;
+  color: #D9D9D9 !important;
 }
 
 .wmde-markdown ul{
@@ -181,22 +182,39 @@ html {
 }
 
 .wmde-markdown h1 {
+  font-size: 3rem !important;
   margin-top: 32px !important;
   margin-bottom: 16px !important;
+  color: white;
 }
 .wmde-markdown h2 {
+  color: white;
+  font-size: 2.5rem !important;
   margin-top: 24px !important;
   margin-bottom: 16px !important;
 }
 .wmde-markdown h3 {
+  color: white;
+  font-size: 2rem !important;
   margin-top: 16px !important;
   margin-bottom: 16px !important;
 }
 .wmde-markdown h4,
 .wmde-markdown h5,
 .wmde-markdown h6 {
+  font-size: 1.5rem !important;
+  color: white;
   margin-top: 12px !important;
   margin-bottom: 12px !important;
+}
+
+.wmde-markdown strong {
+  color: white;
+  font-weight: 900;
+}
+
+.wmde-markdown code {
+  color: white;
 }
 
 .wmde-markdown > hr {
@@ -209,6 +227,8 @@ html {
   overflow: visible !important;
   position: relative !important;
   background-color: white !important;
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
 }
 
 .wmde-markdown hr::before, .wmde-markdown hr::after {
