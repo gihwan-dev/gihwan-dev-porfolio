@@ -1,5 +1,3 @@
-'use client';
-
 import EditorLayout from './EditorLayout';
 import { type FC, type ReactNode } from 'react';
 import EditorContent from './EditorContent';

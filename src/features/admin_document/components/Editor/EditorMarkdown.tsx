@@ -1,3 +1,5 @@
+'use client';
+
 import ReactMarkdown from '@uiw/react-md-editor';
 import React from 'react';
 import { useEditorHook } from '../../business/hooks/editor.hooks';

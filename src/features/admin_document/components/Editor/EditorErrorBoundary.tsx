@@ -1,3 +1,5 @@
+'use client';
+
 import React, { type FC, type ReactNode } from 'react';
 import EditorErrorFallback from './EditorErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';

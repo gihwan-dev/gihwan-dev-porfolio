@@ -1,3 +1,5 @@
+'use client';
+
 import React, { type FC, type ReactNode } from 'react';
 import { Button } from '~/components/ui/button';
 import { useEditorHook } from '../../business/hooks/editor.hooks';

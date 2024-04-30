@@ -1,3 +1,5 @@
+'use client';
+
 import React, { type FC, type ReactNode } from 'react';
 import EditorLoadingSkeleton from './EditorLoadingSkeleton';
 import { useEditorHook } from '../../business/hooks/editor.hooks';
