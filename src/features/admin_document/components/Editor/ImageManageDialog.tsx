@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dialog,
   DialogContent,
@@ -6,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '~/components/ui/dialog';
-import { useImageManageDialog } from '../business/hooks/imageManageDialog.hooks';
+import { useImageManageDialog } from '../../business/hooks/imageManageDialog.hooks';
 import { Button } from '~/components/ui/button';
 
 const ImageManageDialog = () => {
