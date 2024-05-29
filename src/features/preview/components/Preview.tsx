@@ -14,7 +14,7 @@ import PreviewStartEndDate from './PreviewStartEndDate';
 import PreviewEditButton from './PreviewEditButton';
 import PreviewDeleteButton from './PreviewDeleteButton';
 import PreviewLayout from './PreviewLayout';
-import PreviewScreenPhoto from '~/features/preview/components/PreviewScreenPhoto';
+import PreviewScreenPhoto from './PreviewScreenPhoto';
 
 type Props = {
   documentId: string;

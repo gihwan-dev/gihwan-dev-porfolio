@@ -31,7 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import AddScreenPhoto from '~/features/admin_document/components/AddScreenPhoto';
+import AddScreenPhoto from './AddScreenPhoto';
 
 interface Props {
   title: string;

@@ -37,7 +37,7 @@ export default function AddScreenPhoto({ documentId }: Props) {
           toast({
             title: 'Screen photo deleted successfully',
           });
-          refetch();
+          void refetch();
           queryClient.setQueryData(
             getQueryKey(api.document.getDocumentScreenPhotos, {
               type: tab,
