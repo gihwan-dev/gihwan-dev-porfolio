@@ -34,6 +34,7 @@ export const createDocumentScreenPhotos = async ({
   await db.screen_Image.deleteMany({
     where: {
       document_id: documentId,
+      type,
     },
   });
 
