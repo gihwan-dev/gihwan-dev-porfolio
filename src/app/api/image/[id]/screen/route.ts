@@ -4,15 +4,11 @@ import { createDocumentScreenPhotos } from '~/app/api/image/[id]/screen/handler'
 export const POST = async (req: NextRequest) => {
   const formData = await req.formData();
 
-  console.log('formData: ', formData);
-
   const files = await extractFiles(formData);
 
   const type = formData.get('type') as 'mobile' | 'desktop' | 'tablet';
 
   const documentId = Number(formData.get('documentId'));
-
-  console.log('files: ', files);
 
   const result = await createDocumentScreenPhotos({
     fileList: files,

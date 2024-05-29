@@ -7,9 +7,7 @@ export const POST = async (req: NextRequest) => {
   try {
     const formData = await req.formData();
 
-    console.log(formData);
     const image = formData.get('image-file') as File;
-    console.log(image);
 
     if (image) {
       const blob = await put(image.name, image, {

@@ -30,8 +30,6 @@ export default function PreviewScreenPhoto({ documentId }: Props) {
     );
   }
 
-  console.log(tabs, data);
-
   return (
     <div className="mx-auto my-8 w-full max-w-5xl px-6 xl:px-12">
       <h2 className={'my-8 text-2xl font-bold text-white'}>Screens</h2>
