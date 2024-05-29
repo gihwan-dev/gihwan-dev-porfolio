@@ -45,3 +45,35 @@ export const updateBio = async (input: UpdateBioParams) => {
     data: input,
   });
 };
+
+export const getBioImage = async () => {
+  return db.bio.findFirst({
+    select: {
+      bio_img: true,
+    },
+  });
+};
+
+export const getBioTitle = async () => {
+  return db.bio.findFirst({
+    select: {
+      title: true,
+    },
+  });
+};
+
+export const getBioDescription = async () => {
+  return db.bio.findFirst({
+    select: {
+      description: true,
+    },
+  });
+};
+
+export const getBioLink = async () => {
+  return db.bio.findFirst({
+    select: {
+      resume_link: true,
+    },
+  });
+};

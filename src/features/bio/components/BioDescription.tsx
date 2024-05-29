@@ -1,13 +1,18 @@
-import { type FC, type ReactNode } from 'react';
+import { api } from '~/trpc/server';
 
-interface Props {
-  children: ReactNode;
-}
+const BioDescription = async () => {
+  const description = await api.bio.getBioDescription.query();
 
-const BioDescription: FC<Props> = ({ children }) => {
+  if (!description) {
+    return (
+      <p className="w-full max-w-[29rem] break-keep text-center text-lg text-text-gray sm:text-xl">
+        오류가 발생했습니다... 다시 시도해 주세요!
+      </p>
+    );
+  }
   return (
     <p className="w-full max-w-[29rem] break-keep text-center text-lg text-text-gray sm:text-xl">
-      {children}
+      {description.description}
     </p>
   );
 };

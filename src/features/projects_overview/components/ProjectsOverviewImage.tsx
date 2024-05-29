@@ -9,7 +9,7 @@ const ProjectsOverviewImage: React.FC<Props> = ({ src }) => {
   return (
     <div
       className={
-        'flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-gray-300'
+        'relative flex aspect-video items-center justify-center overflow-hidden rounded-lg bg-gray-300'
       }
     >
       {isImageSrcTruthy(src) ? (
