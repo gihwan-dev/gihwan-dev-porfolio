@@ -8,7 +8,7 @@ import BioTitle from './BioTitle';
 import BioDescription from './BioDescription';
 import { Suspense } from 'react';
 import { Skeleton } from '~/components/ui/skeleton';
-import BioContentSkeleton from '~/features/bio/components/BioContentSkeleton';
+import BioContentSkeleton from './BioContentSkeleton';
 
 const Bio = async () => {
   return (
