@@ -4,8 +4,10 @@ import {
   addTagToDocument,
   countAll,
   deleteOneDocument,
+  deleteScreenPhoto,
   getAllDocument,
   getAllDocumentByPage,
+  getDocumentScreenPhotos,
   getDocumentTags,
   getDocumentType,
   getOneDocument,
@@ -125,5 +127,26 @@ export const documentRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       return deleteOneDocument(input.documentId);
+    }),
+
+  getDocumentScreenPhotos: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+        type: z.enum(['mobile', 'desktop', 'tablet']),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentScreenPhotos(input);
+    }),
+
+  deleteDocumentScreenPhoto: protectedProcedure
+    .input(
+      z.object({
+        screenPhotoId: z.number(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      return await deleteScreenPhoto(input.screenPhotoId);
     }),
 });

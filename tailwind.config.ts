@@ -17,6 +17,13 @@ const config = {
         '2xl': '1400px',
       },
     },
+    aspectRatio: {
+      mobile: '9/16',
+      tablet: '3/4',
+      desktop: '16/9',
+      video: '16/9',
+      square: '1/1',
+    },
     extend: {
       colors: {
         'text-primary-red': 'var(--text-primary-red)',

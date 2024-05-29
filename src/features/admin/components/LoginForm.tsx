@@ -65,7 +65,7 @@ const LoginForm: FC = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>User email</FormLabel>
+              <FormLabel className={'text-white'}>User email</FormLabel>
               <FormControl>
                 <Input
                   type="text"
@@ -85,7 +85,7 @@ const LoginForm: FC = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>User password</FormLabel>
+              <FormLabel className={'text-white'}>User password</FormLabel>
               <FormControl>
                 <Input
                   type="password"
