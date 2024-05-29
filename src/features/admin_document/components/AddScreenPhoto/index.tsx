@@ -89,7 +89,9 @@ export default function AddScreenPhoto({ documentId }: Props) {
               .map(photo => (
                 <div
                   key={`screen-photo-image-${photo.screen_image_id}`}
-                  className={'relative h-[150px] w-[150px] border'}
+                  className={
+                    'relative h-[150px] w-[150px] flex-shrink-0 border'
+                  }
                 >
                   <button
                     type={'button'}
