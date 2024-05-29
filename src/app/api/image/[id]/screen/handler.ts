@@ -1,4 +1,4 @@
-import { del, list, put } from '@vercel/blob';
+import { put } from '@vercel/blob';
 import { db } from '~/server/db';
 
 interface SaveScreenPhotoParams {
@@ -12,14 +12,6 @@ export const createDocumentScreenPhotos = async ({
   documentId,
   type,
 }: SaveScreenPhotoParams) => {
-  const urlLists = await list({
-    prefix: `screen-${documentId}-${type}`,
-  });
-
-  if (urlLists.blobs.length > 0) {
-    await del(urlLists.blobs.map(blob => blob.url));
-  }
-
   const uploadPromises = fileList.map(file =>
     put(`screen-${documentId}-${file.name}`, file, { access: 'public' }),
   );
@@ -30,13 +22,6 @@ export const createDocumentScreenPhotos = async ({
     document_id: documentId,
     type,
   }));
-
-  await db.screen_Image.deleteMany({
-    where: {
-      document_id: documentId,
-      type,
-    },
-  });
 
   return db.screen_Image.createMany({
     data: screenImages,

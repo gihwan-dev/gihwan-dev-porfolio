@@ -6,6 +6,36 @@ interface ScreenFileInputProps {
   refetch: () => void;
 }
 
+function* take<T>(iter: Iterable<T>, n: number) {
+  const iterator = iter[Symbol.iterator]();
+  while (n--) {
+    const { value, done } = iterator.next();
+
+    if (done) break;
+
+    yield value;
+  }
+}
+
+function* chunk<T>(iter: Iterable<T>, size: number) {
+  const iterator = iter[Symbol.iterator]();
+
+  while (true) {
+    const arr = [
+      ...take(
+        {
+          [Symbol.iterator]: () => iterator,
+        },
+        size,
+      ),
+    ];
+
+    if (arr.length) yield arr;
+
+    if (arr.length < size) break;
+  }
+}
+
 export default function ScreenFileInput({
   documentId,
   type,
@@ -18,26 +48,34 @@ export default function ScreenFileInput({
       });
       const formData = new FormData();
 
-      formData.append('type', type);
-      formData.append('documentId', documentId.toString());
-
       for (const file of e.target.files || []) {
         if (file instanceof File) {
           formData.append(file.name, file);
         }
       }
 
-      const response = await fetch(`/api/image/${documentId}/screen`, {
-        method: 'POST',
-        body: formData,
-      });
+      const chunkedFiles = [...chunk(formData, 5)];
 
-      if (response.ok) {
-        toast({
-          title: 'Screen photos uploaded successfully',
+      for (const chunkedFileList of chunkedFiles) {
+        const newFormData = new FormData();
+
+        newFormData.append('type', type);
+        newFormData.append('documentId', documentId.toString());
+
+        chunkedFileList.forEach(([key, value]) => {
+          newFormData.append(key, value);
         });
-        refetch();
+
+        const response = await fetch(`/api/image/${documentId}/screen`, {
+          method: 'POST',
+          body: newFormData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to upload images');
+        }
       }
+      refetch();
     } catch (e) {
       toast({
         title: 'Screen photos upload failed',
@@ -49,7 +87,7 @@ export default function ScreenFileInput({
     <label htmlFor={'add-new-screen'} className={'cursor-pointer'}>
       <div
         className={
-          'flex h-[150] w-[150] items-center justify-center bg-muted transition-all hover:opacity-70'
+          'flex h-[150px] w-[150px] flex-shrink-0 items-center justify-center bg-muted transition-all hover:opacity-70'
         }
       >
         <p className={'font-bold text-muted-foreground'}>+</p>
