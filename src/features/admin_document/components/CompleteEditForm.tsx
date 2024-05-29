@@ -31,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
+import AddScreenPhoto from './AddScreenPhoto';
 
 interface Props {
   title: string;
@@ -96,7 +97,7 @@ const CompleteEditForm: React.FC<Props> = ({
   };
 
   return (
-    <Card className="box-border flex w-full max-w-3xl flex-col gap-4 px-12 py-8">
+    <Card className="box-border flex w-full max-w-3xl flex-col gap-4 overflow-y-auto px-12 py-8">
       <ThumbnailInput documentId={documentId} initThumbnail={thumbnail} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -200,6 +201,7 @@ const CompleteEditForm: React.FC<Props> = ({
         </form>
       </Form>
       <TagListContainer />
+      <AddScreenPhoto documentId={documentId} />
     </Card>
   );
 };

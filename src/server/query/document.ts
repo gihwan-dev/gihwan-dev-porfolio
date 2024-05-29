@@ -1,4 +1,5 @@
 import { db } from '../db';
+import { del } from '@vercel/blob';
 
 export const getAllDocument = async () => {
   return db.documents.findMany({
@@ -186,6 +187,43 @@ export const deleteOneDocument = (documentId: number) => {
   return db.documents.delete({
     where: {
       document_id: documentId,
+    },
+  });
+};
+
+interface GetDocumentScreenPhotosParams {
+  documentId: number;
+  type: 'mobile' | 'desktop' | 'tablet';
+}
+
+export const getDocumentScreenPhotos = async ({
+  documentId,
+  type,
+}: GetDocumentScreenPhotosParams) => {
+  return db.screen_Image.findMany({
+    where: {
+      document_id: documentId,
+      type: type,
+    },
+  });
+};
+
+export const deleteScreenPhoto = async (screenImageId: number) => {
+  const screenImage = await db.screen_Image.findUnique({
+    where: {
+      screen_image_id: screenImageId,
+    },
+  });
+
+  if (!screenImage) {
+    return null;
+  }
+
+  await del(screenImage.url);
+
+  return db.screen_Image.delete({
+    where: {
+      screen_image_id: screenImageId,
     },
   });
 };

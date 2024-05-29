@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, type ChangeEventHandler } from 'react';
+import { type ChangeEventHandler, useState } from 'react';
 
 interface Props {
   documentId: number;
@@ -38,7 +38,7 @@ const ThumbnailInput: React.FC<Props> = ({ documentId, initThumbnail }) => {
     <div>
       <label htmlFor="thumbnail-image">
         {thumbnail ? (
-          <div className="flex aspect-video w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md border font-bold text-black">
+          <div className="aspect-desktop relative flex w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md border font-bold text-black">
             <Image
               src={thumbnail}
               alt="post thumbnail"

@@ -29,6 +29,7 @@ model Documents {
   document_type_id Int
   document_type    Document_Type   @relation(fields: [document_type_id], references: [document_type_id])
   project_tags     Document_Tags[]
+  screen_images    Screen_Image[]
   start_date       DateTime        @default(now())
   end_date         DateTime        @default(now())
   reg_date         DateTime        @default(now())
@@ -61,4 +62,13 @@ model Document_Tags_Category {
 model User {
   email    String @id
   password String
+}
+
+model Screen_Image {
+  screen_image_id Int       @id @default(autoincrement())
+  url             String
+  type            String
+  document_id     Int
+  document        Documents @relation(fields: [document_id], references: [document_id])
+  reg_date        DateTime  @default(now())
 }

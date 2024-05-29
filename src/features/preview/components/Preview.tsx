@@ -14,6 +14,7 @@ import PreviewStartEndDate from './PreviewStartEndDate';
 import PreviewEditButton from './PreviewEditButton';
 import PreviewDeleteButton from './PreviewDeleteButton';
 import PreviewLayout from './PreviewLayout';
+import PreviewScreenPhoto from './PreviewScreenPhoto';
 
 type Props = {
   documentId: string;
@@ -38,6 +39,7 @@ const Preview: React.FC<Props> = async ({ documentId }) => {
         endDate={response.end_date.toString()}
       />
       <PreviewContent content={response.content} />
+      <PreviewScreenPhoto documentId={+documentId} />
       <PreviewTagList tagList={response.project_tags} />
       <PreviewDate date={response.reg_date} />
       <PreviewBackButton />
