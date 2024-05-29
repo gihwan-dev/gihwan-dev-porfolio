@@ -43,24 +43,24 @@ export default function ScreenTabletContent({ documentId }: Props) {
       {content}
       {isLoading ? (
         <div className={`mx-auto flex w-full max-w-5xl flex-row gap-4`}>
-          <Skeleton className={`aspect-tablet w-[300]`} />
-          <Skeleton className={`aspect-tablet w-[300]`} />
-          <Skeleton className={`aspect-tablet w-[300]`} />
+          <Skeleton className={`aspect-tablet w-[400px]`} />
+          <Skeleton className={`aspect-tablet w-[400px]`} />
+          <Skeleton className={`aspect-tablet w-[400px]`} />
         </div>
       ) : (
         data?.map(screenImage => (
           <Suspense
             key={`screen-${screenImage.screen_image_id}`}
-            fallback={<Skeleton className={`aspect-tablet w-[300]`} />}
+            fallback={<Skeleton className={`aspect-tablet w-[400px]`} />}
           >
-            <div className={`aspect-tablet relative w-[300] shrink-0`}>
+            <div className={`aspect-tablet relative w-[400px] shrink-0`}>
               <Image
                 src={screenImage.url}
                 alt={`screen-${screenImage.screen_image_id}`}
                 fill
                 loading={'lazy'}
                 priority={false}
-                sizes={'300px'}
+                sizes={'400px'}
                 className={'z-20 object-contain'}
               />
             </div>
