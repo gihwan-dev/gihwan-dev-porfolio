@@ -1,30 +1,36 @@
-'use client';
-
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { fadeInFromLeft } from '~/utils/framer-motion.utils';
-import { type FC } from 'react';
+import { api } from '~/trpc/server';
 
-const BioImage: FC<{
-  bio_img: string;
-}> = ({ bio_img }) => {
+const BioImage = async () => {
+  const bioImage = await api.bio.getBioImage.query();
+
+  if (!bioImage) {
+    return (
+      <div
+        className={
+          'relative flex h-[475] w-[374] items-center justify-center overflow-hidden bg-muted-foreground sm:rounded-lg'
+        }
+      >
+        <h2>이미지를 불러올 수 없습니다...</h2>
+      </div>
+    );
+  }
+
   return (
-    <motion.div
-      style={{
-        width: 374,
-        height: 476,
-      }}
-      {...fadeInFromLeft}
+    <div
+      className={
+        'relative h-[475px] w-[374px] overflow-hidden bg-muted-foreground sm:rounded-lg'
+      }
     >
       <Image
-        priority={true}
-        sizes={'374'}
         fill
-        className={'object-cover sm:rounded-lg'}
-        src={bio_img}
+        sizes={'374'}
+        priority={true}
+        className={'object-cover'}
+        src={bioImage.bio_img}
         alt="my image"
       />
-    </motion.div>
+    </div>
   );
 };
 

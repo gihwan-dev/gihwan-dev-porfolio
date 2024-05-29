@@ -20,6 +20,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { loginFormSchema, type LoginFormType } from '../types/auth';
 import { type FC } from 'react';
+import { toast } from '~/components/ui/use-toast';
 
 const LoginForm: FC = () => {
   const form = useForm<LoginFormType>({
@@ -34,6 +35,9 @@ const LoginForm: FC = () => {
 
   const onSubmit = async (values: LoginFormType) => {
     try {
+      toast({
+        title: 'Try loagin...',
+      });
       const response = await signIn('credentials', {
         redirect: false,
         email: values.email,
