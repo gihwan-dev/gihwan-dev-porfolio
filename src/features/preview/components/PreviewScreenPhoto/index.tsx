@@ -11,6 +11,12 @@ interface Props {
   documentId: number;
 }
 
+const aspectValue = {
+  mobile: 'aspect-mobile',
+  desktop: 'aspect-desktop',
+  tablet: 'aspect-tablet',
+};
+
 export default function PreviewScreenPhoto({ documentId }: Props) {
   const [tabs, setTabs] = useState<'mobile' | 'desktop' | 'tablet'>('mobile');
 
@@ -24,22 +30,14 @@ export default function PreviewScreenPhoto({ documentId }: Props) {
     throw error;
   }
 
-  if (isLoading) {
-    return (
-      <Skeleton className={'mx-auto my-8 h-40 w-full max-w-5xl xl:px-12'} />
-    );
-  }
-
-  console.log(tabs, data);
-
   return (
     <div className="mx-auto my-8 w-full max-w-5xl px-6 xl:px-12">
-      <h2 className={'my-8 text-2xl font-bold text-white'}>Screens</h2>
+      <h2 className={'my-12 text-2xl font-bold text-white'}>Screens</h2>
       <Tabs
-        className={'flex w-full flex-col items-center justify-center gap-4'}
+        className={'flex w-full flex-col items-center justify-center'}
         value={tabs}
       >
-        <TabsList className={'my-6'}>
+        <TabsList>
           <TabsTrigger onClick={() => setTabs('mobile')} value={'mobile'}>
             Mobile
           </TabsTrigger>
@@ -51,27 +49,41 @@ export default function PreviewScreenPhoto({ documentId }: Props) {
           </TabsTrigger>
         </TabsList>
         <TabsContent
-          className={'flex w-full flex-row gap-2 overflow-x-auto'}
+          className={'flex w-full flex-row gap-4 overflow-x-auto px-4 py-12'}
           value={tabs}
         >
-          {data?.map(screenImage => (
-            <Suspense
-              key={`screen-${screenImage.screen_image_id}`}
-              fallback={<Skeleton className={`w-300 aspect-${tabs}`} />}
+          {isLoading ? (
+            <div
+              className={`mx-auto my-8 flex w-full max-w-5xl flex-row gap-4 px-4 py-12 xl:px-12`}
             >
-              <div className={`my-4 aspect-${tabs} relative w-[300] shrink-0`}>
-                <Image
-                  src={screenImage.url}
-                  alt={`screen-${screenImage.screen_image_id}`}
-                  fill
-                  loading={'lazy'}
-                  priority={false}
-                  sizes={'300px'}
-                  className={'z-20 object-contain'}
-                />
-              </div>
-            </Suspense>
-          ))}
+              <Skeleton className={`w-[300] ${aspectValue[tabs]}`} />
+              <Skeleton className={`w-[300] ${aspectValue[tabs]}`} />
+              <Skeleton className={`w-[300] ${aspectValue[tabs]}`} />
+            </div>
+          ) : (
+            data?.map(screenImage => (
+              <Suspense
+                key={`screen-${screenImage.screen_image_id}`}
+                fallback={
+                  <Skeleton className={`w-[300] ${aspectValue[tabs]}`} />
+                }
+              >
+                <div
+                  className={`${aspectValue[tabs]} relative w-[300] shrink-0`}
+                >
+                  <Image
+                    src={screenImage.url}
+                    alt={`screen-${screenImage.screen_image_id}`}
+                    fill
+                    loading={'lazy'}
+                    priority={false}
+                    sizes={'300px'}
+                    className={'z-20 object-contain'}
+                  />
+                </div>
+              </Suspense>
+            ))
+          )}
         </TabsContent>
       </Tabs>
     </div>
