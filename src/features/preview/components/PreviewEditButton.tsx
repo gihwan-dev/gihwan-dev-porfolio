@@ -1,21 +1,7 @@
-'use client';
-
-import { Button } from '~/components/ui/button';
+import Link from 'next/link';
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { type DocumentIdProps } from '~/types/document-types';
 
-type Props = {
-  documentId: string;
-};
-
-const PreviewEditButton: React.FC<Props> = ({ documentId }) => {
-  const router = useRouter();
-
-  const onClick = () => {
-    router.push('/admin/documents/edit/' + documentId);
-  };
-
-  return <Button onClick={onClick}>Edit</Button>;
-};
-
-export default PreviewEditButton;
+export default function PreviewEditButton({ documentId }: DocumentIdProps) {
+  return <Link href={`/admin/documents/edit/${documentId}`}>Edit</Link>;
+}

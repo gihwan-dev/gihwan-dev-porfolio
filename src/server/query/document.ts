@@ -1,6 +1,8 @@
 import { db } from '../db';
 import { del } from '@vercel/blob';
 
+import { type DocumentIdProps } from '~/types/document-types';
+
 export const getAllDocument = async () => {
   return db.documents.findMany({
     include: {
@@ -227,3 +229,81 @@ export const deleteScreenPhoto = async (screenImageId: number) => {
     },
   });
 };
+
+export function getDocumentTitle({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      title: true,
+    },
+  });
+}
+
+export function getDocumentDescription({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      description: true,
+    },
+  });
+}
+
+export function getDocumentThumbnail({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      thumbnail: true,
+    },
+  });
+}
+
+export function getDocumentStartEndDate({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      start_date: true,
+      end_date: true,
+    },
+  });
+}
+
+export function getDocumentContent({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      content: true,
+    },
+  });
+}
+
+export function getDocumentTagList({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    include: {
+      project_tags: true,
+    },
+  });
+}
+
+export function getDocumentPublishedDate({ documentId }: DocumentIdProps) {
+  return db.documents.findUnique({
+    where: {
+      document_id: documentId,
+    },
+    select: {
+      reg_date: true,
+    },
+  });
+}

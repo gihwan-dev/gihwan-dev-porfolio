@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-const MetaTag = () => {
+export default function MetaTag() {
   return (
     <Head>
       <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
@@ -62,6 +62,4 @@ const MetaTag = () => {
       <meta name="theme-color" content="#ffffff" />
     </Head>
   );
-};
-
-export default MetaTag;
+}

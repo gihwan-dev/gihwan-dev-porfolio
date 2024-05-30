@@ -1,8 +1,8 @@
-import type { ChildrenProps } from '../../types';
 import React, { useContext } from 'react';
 import ProjectCarouselContext from './ProjectsCarouselContext';
 import { isImageSrcTruthy } from '~/lib/truthy';
 import Image from 'next/image';
+import { type ChildrenProps } from '~/types/props-types';
 
 export default function ProjectCarouselThumbnail({ children }: ChildrenProps) {
   const context = useContext(ProjectCarouselContext);

@@ -1,6 +1,6 @@
 'use client';
 
-import { fadeInFromTop } from '~/utils/framer-motion.utils';
+import { fadeInFromTop } from '~/utils/framer-motion-utils';
 
 import { motion } from 'framer-motion';
 import { type FC, type ReactNode } from 'react';

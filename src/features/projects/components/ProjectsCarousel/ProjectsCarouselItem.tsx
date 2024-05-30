@@ -1,8 +1,8 @@
-import type { ChildrenProps } from '../../types';
 import React, { useContext } from 'react';
 import ProjectCarouselContext from './ProjectsCarouselContext';
-import useNavigateTo from '~/app/hooks/useNavigateTo';
+import useNavigateTo from '~/hooks/useNavigateTo';
 import { CarouselItem } from '~/components/ui/carousel';
+import { type ChildrenProps } from '~/types/props-types';
 
 export default function ProjectCarouselItem({ children }: ChildrenProps) {
   const context = useContext(ProjectCarouselContext);

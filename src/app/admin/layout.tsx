@@ -7,7 +7,7 @@ const AdminLayout: FC<{
   login: ReactNode;
 }> = async ({ children, login }) => {
   const session = await getServerAuthSession();
-  // footer 만들어야함
+
   return (
     <div className="h-screen w-full overflow-hidden">
       {session ? (

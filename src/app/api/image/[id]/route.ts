@@ -3,6 +3,9 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { put } from '@vercel/blob';
 import { db } from '~/server/db';
+import { extractImageFile } from '~/utils/form-utils';
+import STATUS_CODE from '~/consts/status-code';
+import { ApiError } from '~/objects/error-objects';
 
 export const POST = async (
   req: NextRequest,
@@ -11,26 +14,32 @@ export const POST = async (
   try {
     const formData = await req.formData();
     const id = params.id;
-    const image = formData.get('image-file') as File;
+    const image = extractImageFile(formData);
 
-    if (image) {
-      const blob = await put(image.name, image, {
-        access: 'public',
-      });
-      await db.documents.update({
-        where: {
-          document_id: Number(id),
-        },
-        data: {
-          thumbnail: blob.url,
-        },
-      });
-      return NextResponse.json({ link: blob.url });
-    }
+    const blob = await put(image.name, image, {
+      access: 'public',
+    });
 
-    return NextResponse.json({});
+    await db.documents.update({
+      where: {
+        document_id: Number(id),
+      },
+      data: {
+        thumbnail: blob.url,
+      },
+    });
+
+    return NextResponse.json({ link: blob.url });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({});
+    if (error instanceof ApiError) {
+      return NextResponse.json(
+        { message: error.message },
+        { status: error.statusCode },
+      );
+    }
+    return NextResponse.json(
+      { message: 'Fail to upload image. Try again.' },
+      { status: STATUS_CODE.INTERNAL_SERVER_ERROR },
+    );
   }
 };

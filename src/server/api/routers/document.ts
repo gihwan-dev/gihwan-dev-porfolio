@@ -7,8 +7,15 @@ import {
   deleteScreenPhoto,
   getAllDocument,
   getAllDocumentByPage,
+  getDocumentContent,
+  getDocumentDescription,
+  getDocumentPublishedDate,
   getDocumentScreenPhotos,
+  getDocumentStartEndDate,
+  getDocumentTagList,
   getDocumentTags,
+  getDocumentThumbnail,
+  getDocumentTitle,
   getDocumentType,
   getOneDocument,
   getTypedDocument,
@@ -148,5 +155,75 @@ export const documentRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       return await deleteScreenPhoto(input.screenPhotoId);
+    }),
+
+  getDocumentTitle: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentTitle({ documentId: input.documentId });
+    }),
+
+  getDocumentDescription: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentDescription({ documentId: input.documentId });
+    }),
+
+  getDocumentThumbnail: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentThumbnail({ documentId: input.documentId });
+    }),
+
+  getDocumentStartEndDate: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentStartEndDate({ documentId: input.documentId });
+    }),
+
+  getDocumentContent: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentContent({ documentId: input.documentId });
+    }),
+
+  getDocumentTagList: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentTagList({ documentId: input.documentId });
+    }),
+
+  getDocumentPublishedDate: publicProcedure
+    .input(
+      z.object({
+        documentId: z.number(),
+      }),
+    )
+    .query(async ({ input }) => {
+      return getDocumentPublishedDate({ documentId: input.documentId });
     }),
 });

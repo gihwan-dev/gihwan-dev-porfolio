@@ -1,24 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { put } from '@vercel/blob';
+import { extractImageFile } from '~/utils/form-utils';
+import { ApiError } from '~/objects/error-objects';
 
 export const POST = async (req: NextRequest) => {
   try {
     const formData = await req.formData();
 
-    const image = formData.get('image-file') as File;
+    const image = extractImageFile(formData);
 
-    if (image) {
-      const blob = await put(image.name, image, {
-        access: 'public',
-      });
-      return NextResponse.json({ link: blob.url });
+    const blob = await put(image.name, image, {
+      access: 'public',
+    });
+    return NextResponse.json({ link: blob.url });
+  } catch (error) {
+    if (error instanceof ApiError) {
+      return NextResponse.json(
+        { message: error.message },
+        { status: error.statusCode },
+      );
     }
 
-    return NextResponse.json({});
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({});
+    return NextResponse.json(
+      { message: 'Fail to upload image. Try again.' },
+      { status: 500 },
+    );
   }
 };

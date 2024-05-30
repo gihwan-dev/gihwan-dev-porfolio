@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { createDocumentScreenPhotos } from '~/app/api/image/[id]/screen/handler';
+import { extractFiles } from '~/utils/form-utils';
 
 export const POST = async (req: NextRequest) => {
   const formData = await req.formData();
@@ -26,14 +27,4 @@ export const POST = async (req: NextRequest) => {
     success: false,
     message: 'Screen photos upload failed',
   });
-};
-
-const extractFiles = async (formData: FormData) => {
-  const files = [];
-  for (const value of formData.values()) {
-    if (value instanceof File) {
-      files.push(value);
-    }
-  }
-  return files;
 };

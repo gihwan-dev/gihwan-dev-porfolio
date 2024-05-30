@@ -1,5 +1,5 @@
 import { Preview } from 'src/features/preview';
-import { type ParamsProps } from '~/app/types/params.type';
+import { type ParamsProps } from '~/types/params-type';
 import { type Metadata } from 'next';
 import { db } from '~/server/db';
 
@@ -89,7 +89,7 @@ export default async function ProjectDetailPage({ params }: ParamsProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Preview documentId={id} />
+      <Preview documentId={+id} />
     </div>
   );
 }
