@@ -32,7 +32,7 @@ const Editor = () => {
 
   return (
     <ErrorBoundary fallback={<EditorErrorFallback model={model} />}>
-      <div className="flex h-full w-full flex-row gap-2 overflow-y-auto p-2">
+      <div className="flex h-full w-full flex-col gap-2 overflow-y-auto p-2 md:flex-row">
         <textarea
           ref={ref}
           onPasteCapture={e => onPasteCapture(e, ref)}

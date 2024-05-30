@@ -6,7 +6,7 @@ interface PreviewDeleteButtonProps {
   onClick: () => void;
 }
 
-export default function PreviewDeleteButton({
+export default function PreviewDeleteButtonView({
   onClick,
 }: PreviewDeleteButtonProps) {
   return (

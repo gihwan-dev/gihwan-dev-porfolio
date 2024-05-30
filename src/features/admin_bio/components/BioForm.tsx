@@ -15,6 +15,7 @@ import {
 import { Input } from '~/components/ui/input';
 import { Textarea } from '~/components/ui/textarea';
 import { api } from '~/trpc/react';
+import { toast } from '~/components/ui/use-toast';
 
 const bioFormSchema = z.object({
   bio_img: z.string(),
@@ -43,9 +44,15 @@ const BioForm: React.FC<{
   const { mutate } = api.bio.createBio.useMutation();
 
   const submitHandler = (values: UpdateBioType) => {
+    toast({
+      title: 'Upload in progress...',
+    });
     mutate(values, {
-      onSuccess: data => {
-        window.alert(data.message);
+      onSuccess: _ => {
+        toast({
+          title: 'Upload successful!',
+          className: 'bg-green-500 text-white',
+        });
       },
     });
   };

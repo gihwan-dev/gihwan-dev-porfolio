@@ -14,6 +14,10 @@ const NavBarController = () => {
   const pathname = usePathname();
   const params = useParams();
 
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <NavBarLayoutView>
       <Container
