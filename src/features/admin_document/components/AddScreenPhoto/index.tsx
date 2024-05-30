@@ -106,6 +106,7 @@ export default function AddScreenPhoto({ documentId }: Props) {
                     src={photo.url}
                     fill
                     className={'object-contain'}
+                    sizes={'150px'}
                     alt={`screen-photo-image-${photo.screen_image_id}`}
                   />
                 </div>

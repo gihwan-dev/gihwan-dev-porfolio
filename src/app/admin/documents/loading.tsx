@@ -1,6 +1,5 @@
-import '~/styles/globals.css';
 import LoadingScreen from '~/components/LoadingScreen';
 
-export default function Loading() {
+export default function DocumentLoading() {
   return <LoadingScreen />;
 }

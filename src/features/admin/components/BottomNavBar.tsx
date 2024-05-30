@@ -14,11 +14,14 @@ import {
 } from '~/components/ui/drawer';
 import { api } from '~/trpc/react';
 import AddDocumentTypeField from './AddDocumentTypeField';
+import { Skeleton } from '~/components/ui/skeleton';
 
 const BottomNavBar = () => {
   const { data: typeList, isLoading } = api.document.getAllType.useQuery();
   if (isLoading) {
-    return;
+    return (
+      <Skeleton className="fixed bottom-12 right-12 z-10 h-[40px] w-[70.95px] rounded-lg" />
+    );
   }
   return (
     <Drawer>
@@ -33,10 +36,13 @@ const BottomNavBar = () => {
           <DrawerDescription>Select menu for modifying.</DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 px-4 py-4">
-          <Link href="/admin/bio">Bio</Link>
+          <Link prefetch={true} href="/admin/bio">
+            Bio
+          </Link>
           {typeList?.map(type => {
             return (
               <Link
+                prefetch={true}
                 href={`/admin/documents?type=${type.document_type_name}`}
                 key={`${type.document_type_id}-admin-bottom-nav`}
               >
@@ -44,6 +50,9 @@ const BottomNavBar = () => {
               </Link>
             );
           })}
+          <Link className={'font-bold'} href={'/'}>
+            Back to home
+          </Link>
         </div>
         <DrawerFooter className="pb-8">
           <AddDocumentTypeField />

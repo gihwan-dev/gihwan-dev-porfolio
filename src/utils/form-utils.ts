@@ -33,3 +33,14 @@ export const extractFiles = async (formData: FormData) => {
 
   return files;
 };
+
+export const addValuesToFormData = (
+  formData: FormData,
+  iterable: Iterable<string | Blob>,
+) => {
+  let index = 0;
+
+  for (const value of iterable) {
+    formData.append(`key-${index++}`, value);
+  }
+};

@@ -54,7 +54,7 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           <NavBar />
-          <div className="min-h-dvh w-full overflow-x-hidden bg-main-background pt-[82px]">
+          <div className="min-h-dvh w-full overflow-x-hidden bg-main-background">
             {children}
             <MainFooter />
           </div>

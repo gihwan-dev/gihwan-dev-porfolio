@@ -1,4 +1,12 @@
-import { toast } from '~/components/ui/use-toast';
+import { chunk } from '~/utils/chunck-utils';
+import { sleep } from '~/utils/promise-utils';
+import { useState } from 'react';
+import { addValuesToFormData } from '~/utils/form-utils';
+import { Progress } from '~/components/ui/progress';
+
+import { motion } from 'framer-motion';
+import { fadeInFromLeft } from '~/utils/framer-motion-utils';
+import { Loader } from 'lucide-react';
 
 interface ScreenFileInputProps {
   documentId: number;
@@ -6,55 +14,29 @@ interface ScreenFileInputProps {
   refetch: () => void;
 }
 
-function* take<T>(iter: Iterable<T>, n: number) {
-  const iterator = iter[Symbol.iterator]();
-  while (n--) {
-    const { value, done } = iterator.next();
-
-    if (done) break;
-
-    yield value;
-  }
-}
-
-function* chunk<T>(iter: Iterable<T>, size: number) {
-  const iterator = iter[Symbol.iterator]();
-
-  while (true) {
-    const arr = [
-      ...take(
-        {
-          [Symbol.iterator]: () => iterator,
-        },
-        size,
-      ),
-    ];
-
-    if (arr.length) yield arr;
-
-    if (arr.length < size) break;
-  }
-}
-
 export default function ScreenFileInput({
   documentId,
   type,
   refetch,
 }: ScreenFileInputProps) {
+  const [openToast, setOpenToast] = useState(false);
+  const [filesLength, setFilesLength] = useState(0);
+  const [successCount, setSuccessCount] = useState(0);
+
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      toast({
-        title: 'Try uploading images...',
-      });
-      const formData = new FormData();
+      setSuccessCount(0);
+      setOpenToast(true);
 
-      for (const file of e.target.files || []) {
-        if (file instanceof File) {
-          formData.append(file.name, file);
-        }
+      const files = e.target.files;
+
+      if (!files) {
+        throw new Error('No files found');
       }
 
-      const chunkedFiles = [...chunk(formData, 5)];
+      setFilesLength(files.length);
+
+      const chunkedFiles = [...chunk(files, 5)];
 
       for (const chunkedFileList of chunkedFiles) {
         const newFormData = new FormData();
@@ -62,9 +44,13 @@ export default function ScreenFileInput({
         newFormData.append('type', type);
         newFormData.append('documentId', documentId.toString());
 
-        chunkedFileList.forEach(([key, value]) => {
-          newFormData.append(key, value);
-        });
+        addValuesToFormData(newFormData, chunkedFileList);
+
+        console.log('upload new data...', chunkedFiles.length);
+
+        await sleep(3000);
+
+        setSuccessCount(prev => prev + chunkedFileList.length);
 
         const response = await fetch(`/api/image/${documentId}/screen`, {
           method: 'POST',
@@ -75,16 +61,39 @@ export default function ScreenFileInput({
           throw new Error('Failed to upload images');
         }
       }
+      setOpenToast(false);
       refetch();
     } catch (e) {
-      toast({
-        title: 'Screen photos upload failed',
-      });
+      window.alert('Failed to upload images');
     }
   };
 
   return (
     <label htmlFor={'add-new-screen'} className={'cursor-pointer'}>
+      {openToast && (
+        <motion.div
+          className={
+            'fixed bottom-10 right-10 z-20 flex flex-col gap-2 rounded-lg bg-white p-4 shadow-md'
+          }
+          {...fadeInFromLeft}
+        >
+          <Progress
+            className={'w-80'}
+            value={(successCount / filesLength) * 100}
+          />
+          <div
+            className={'flex w-full flex-row items-center justify-end gap-4'}
+          >
+            <p className={'text-right text-xs font-medium'}>
+              {successCount} / {filesLength} Uploaded
+            </p>
+            <Loader
+              className={'animate-spin text-muted-foreground'}
+              size={20}
+            />
+          </div>
+        </motion.div>
+      )}
       <div
         className={
           'flex h-[150px] w-[150px] flex-shrink-0 items-center justify-center bg-muted transition-all hover:opacity-70'
