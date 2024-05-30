@@ -1,10 +1,16 @@
 import React from 'react';
 
-const BitTag: React.FC<{
+interface BigTagProps {
   name: string;
   backgroundColor: string;
   textColor: string;
-}> = ({ name, backgroundColor, textColor }) => {
+}
+
+export default function BitTag({
+  name,
+  backgroundColor,
+  textColor,
+}: BigTagProps) {
   return (
     <mark
       className="rounded-sm px-2 py-1 text-lg md:px-4 md:py-2 md:text-xl"
@@ -16,6 +22,4 @@ const BitTag: React.FC<{
       {name}
     </mark>
   );
-};
-
-export default BitTag;
+}

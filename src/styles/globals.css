@@ -123,12 +123,7 @@ html {
   width: 100%;
 }
 
-.main-container {
-  max-width: 1280px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 
 .padding-nav {
   padding: 2rem 10px;
@@ -136,11 +131,6 @@ html {
 
 
 @media (min-width: 1536px) {
-  .main-container {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .padding-nav {
     padding: 2.8rem 60px;
   }

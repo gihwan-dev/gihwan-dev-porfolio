@@ -1,26 +1,24 @@
 import React from 'react';
 
-import PreviewTitle from './PreviewTitle';
-import PreviewDescription from './PreviewDescription';
-import PreviewThumbnail from './PreviewThumbnail';
-import PreviewContent from './PreviewContent';
-import PreviewDate from './PreviewDate';
-import PreviewActions from './PreviewActions';
-import PreviewTagList from './PreviewTagList';
-
 import { api } from '~/trpc/server';
+
+import PreviewDescriptionView from './PreviewDescription/PreviewDescriptionView';
+import PreviewPublishedDate from './PreviewPublishedDate/PreviewPublishedDate';
+import PreviewActions from './PreviewActions';
 import PreviewBackButton from './PreviewBackButton';
-import PreviewStartEndDate from './PreviewStartEndDate';
 import PreviewEditButton from './PreviewEditButton';
 import PreviewDeleteButton from './PreviewDeleteButton';
 import PreviewLayout from './PreviewLayout';
 import PreviewScreenPhoto from './PreviewScreenPhoto';
+import PreviewTitle from './PreviewTitle';
+import PreviewThumbnail from './PreviewThumbnail';
+import PreviewStartEndDate from './PreviewStartEndDate';
+import PreviewContent from './PreviewContent';
+import PreviewTagList from './PreviewTagList';
 
-type Props = {
-  documentId: string;
-};
+import { type DocumentIdProps } from '~/types/document-types';
 
-const Preview: React.FC<Props> = async ({ documentId }) => {
+export default async function Preview({ documentId }: DocumentIdProps) {
   const response = await api.document.getOneDocument.query({
     documentId: +documentId,
   });
@@ -31,17 +29,14 @@ const Preview: React.FC<Props> = async ({ documentId }) => {
 
   return (
     <PreviewLayout>
-      <PreviewTitle>{response.title}</PreviewTitle>
-      <PreviewDescription>{response.description}</PreviewDescription>
-      <PreviewThumbnail thumbnail={response.thumbnail} />
-      <PreviewStartEndDate
-        startDate={response.start_date.toString()}
-        endDate={response.end_date.toString()}
-      />
-      <PreviewContent content={response.content} />
-      <PreviewScreenPhoto documentId={+documentId} />
-      <PreviewTagList tagList={response.project_tags} />
-      <PreviewDate date={response.reg_date} />
+      <PreviewTitle documentId={documentId} />
+      <PreviewDescriptionView documentId={documentId} />
+      <PreviewThumbnail documentId={documentId} />
+      <PreviewStartEndDate documentId={documentId} />
+      <PreviewContent documentId={documentId} />
+      <PreviewScreenPhoto documentId={documentId} />
+      <PreviewTagList documentId={documentId} />
+      <PreviewPublishedDate documentId={documentId} />
       <PreviewBackButton />
       <PreviewActions>
         <PreviewEditButton documentId={documentId} />
@@ -49,6 +44,4 @@ const Preview: React.FC<Props> = async ({ documentId }) => {
       </PreviewActions>
     </PreviewLayout>
   );
-};
-
-export default Preview;
+}

@@ -1,5 +1,5 @@
-import type { ChildrenProps } from '../../types';
 import React from 'react';
+import { type ChildrenProps } from '~/types/props-types';
 
 export default function ProjectCarouselDescription({
   children,

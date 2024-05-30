@@ -1,9 +1,12 @@
-import { type ParamsProps } from '~/app/types/params.type';
+import { type FC } from 'react';
+
 import { CompleteEditRoot } from '~/features/admin_document';
+
+import { type ParamsProps } from '~/types/params-type';
 
 export const dynamic = 'force-dynamic';
 
-const EditSavePage: React.FC<ParamsProps> = ({ params }) => {
+const EditSavePage: FC<ParamsProps> = ({ params }) => {
   return <CompleteEditRoot documentId={+params.id} />;
 };
 

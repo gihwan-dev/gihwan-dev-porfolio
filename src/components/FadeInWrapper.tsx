@@ -2,10 +2,7 @@
 
 import { motion, type MotionProps } from 'framer-motion';
 import React from 'react';
-
-interface Props {
-  children: React.ReactNode;
-}
+import { type ChildrenProps } from '~/types/props-types';
 
 const motionProps: MotionProps = {
   initial: {
@@ -19,8 +16,6 @@ const motionProps: MotionProps = {
   },
 };
 
-const FadeInWrapper: React.FC<Props> = ({ children }) => {
+export default function FadeInWrapper({ children }: ChildrenProps) {
   return <motion.div {...motionProps}>{children}</motion.div>;
-};
-
-export default FadeInWrapper;
+}

@@ -1,21 +1,28 @@
-import { type FC, type ReactNode } from 'react';
+import { cn } from '~/lib/utils';
+import { type ChildrenProps } from '~/types/props-types';
 
-const Section: FC<{
-  children: ReactNode;
+interface SectionProps extends ChildrenProps {
   id: string;
   foreground?: boolean;
   className?: string;
-}> = ({ children, id, foreground = false, className }) => {
+}
+
+export default function Section({
+  children,
+  id,
+  foreground = false,
+  className,
+}: SectionProps) {
   return (
     <section
       id={id}
-      className={
-        `main-section ${foreground ? 'bg-main-foreground' : ''} ` + className
-      }
+      className={cn(
+        'section px-8 py-16 xl:px-16 xl:py-24',
+        foreground ? 'bg-main-foreground' : '',
+        className,
+      )}
     >
       {children}
     </section>
   );
-};
-
-export default Section;
+}

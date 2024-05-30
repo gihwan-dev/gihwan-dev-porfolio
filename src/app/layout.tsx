@@ -4,8 +4,8 @@ import { Black_Han_Sans, Noto_Sans_KR } from 'next/font/google';
 
 import { TRPCReactProvider } from '~/trpc/react';
 import { Toaster } from '~/components/ui/toaster';
-import MainNav from '~/components/MainNav';
 import MainFooter from '~/components/MainFooter';
+import { NavBar } from '~/features/nav-bar';
 
 const notoSans = Noto_Sans_KR({
   subsets: ['latin'],
@@ -53,8 +53,8 @@ export default function RootLayout({
     >
       <body>
         <TRPCReactProvider>
-          <MainNav />
-          <div className="h-full min-h-dvh w-full overflow-x-hidden bg-main-background pt-[82px]">
+          <NavBar />
+          <div className="min-h-dvh w-full overflow-x-hidden bg-main-background pt-[82px]">
             {children}
             <MainFooter />
           </div>

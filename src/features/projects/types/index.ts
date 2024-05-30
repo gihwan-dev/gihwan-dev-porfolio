@@ -17,7 +17,3 @@ export interface ProviderProps {
   children: React.ReactNode;
   document: DocumentWithTag;
 }
-
-export interface ChildrenProps {
-  children: React.ReactNode;
-}

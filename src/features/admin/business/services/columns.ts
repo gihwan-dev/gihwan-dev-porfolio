@@ -1,6 +1,6 @@
 import { type Documents } from '@prisma/client';
 import { type ColumnDef } from '@tanstack/react-table';
-import { formattingDate } from '~/utils/date.utils';
+import { formattingDate } from '~/utils/date-utils';
 
 export const columns: ColumnDef<Documents>[] = [
   {
