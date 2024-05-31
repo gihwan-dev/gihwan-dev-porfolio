@@ -8,7 +8,7 @@ import {
 
 import { api } from '~/trpc/react';
 
-import { columns } from '../../admin/business/services/columns';
+import { columns } from '~/features/admin/services/columns';
 
 import {
   Table,

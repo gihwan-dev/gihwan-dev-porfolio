@@ -1,12 +1,9 @@
-import { chunk } from '~/utils/chunck-utils';
-import { sleep } from '~/utils/promise-utils';
-import { useState } from 'react';
-import { addValuesToFormData } from '~/utils/form-utils';
 import { Progress } from '~/components/ui/progress';
 
 import { motion } from 'framer-motion';
 import { fadeInFromLeft } from '~/utils/framer-motion-utils';
 import { Loader } from 'lucide-react';
+import useScreenPhoto from '~/features/admin_document/hooks/useScreenPhoto';
 
 interface ScreenFileInputProps {
   documentId: number;
@@ -19,54 +16,11 @@ export default function ScreenFileInput({
   type,
   refetch,
 }: ScreenFileInputProps) {
-  const [openToast, setOpenToast] = useState(false);
-  const [filesLength, setFilesLength] = useState(0);
-  const [successCount, setSuccessCount] = useState(0);
-
-  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      setSuccessCount(0);
-      setOpenToast(true);
-
-      const files = e.target.files;
-
-      if (!files) {
-        throw new Error('No files found');
-      }
-
-      setFilesLength(files.length);
-
-      const chunkedFiles = [...chunk(files, 5)];
-
-      for (const chunkedFileList of chunkedFiles) {
-        const newFormData = new FormData();
-
-        newFormData.append('type', type);
-        newFormData.append('documentId', documentId.toString());
-
-        addValuesToFormData(newFormData, chunkedFileList);
-
-        console.log('upload new data...', chunkedFiles.length);
-
-        await sleep(3000);
-
-        setSuccessCount(prev => prev + chunkedFileList.length);
-
-        const response = await fetch(`/api/image/${documentId}/screen`, {
-          method: 'POST',
-          body: newFormData,
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to upload images');
-        }
-      }
-      setOpenToast(false);
-      refetch();
-    } catch (e) {
-      window.alert('Failed to upload images');
-    }
-  };
+  const { openToast, successCount, filesLength, onChange } = useScreenPhoto({
+    type,
+    documentId,
+    refetch,
+  });
 
   return (
     <label htmlFor={'add-new-screen'} className={'cursor-pointer'}>

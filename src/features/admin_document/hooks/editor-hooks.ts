@@ -1,10 +1,10 @@
-import { useEditorStore } from '../../stores/useEditorStore';
+import { useEditorStore } from '../stores/useEditorStore';
 import {
   createImageTag,
   createNewModel,
   getImageOrNull,
   sendImageAndGetLink,
-} from '../services/editor.service';
+} from '~/features/admin_document/services/editor.service';
 import { useParams, useRouter } from 'next/navigation';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';

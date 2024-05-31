@@ -53,8 +53,9 @@ export default function ScreenTabletContent({ documentId }: Props) {
             key={`screen-${screenImage.screen_image_id}`}
             fallback={<Skeleton className={`aspect-tablet w-[400px]`} />}
           >
-            <div className={`aspect-tablet relative w-[400px] shrink-0`}>
+            <div className={`relative aspect-tablet w-[400px] shrink-0`}>
               <Image
+                placeholder={'empty'}
                 src={screenImage.url}
                 alt={`screen-${screenImage.screen_image_id}`}
                 fill
