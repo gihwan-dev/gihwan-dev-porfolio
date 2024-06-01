@@ -205,7 +205,11 @@ html {
 
 .wmde-markdown code {
   color: white;
-  background-color: var(--main-background) !important;
+  background-color: black !important;
+}
+
+.token .function {
+  color: #85b6ff !important;
 }
 
 .wmde-markdown > hr {
