@@ -208,6 +208,10 @@ html {
   background-color: black !important;
 }
 
+.token .function {
+  color: #85b6ff !important;
+}
+
 .wmde-markdown > hr {
   width: 10px !important;
   height: 10px !important;
