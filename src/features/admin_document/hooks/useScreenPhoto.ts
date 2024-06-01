@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { chunk } from '~/utils/chunck-utils';
-import { upLoadFiles } from '~/features/admin_document/services/uploadImageService';
+import { upLoadFiles } from '../services/uploadImageService';
 import { sleep } from '~/utils/promise-utils';
 
 interface ScreenFileInputProps {

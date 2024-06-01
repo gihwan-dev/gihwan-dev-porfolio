@@ -4,7 +4,7 @@ import {
   createNewModel,
   getImageOrNull,
   sendImageAndGetLink,
-} from '~/features/admin_document/services/editor.service';
+} from '../services/editor.service';
 import { useParams, useRouter } from 'next/navigation';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
