@@ -53,8 +53,9 @@ export default function ScreenMobileContent({ documentId }: Props) {
             key={`screen-${screenImage.screen_image_id}`}
             fallback={<Skeleton className={`aspect-mobile w-[300px]`} />}
           >
-            <div className={`aspect-mobile relative w-[300px] shrink-0`}>
+            <div className={`relative aspect-mobile w-[300px] shrink-0`}>
               <Image
+                placeholder={'empty'}
                 src={screenImage.url}
                 alt={`screen-${screenImage.screen_image_id}`}
                 fill

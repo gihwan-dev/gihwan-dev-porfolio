@@ -53,8 +53,9 @@ export default function ScreenDesktopContent({ documentId }: Props) {
             key={`screen-${screenImage.screen_image_id}`}
             fallback={<Skeleton className={`aspect-desktop w-[500px]`} />}
           >
-            <div className={`aspect-desktop relative w-[500px] shrink-0`}>
+            <div className={`relative aspect-desktop w-[500px] shrink-0`}>
               <Image
+                placeholder={'empty'}
                 src={screenImage.url}
                 alt={`screen-${screenImage.screen_image_id}`}
                 fill
