@@ -5,7 +5,7 @@ import React, { useRef } from 'react';
 import { Button } from '~/components/ui/button';
 import ReactMarkdown from '@uiw/react-md-editor';
 
-import { useEditorHook } from '~/features/admin_document/hooks/editor-hooks';
+import { useEditorHook } from '../hooks/editor-hooks';
 import { ErrorBoundary } from 'react-error-boundary';
 import EditorErrorFallback from './EditorErrorFallback';
 import EditorLoadingSkeleton from './EditorLoadingSkeleton';

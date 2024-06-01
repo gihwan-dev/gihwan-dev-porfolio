@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { chunk } from '~/utils/chunck-utils';
-import { addValuesToFormData } from '~/utils/form-utils';
+import { upLoadFiles } from '~/features/admin_document/services/uploadImageService';
 import { sleep } from '~/utils/promise-utils';
 
 interface ScreenFileInputProps {
@@ -17,11 +17,15 @@ export default function useScreenPhoto({
   const [openToast, setOpenToast] = useState(false);
   const [filesLength, setFilesLength] = useState(0);
   const [successCount, setSuccessCount] = useState(0);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // TODO: Promise all로 동시적으로 처리하기
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setSuccessCount(0);
       setOpenToast(true);
+      setIsSuccess(false);
 
       const files = e.target.files;
 
@@ -33,29 +37,25 @@ export default function useScreenPhoto({
 
       const chunkedFiles = [...chunk(files, 5)];
 
-      for (const chunkedFileList of chunkedFiles) {
-        const newFormData = new FormData();
+      const promises = chunkedFiles.map(chunkedFileList =>
+        upLoadFiles({
+          chunkedFileList,
+          type,
+          documentId,
+          callback: () =>
+            setSuccessCount(prev => prev + chunkedFileList.length),
+        }),
+      );
 
-        newFormData.append('type', type);
-        newFormData.append('documentId', documentId.toString());
+      await Promise.all(promises);
+      // state 변경 후 렌더링 반영되기 위해 0.5초 기다리기
+      await sleep(500);
 
-        addValuesToFormData(newFormData, chunkedFileList);
+      // 성공 상태로 변경하고 UI로 보여준 후 1초후에 사라지게 함
+      setIsSuccess(true);
 
-        console.log('upload new data...', chunkedFiles.length);
+      await sleep(1000);
 
-        await sleep(3000);
-
-        setSuccessCount(prev => prev + chunkedFileList.length);
-
-        const response = await fetch(`/api/image/${documentId}/screen`, {
-          method: 'POST',
-          body: newFormData,
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to upload images');
-        }
-      }
       setOpenToast(false);
       refetch();
     } catch (e) {
@@ -68,5 +68,6 @@ export default function useScreenPhoto({
     openToast,
     successCount,
     filesLength,
+    isSuccess,
   };
 }
