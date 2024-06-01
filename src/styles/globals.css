@@ -205,6 +205,7 @@ html {
 
 .wmde-markdown code {
   color: white;
+  background-color: var(--main-background);
 }
 
 .wmde-markdown > hr {
