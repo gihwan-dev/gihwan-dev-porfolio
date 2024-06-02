@@ -8,28 +8,6 @@ await import('./src/env.js');
 
 /** @type {import("next").NextConfig} */
 const config = {
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: '*', // 모든 도메인에서 요청 허용
-          },
-          {
-            key: 'Access-Control-Allow-Methods',
-            value: 'GET,POST,PUT,DELETE,OPTIONS',
-          },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value: 'X-Requested-With, Content-Type, Authorization',
-          },
-        ],
-      },
-    ];
-  },
-
   images: {
     remotePatterns: [
       {
