@@ -204,8 +204,14 @@ html {
 }
 
 .wmde-markdown code {
-  color: black;
-  background-color: white !important;
+  color: white;
+  background-color: black !important;
+}
+
+.wmde-markdown {
+  .token .function {
+    color: #85b6ff !important;
+  }
 }
 
 .wmde-markdown > hr {
