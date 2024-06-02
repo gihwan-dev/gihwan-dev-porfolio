@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { api } from '~/trpc/server';
-
 import PreviewDescriptionView from './PreviewDescription/PreviewDescriptionView';
 import PreviewPublishedDate from './PreviewPublishedDate/PreviewPublishedDate';
 import PreviewActions from './PreviewActions';
@@ -18,15 +16,7 @@ import PreviewTagList from './PreviewTagList';
 
 import { type DocumentIdProps } from '~/types/document-types';
 
-export default async function Preview({ documentId }: DocumentIdProps) {
-  const response = await api.document.getOneDocument.query({
-    documentId: +documentId,
-  });
-
-  if (!response) {
-    throw Error('존재하지 않는 페이지 입니다.');
-  }
-
+export default function Preview({ documentId }: DocumentIdProps) {
   return (
     <PreviewLayout>
       <PreviewTitle documentId={documentId} />
