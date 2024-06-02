@@ -2,18 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '~/components/ui/button';
-import { useEditorStore } from '../stores/useEditorStore';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
 
 const AddNewDocumentButton = () => {
   const { mutate } = api.document.initializeContent.useMutation();
   const router = useRouter();
-  const { initializeState } = useEditorStore();
 
   const buttonHandler = () => {
-    initializeState();
-
     mutate(
       {},
       {
