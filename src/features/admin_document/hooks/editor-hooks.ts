@@ -1,4 +1,4 @@
-import { useEditorStore } from '../stores/useEditorStore';
+import { useEditorStore } from '../providers/editorProviders';
 import {
   createImageTag,
   createNewModel,
@@ -8,7 +8,7 @@ import {
 import { useParams, useRouter } from 'next/navigation';
 import { api } from '~/trpc/react';
 import { toast } from '~/components/ui/use-toast';
-import { useCallback, useEffect, useLayoutEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import _ from 'lodash';
 
 export const useEditorHook = () => {
@@ -166,11 +166,8 @@ export const useEditorHook = () => {
     [change, model],
   );
 
-  useLayoutEffect(() => {
-    change('');
-  }, [change]);
-
   useEffect(() => {
+    console.log(model);
     if (documentId && model === '') {
       change(document?.content ?? '');
     }
