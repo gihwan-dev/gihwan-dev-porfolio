@@ -6,12 +6,7 @@ import { type DocumentIdProps } from '~/types/document-types';
 import { api } from '~/trpc/react';
 
 export default function PreviewContentView({ documentId }: DocumentIdProps) {
-  const { data } = api.document.getDocumentContent.useQuery(
-    { documentId },
-    {
-      suspense: true,
-    },
-  );
+  const { data } = api.document.getDocumentContent.useQuery({ documentId });
 
   if (!data) {
     throw Error('존재하지 않는 페이지 입니다.');
