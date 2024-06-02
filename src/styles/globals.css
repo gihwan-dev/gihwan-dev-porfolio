@@ -212,6 +212,10 @@ html {
   color: #85b6ff !important;
 }
 
+.attr-value {
+  color: #a0b3cf !important;
+}
+
 .wmde-markdown > hr {
   width: 10px !important;
   height: 10px !important;
