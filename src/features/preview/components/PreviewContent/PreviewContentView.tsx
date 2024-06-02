@@ -1,12 +1,12 @@
-'use client';
-
 import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { type DocumentIdProps } from '~/types/document-types';
-import { api } from '~/trpc/react';
+import { api } from '~/trpc/server';
 
-export default function PreviewContentView({ documentId }: DocumentIdProps) {
-  const { data } = api.document.getDocumentContent.useQuery({ documentId });
+export default async function PreviewContentView({
+  documentId,
+}: DocumentIdProps) {
+  const data = await api.document.getDocumentContent.query({ documentId });
 
   if (!data) {
     throw Error('존재하지 않는 페이지 입니다.');
