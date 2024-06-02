@@ -216,6 +216,10 @@ html {
   color: #a0b3cf !important;
 }
 
+.class-name {
+  color: #07c92d !important;
+}
+
 .wmde-markdown > hr {
   width: 10px !important;
   height: 10px !important;
