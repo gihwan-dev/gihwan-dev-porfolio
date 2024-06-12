@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import {
   addHeadingAttributes,
   addHeadingEvent,
@@ -13,7 +13,7 @@ import { toast } from '~/components/ui/use-toast';
 export default function useHeadingLink(documentId: number) {
   const searchParams = useSearchParams();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const search = searchParams.get('id');
 
     if (search) {
