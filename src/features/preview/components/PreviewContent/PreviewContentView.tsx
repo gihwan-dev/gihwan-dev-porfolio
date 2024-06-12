@@ -2,26 +2,22 @@
 
 import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
+import useHeadingLink from '../../hooks/useHeadingLink';
 import { type DocumentIdProps } from '~/types/document-types';
-import { api } from '~/trpc/react';
-import PreviewContentSuspenseFallback from './PreviewContentSuspenseFallback';
 
-export default function PreviewContentView({ documentId }: DocumentIdProps) {
-  const { data, isError, isLoading, error } =
-    api.document.getDocumentContent.useQuery({ documentId });
-
-  if (isLoading) {
-    return <PreviewContentSuspenseFallback />;
-  }
-
-  if (isError) {
-    throw error;
-  }
+export default function PreviewContentView({
+  content,
+  documentId,
+}: { content: string } & DocumentIdProps) {
+  useHeadingLink(documentId);
 
   return (
-    <div className="mx-auto w-full max-w-5xl xl:px-12">
+    <div
+      id={'mark-down-container'}
+      className="mx-auto w-full max-w-5xl xl:px-12"
+    >
       <MDEditor.Markdown
-        source={data?.content}
+        source={content}
         className={'xl:rounded-md'}
         style={{
           color: 'white',
