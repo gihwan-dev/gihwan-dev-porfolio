@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import {
   addHeadingAttributes,
   addHeadingEvent,
@@ -13,11 +13,15 @@ import { toast } from '~/components/ui/use-toast';
 export default function useHeadingLink(documentId: number) {
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const search = searchParams.get('id');
+
+    console.log('search is: ', search);
 
     if (search) {
       const heading = document.getElementById(search) as HTMLHeadingElement;
+
+      console.log('heading is: ', heading);
 
       if (heading) {
         const hereText = createHereTooltip();
