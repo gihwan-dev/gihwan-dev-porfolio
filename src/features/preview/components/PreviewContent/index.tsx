@@ -1,24 +1,12 @@
-'use client';
-
-import PreviewContentView from './PreviewContentView';
-
 import { type DocumentIdProps } from '~/types/document-types';
-import { api } from '~/trpc/react';
+import PreviewContentController from './PreviewContentController';
 import PreviewContentSuspenseFallback from './PreviewContentSuspenseFallback';
+import { Suspense } from 'react';
 
 export default function PreviewContent({ documentId }: DocumentIdProps) {
-  const { data, isError, error, isLoading } =
-    api.document.getDocumentContent.useQuery({ documentId });
-
-  if (isLoading) {
-    return <PreviewContentSuspenseFallback />;
-  }
-
-  if (isError) {
-    throw error;
-  }
-
   return (
-    <PreviewContentView documentId={documentId} content={data?.content ?? ''} />
+    <Suspense fallback={<PreviewContentSuspenseFallback />}>
+      <PreviewContentController documentId={documentId} />;
+    </Suspense>
   );
 }

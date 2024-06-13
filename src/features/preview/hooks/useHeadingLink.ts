@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import {
   addHeadingAttributes,
   addHeadingEvent,
@@ -12,72 +12,76 @@ import { toast } from '~/components/ui/use-toast';
 
 export default function useHeadingLink(documentId: number) {
   const searchParams = useSearchParams();
+  const search = searchParams.get('id');
 
-  useLayoutEffect(() => {
-    const search = searchParams.get('id');
+  let [targetHeading, setTargetHeading] = useState<HTMLHeadingElement | null>(
+    null,
+  );
 
-    console.log('search is: ', search);
-
-    if (search) {
-      const heading = document.getElementById(search) as HTMLHeadingElement;
-
-      console.log('heading is: ', heading);
-
-      if (heading) {
-        const hereText = createHereTooltip();
-
-        heading.appendChild(hereText);
-
-        heading.scrollIntoView({
-          inline: 'center',
-          block: 'center',
-        });
-      }
-    }
-  }, [searchParams]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let [headingList, setHeadingList] = useState<HTMLHeadingElement[]>([]);
 
   useEffect(() => {
+    if (targetHeading) {
+      const hereText = createHereTooltip();
+
+      targetHeading.appendChild(hereText);
+
+      targetHeading.scrollIntoView({
+        block: 'center',
+      });
+    }
+  }, [targetHeading]);
+
+  useLayoutEffect(() => {
     const headingList = document.querySelectorAll<HTMLHeadingElement>(
-      '#mark-down-container > h1, h2, h3, h4, h5, h6',
+      '#mark-down-container > h2, h3, h4',
     );
+
+    setHeadingList([...headingList]);
 
     headingList.forEach((heading, index) => {
       addHeadingAttributes(heading, `${documentId}-heading-${index}`);
 
-      const copyToolTip = createCopyToolTip();
+      if (search && search === `${documentId}-heading-${index}`) {
+        setTargetHeading(heading);
+      }
 
-      heading.appendChild(copyToolTip);
+      setTimeout(() => {
+        const copyToolTip = createCopyToolTip();
 
-      addHeadingEvent(
-        heading,
-        new Map([
-          [
-            'mouseenter',
-            () => {
-              copyToolTip.classList.remove('opacity-0');
-            },
-          ],
-          [
-            'mouseleave',
-            () => {
-              copyToolTip.classList.add('opacity-0');
-            },
-          ],
-          [
-            'click',
-            async () => {
-              await navigator.clipboard.writeText(
-                `${window.location.origin}/projects/${documentId}?id=${heading.id}`,
-              );
+        heading.appendChild(copyToolTip);
+        addHeadingEvent(
+          heading,
+          new Map([
+            [
+              'mouseenter',
+              () => {
+                copyToolTip.classList.remove('opacity-0');
+              },
+            ],
+            [
+              'mouseleave',
+              () => {
+                copyToolTip.classList.add('opacity-0');
+              },
+            ],
+            [
+              'click',
+              async () => {
+                await navigator.clipboard.writeText(
+                  `${window.location.origin}/projects/${documentId}?id=${heading.id}`,
+                );
 
-              toast({
-                title: 'Copied!!',
-                description: 'Link copied to clipboard',
-              });
-            },
-          ],
-        ]),
-      );
+                toast({
+                  title: 'Copied!!',
+                  description: 'Link copied to clipboard',
+                });
+              },
+            ],
+          ]),
+        );
+      });
     });
-  }, [documentId]);
+  }, [setHeadingList, setTargetHeading, documentId, search]);
 }
