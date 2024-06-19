@@ -8,4 +8,6 @@ export const completeEditFormSchema = z.object({
   documentTypeName: z.string(),
 });
 
+export type CompressedFile = File | Blob;
+
 export type CompleteEditFormType = z.infer<typeof completeEditFormSchema>;
