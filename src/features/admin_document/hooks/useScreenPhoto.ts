@@ -3,6 +3,8 @@ import { chunk } from '~/utils/chunck-utils';
 import { upLoadFiles } from '../services/uploadImageService';
 import { sleep } from '~/utils/promise-utils';
 
+import Compressor from 'compressorjs';
+
 interface ScreenFileInputProps {
   documentId: number;
   type: 'mobile' | 'desktop' | 'tablet';
@@ -19,8 +21,6 @@ export default function useScreenPhoto({
   const [successCount, setSuccessCount] = useState(0);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // TODO: Promise all로 동시적으로 처리하기
-
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setSuccessCount(0);
@@ -33,9 +33,31 @@ export default function useScreenPhoto({
         throw new Error('No files found');
       }
 
-      setFilesLength(files.length);
+      const compressedFiles: File[] = [];
 
-      const chunkedFiles = [...chunk(files, 5)];
+      for (const file of files) {
+        const newFiles = await new Promise((resolve, reject) => {
+          new Compressor(file, {
+            convertSize: 2000000,
+            error: _ => {
+              reject('Failed to compress image');
+            },
+            success: result => {
+              if (result instanceof Blob) {
+                const compressedFile = convertBlobToFile(result, file.name);
+                resolve(compressedFile);
+              } else {
+                resolve(result);
+              }
+            },
+          });
+        });
+        compressedFiles.push(newFiles as File);
+      }
+
+      setFilesLength(compressedFiles.length);
+
+      const chunkedFiles = [...chunk(compressedFiles, 3)];
 
       const promises = chunkedFiles.map(chunkedFileList =>
         upLoadFiles({
@@ -70,4 +92,8 @@ export default function useScreenPhoto({
     filesLength,
     isSuccess,
   };
+}
+
+function convertBlobToFile(blob: Blob, fileName: string): File {
+  return new File([blob], fileName, { type: blob.type });
 }

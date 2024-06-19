@@ -83,6 +83,7 @@ export default function ScreenFileInput({
       <input
         onChange={onChange}
         multiple
+        accept={'image/*'}
         type={'file'}
         id={'add-new-screen'}
         className={'hidden'}
