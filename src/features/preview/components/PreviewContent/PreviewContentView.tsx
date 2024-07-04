@@ -13,7 +13,16 @@ export default function PreviewContentView({
 
   return (
     <div className="mx-auto w-full max-w-5xl xl:px-12">
-      <MDEditor.Markdown source={content} />
+      <MDEditor.Markdown
+        source={content}
+        className={'xl:rounded-md'}
+        style={{
+          color: 'white',
+          padding: '2rem',
+          whiteSpace: 'pre-wrap',
+          background: 'var(--main-foreground)',
+        }}
+      />
     </div>
   );
 }
