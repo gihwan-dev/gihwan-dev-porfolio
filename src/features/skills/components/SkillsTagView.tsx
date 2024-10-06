@@ -8,7 +8,7 @@ const SkillsTagView: FC<Props> = ({ children }) => {
   return (
     <div
       className={
-        'flex w-full flex-col items-center rounded-lg bg-main-foreground px-3 pb-8 pt-12'
+        'flex w-full flex-row items-center justify-center gap-4 rounded-lg px-3 pb-8 pt-12'
       }
     >
       {children}
