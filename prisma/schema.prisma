@@ -69,6 +69,6 @@ model Screen_Image {
   url             String
   type            String
   document_id     Int
-  document        Documents @relation(fields: [document_id], references: [document_id])
+  document        Documents @relation(fields: [document_id], references: [document_id], onDelete: Cascade)
   reg_date        DateTime  @default(now())
 }
