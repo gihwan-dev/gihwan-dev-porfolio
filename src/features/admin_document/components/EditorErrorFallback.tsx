@@ -34,6 +34,7 @@ const EditorErrorFallback: FC<Props> = ({ model }) => {
       >
         {model}
       </pre>
+      <button>다시시도</button>
     </div>
   );
 };

@@ -15,6 +15,7 @@ import PreviewContent from './PreviewContent';
 import PreviewTagList from './PreviewTagList';
 
 import { type DocumentIdProps } from '~/types/document-types';
+import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Preview({ documentId }: DocumentIdProps) {
   return (
@@ -23,7 +24,9 @@ export default function Preview({ documentId }: DocumentIdProps) {
       <PreviewDescriptionView documentId={documentId} />
       <PreviewThumbnail documentId={documentId} />
       <PreviewStartEndDate documentId={documentId} />
-      <PreviewContent documentId={documentId} />
+      <ErrorBoundary fallback={<div>에러가 발생했습니다.</div>}>
+        <PreviewContent documentId={documentId} />
+      </ErrorBoundary>
       <PreviewScreenPhoto documentId={documentId} />
       <PreviewTagList documentId={documentId} />
       <PreviewPublishedDate documentId={documentId} />
